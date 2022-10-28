@@ -11,7 +11,7 @@
             case "_index":
                 include("pages/manage.php");
             break;
-            case "_thongtin":
+            case "_thongtinvungtrong":
                 $IDVUNGTRONG = "";
                 if (isset($_GET['ID'])) {
                     $IDVUNGTRONG = $_GET['ID'];
@@ -81,7 +81,7 @@
             case "_index":
                 include("pages/manage.php");
             break;
-            case "_thongtin":
+            case "_thongtinvungtrong":
                 $IDVUNGTRONG = "";
                 if (isset($_GET['ID'])) {
                     $IDVUNGTRONG = $_GET['ID'];

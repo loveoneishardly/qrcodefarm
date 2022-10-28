@@ -64,32 +64,30 @@
             background: url("lib/images/bg_body_top.gif") 50% fixed;
             background-size: cover;
         }
+        .jqx-rc-all > .jqx-fill-state-normal {
+            width: 130px !important;
+        }
     </style>
 <body>
     <div class="w3-container w3-green">
-        <h1>THÔNG TIN VÙNG TRỒNG</h1> 
+        <h1>QUẢN LÝ DANH SÁCH VÙNG ĐỊNH DANH</h1> 
         <!--<p>Thông tin</p> -->
     </div>
     <div class="w3-row-padding">
         <div class="w3-col">
             <div class="w3-col">
-                <div id="listdatatype"></div>
+                <div id="listvungtrong"></div>
             </div>
-            <div class="w3-third">
-            <h2>Danh sách các vùng trồng</h2>
-                <a href="go?page=_thongtin&ID=1"><input type="button" value="Page1"/></a>
-                <a href="go?page=_thongtin&ID=1"><input type="button" value="Page2"/></a>
-                <a href="go?page=_index3"><input type="button" value="Page3"/></a>
-                <a href="go?page=_index4"><input type="button" value="Page4"/></a>
-                <a href="go?page=_index5"><input type="button" value="Page5"/></a>
-            </div>
-            <div class="w3-third">
-            <h2>Danh sách các vùng trồng</h2>
-                <a href="go?page=_thongtin&ID=1"><input type="button" value="Page1"/></a>
-                <a href="go?page=_thongtin&ID=1"><input type="button" value="Page2"/></a>
-                <a href="go?page=_index3"><input type="button" value="Page3"/></a>
-                <a href="go?page=_index4"><input type="button" value="Page4"/></a>
-                <a href="go?page=_index5"><input type="button" value="Page5"/></a>
+            <div class="w3-col">
+            <input type="hidden" id="idmavungtrong" name="idmavungtrong" />
+                <table style="width: 100%">
+                    <tr>
+                        <td align="center">
+                            <input type="button" value="XEM THÔNG TIN VÙNG TRỒNG" id='xemthongtinvungtrong' class="qt_button"/>
+                            <input type="button" value="XEM DANH SÁCH VÙNG TRỒNG" id='xemdanhsachvungtrong' class="qt_button"/>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -100,6 +98,8 @@
         var offset = 50;
         var duration = 500;
         $(document).ready(function () {
+            $("#xemthongtinvungtrong").jqxButton({ width: 240, height: 40 });
+            $("#xemdanhsachvungtrong").jqxButton({ width: 240, height: 40 });
             $(window).scroll(function () {
                 if ($(this).scrollTop() > offset)
                 $('#top-up').fadeIn(duration);else
@@ -129,7 +129,7 @@
                 }
             };
             var dataAdapter = new $.jqx.dataAdapter(source_listvungtrong);
-            $("#listdatatype").jqxGrid({
+            $("#listvungtrong").jqxGrid({
                 source: dataAdapter,
                 width: '100%',
                 height: '300',
@@ -163,7 +163,29 @@
                     { text: 'Trạng Thái', datafield: 'TRANGTHAI', width: 150, align: 'center', cellsalign: 'center'}
                 ]
             });
+            $('#listvungtrong').on('rowclick', function (event) {
+                var args = event.args;
+                var rowBoundIndex = args.rowindex;
+                var selectedRowData_dsvungtrong = $('#listvungtrong').jqxGrid('getrowdata', rowBoundIndex);
+                $("#idmavungtrong").val(selectedRowData_dsvungtrong.ID);
+            });
+            $("#xemthongtinvungtrong").click(function(){
+                var mavungtrong = $("#idmavungtrong").val();
+                if (mavungtrong) {
+                    window.open("go?page=_thongtinvungtrong&ID="+mavungtrong, '_blank');
+                } else {
+                    alert("Chưa chọn vùng định danh.");
+                }
+            });
+            $("#xemdanhsachvungtrong").click(function(){
+                loadDSvungtrong();
+            });
         });
+        function loadDSvungtrong(){
+            var url_dsvungtrong = "go?for=loadlistvungtrong&iddonvi=1";
+            source_listvungtrong.url = url_dsvungtrong;
+            $("#listvungtrong").jqxGrid('updatebounddata');
+        }
     </script>
 </body>
 </html>

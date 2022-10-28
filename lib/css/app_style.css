@@ -254,3 +254,11 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .c-title6{
     margin-left: 40px;
 }
+.qt_button{
+    font-weight: bold;
+    border: 0.5px solid black !important;
+}
+.qt_button:hover{
+    background-color: #d6d2d2;
+    cursor: pointer;
+}
