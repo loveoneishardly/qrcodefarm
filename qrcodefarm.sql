@@ -54,12 +54,22 @@ CREATE TABLE `dmvungtrong` (
   PRIMARY KEY (`ID`),
   KEY `IDDONVI` (`IDDONVI`),
   CONSTRAINT `dmvungtrong_ibfk_1` FOREIGN KEY (`IDDONVI`) REFERENCES `dmdonvi` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `dmvungtrong` */
 
 insert  into `dmvungtrong`(`ID`,`IDDONVI`,`TENVUNGTRONG`,`MAVUNGTRONG`,`TENNONGHO`,`DIACHI`,`HOPTACXA`,`SANPHAMTRONG`,`GHICHU`,`TRANGTHAI`) values 
-(1,1,'Vùng trồng lúa','VN-TGOR-0037','Cao Tiễn','ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng.','Hợp tác xã Nông nghiệp Phước An','Lúa Cao Sản',NULL,1);
+(1,1,'Vùng trồng lúa','','Ngô Văn Thành Em','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng.','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.',NULL,1),
+(2,1,'Vùng trồng lúa','','Kim Chành Thu','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng.','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.',NULL,1),
+(3,1,'Vùng trồng lúa','','Trịnh Văn Nghĩa','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1),
+(4,1,'Vùng trồng lúa','','Hêng Pến','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1),
+(5,1,'Vùng trồng lúa','','Hêng Dêl','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1),
+(6,1,'Vùng trồng lúa','','Kim Ben','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1),
+(7,1,'Vùng trồng lúa','','Ông Kim Phước','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1),
+(8,1,'Vùng trồng lúa','','Từ Thị Kim Vi','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1),
+(9,1,'Vùng trồng lúa','','Kim Dũng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1),
+(10,1,'Vùng trồng lúa','','Từ Đức Thành','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1),
+(11,1,'Vùng trồng lúa','','Cao Văn Tài','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Só','Hợp tác xã Nông nghiệp Phước An.','Lúa OM5451.','',1);
 
 /*Table structure for table `kythuatbonphan` */
 
@@ -78,13 +88,14 @@ CREATE TABLE `kythuatbonphan` (
   KEY `IDNHATKY` (`IDNHATKY`),
   CONSTRAINT `kythuatbonphan_ibfk_1` FOREIGN KEY (`IDVUNGTRONG`) REFERENCES `dmvungtrong` (`ID`),
   CONSTRAINT `kythuatbonphan_ibfk_2` FOREIGN KEY (`IDNHATKY`) REFERENCES `nhatkysanxuat` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `kythuatbonphan` */
 
 insert  into `kythuatbonphan`(`ID`,`IDVUNGTRONG`,`IDNHATKY`,`SUDUNGPHANBON`,`NGAYTHUCHIEN`,`SAPXEP`,`GHICHU`) values 
-(1,1,4,'Loại phân:','2022-10-26',1,NULL),
-(2,1,4,'Loại phân:','2022-10-27',2,NULL);
+(1,1,4,'Loại phân:','2022-09-25',1,NULL),
+(2,1,4,'Loại phân:','2022-10-05',2,NULL),
+(3,1,4,'Loại phân:','2022-10-28',3,NULL);
 
 /*Table structure for table `kythuatsudungthuoc` */
 
@@ -151,15 +162,15 @@ CREATE TABLE `nhatkysanxuat` (
   `IDVUNGTRONG` int(11) DEFAULT NULL,
   `LOAINHATKY` int(11) DEFAULT NULL COMMENT '1: Bước 1, 2: Bước 2...',
   `TENNHATKY` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `BONPHAN` int(11) DEFAULT NULL,
-  `THUOCBVTV` int(11) DEFAULT NULL,
+  `BONPHAN` int(11) DEFAULT '0',
+  `THUOCBVTV` int(11) DEFAULT '0',
   `GHICHU` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDVUNGTRONG` (`IDVUNGTRONG`),
   KEY `LOAINHATKY` (`LOAINHATKY`),
   CONSTRAINT `nhatkysanxuat_ibfk_1` FOREIGN KEY (`IDVUNGTRONG`) REFERENCES `dmvungtrong` (`ID`),
   CONSTRAINT `nhatkysanxuat_ibfk_2` FOREIGN KEY (`LOAINHATKY`) REFERENCES `loainhatky` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `nhatkysanxuat` */
 
@@ -168,7 +179,12 @@ insert  into `nhatkysanxuat`(`ID`,`IDVUNGTRONG`,`LOAINHATKY`,`TENNHATKY`,`BONPHA
 (2,1,2,'Kỹ thuật làm đất',0,0,NULL),
 (3,1,3,'Quản lý nước',0,0,NULL),
 (4,1,4,'Phân bón và kỹ thuật bón phân',1,0,NULL),
-(5,1,5,'Sử dụng thuốc BVTV',0,1,NULL);
+(5,1,5,'Sử dụng thuốc BVTV',0,1,NULL),
+(6,2,1,'Chọn giống và xử lý giống',0,0,NULL),
+(7,2,2,'Kỹ thuật làm đất',0,0,NULL),
+(8,2,3,'Quản lý nước',0,0,NULL),
+(9,2,4,'Phân bón và kỹ thuật bón phân',1,0,NULL),
+(10,2,5,'Sử dụng thuốc BVTV',0,1,NULL);
 
 /*Table structure for table `sudungnhatky` */
 
@@ -188,20 +204,26 @@ CREATE TABLE `sudungnhatky` (
   KEY `IDNHATKY` (`IDNHATKY`),
   CONSTRAINT `sudungnhatky_ibfk_1` FOREIGN KEY (`IDVUNGTRONG`) REFERENCES `dmvungtrong` (`ID`),
   CONSTRAINT `sudungnhatky_ibfk_2` FOREIGN KEY (`IDNHATKY`) REFERENCES `nhatkysanxuat` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `sudungnhatky` */
 
 insert  into `sudungnhatky`(`ID`,`IDVUNGTRONG`,`IDNHATKY`,`TENNHATKY`,`CACHSUDUNG`,`NGAYTHUCHIEN`,`SAPXEP`,`GHICHU`) values 
-(1,1,1,'+ Tên giống:','5451','2022-10-26',NULL,'1'),
-(2,1,1,'+ Xử lý hạt giống:','Axits','2022-10-26',NULL,'2'),
-(3,1,2,'+ Làm đất (cày xới bừa trục), độ xâu lớp cày:','7cm','2022-10-26',NULL,'1'),
-(4,1,2,'+ San sửa mặt bằng đồng ruộng',NULL,'2022-10-26',NULL,'2'),
-(5,1,2,'+ Đánh rãnh nước gieo sạ',NULL,'2022-10-26',NULL,'3'),
-(6,1,3,'+ Nguồn nước tưới:','Nhiễm phèn,ngập mặn','2022-10-26',NULL,'1'),
-(7,1,3,'+ Chủ động tưới tiêu',NULL,'2022-10-26',NULL,'2'),
-(8,1,3,'+ Ứng dụng bơm nước tập trung',NULL,'2022-10-26',NULL,'3'),
-(9,1,5,'+ Phun thuốc định kỳ',NULL,'2022-10-26',NULL,NULL);
+(1,1,1,'+ Tên giống:','OM5451.','2022-09-17',1,''),
+(2,1,1,'+ Xử lý hạt giống:','Ngâm axít.','2022-09-17',2,''),
+(3,1,2,'+ Làm đất (cày xới bừa trục), độ xâu lớp cày:','15 cm','2022-08-25',1,''),
+(4,1,2,'+ San sửa mặt bằng đồng ruộng',NULL,'2022-08-25',2,''),
+(5,1,2,'+ Đánh rãnh nước gieo sạ',NULL,'2022-08-25',3,''),
+(6,1,3,'+ Nguồn nước tưới:','Nhiễm mặn','2022-10-09',1,''),
+(7,1,3,'+ Chủ động tưới tiêu',NULL,'2022-10-09',2,''),
+(8,1,3,'+ Ứng dụng bơm nước tập trung',NULL,'2022-10-09',3,''),
+(9,1,5,'+ Phun thuốc định kỳ',NULL,'2022-10-26',NULL,NULL),
+(10,2,6,'+ Tên giống:',NULL,'2022-10-31',1,NULL),
+(11,2,6,'+ Xử lý hạt giống:','5555','2022-10-31',2,NULL),
+(12,2,7,'+ Làm đất (cày xới bừa trục), độ xâu lớp cày:',NULL,'2022-10-31',1,NULL),
+(13,2,7,'+ San sửa mặt bằng đồng ruộng',NULL,'2022-10-31',2,NULL),
+(14,2,8,'+ Nguồn nước tưới:',NULL,'2022-10-31',1,NULL),
+(15,2,8,'+ Chủ động tưới tiêu',NULL,'2022-10-31',2,NULL);
 
 /*Table structure for table `sudungphanbon` */
 
@@ -216,6 +238,7 @@ CREATE TABLE `sudungphanbon` (
   `SOLUONG` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `CACHSUDUNG` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `NGAYTHUCHIEN` date DEFAULT NULL,
+  `SAPXEP` int(11) DEFAULT NULL,
   `GHICHU` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDVUNGTRONG` (`IDVUNGTRONG`),
@@ -224,23 +247,31 @@ CREATE TABLE `sudungphanbon` (
   CONSTRAINT `sudungphanbon_ibfk_1` FOREIGN KEY (`IDVUNGTRONG`) REFERENCES `dmvungtrong` (`ID`),
   CONSTRAINT `sudungphanbon_ibfk_2` FOREIGN KEY (`IDKYTHUATBONPHAN`) REFERENCES `kythuatbonphan` (`ID`),
   CONSTRAINT `sudungphanbon_ibfk_3` FOREIGN KEY (`IDNHATKY`) REFERENCES `nhatkysanxuat` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `sudungphanbon` */
 
-insert  into `sudungphanbon`(`ID`,`IDVUNGTRONG`,`IDNHATKY`,`IDKYTHUATBONPHAN`,`TENPHANBON`,`SOLUONG`,`CACHSUDUNG`,`NGAYTHUCHIEN`,`GHICHU`) values 
-(1,1,4,1,'• Phân hữu cơ:',NULL,NULL,'2022-10-26',NULL),
-(2,1,4,1,'• Phân cải tạo đất',NULL,NULL,'2022-10-26',NULL),
-(3,1,4,1,'• Ure:','10kg',NULL,'2022-10-26',NULL),
-(4,1,4,1,'• Phân Lân:',NULL,NULL,'2022-10-26',NULL),
-(5,1,4,1,'• Phân Kali:',NULL,NULL,'2022-10-26',NULL),
-(6,1,4,1,'• Phân DAP:',NULL,NULL,'2022-10-26',NULL),
-(7,1,4,1,'• Phân NPK:',NULL,NULL,'2022-10-26',NULL),
-(8,1,4,1,'• Phân Khác:','16kg',NULL,'2022-10-26',NULL),
-(9,1,4,2,'• Phân Lân:',NULL,NULL,'2022-10-26',NULL),
-(10,1,4,2,'• Phân DAP:',NULL,NULL,'2022-10-26',NULL),
-(11,1,4,2,'• Phân NPK:',NULL,NULL,'2022-10-26',NULL),
-(12,1,4,2,'• Phân Khác:',NULL,NULL,'2022-10-26',NULL);
+insert  into `sudungphanbon`(`ID`,`IDVUNGTRONG`,`IDNHATKY`,`IDKYTHUATBONPHAN`,`TENPHANBON`,`SOLUONG`,`CACHSUDUNG`,`NGAYTHUCHIEN`,`SAPXEP`,`GHICHU`) values 
+(1,1,4,1,'• Phân hữu cơ:',NULL,NULL,'2022-09-25',1,NULL),
+(2,1,4,1,'• Phân cải tạo đất',NULL,NULL,'2022-09-25',2,NULL),
+(3,1,4,1,'• Ure:','3.8 kg',NULL,'2022-09-25',3,NULL),
+(4,1,4,1,'• Phân Lân:',NULL,NULL,'2022-09-25',4,NULL),
+(5,1,4,1,'• Phân Kali:',NULL,NULL,'2022-09-25',5,NULL),
+(6,1,4,1,'• Phân DAP:','2.5 kg',NULL,'2022-09-25',6,NULL),
+(7,1,4,1,'• Phân NPK:',NULL,NULL,'2022-09-25',7,NULL),
+(8,1,4,1,'• Phân Khác:','',NULL,'2022-09-25',8,NULL),
+(9,1,4,2,'• Phân hữu cơ:',NULL,NULL,'2022-10-05',1,NULL),
+(10,1,4,2,'• Phân cải tạo đất',NULL,NULL,'2022-10-05',2,NULL),
+(11,1,4,2,'• Ure:',NULL,NULL,'2022-10-05',3,NULL),
+(12,1,4,2,'• Phân DAP:',NULL,NULL,'2022-10-05',4,NULL),
+(13,1,4,2,'• Phân NPK:','11.5 kg',NULL,'2022-10-05',5,NULL),
+(14,1,4,2,'• Phân Khác:',NULL,NULL,'2022-10-05',6,NULL),
+(15,1,4,3,'• Phân hữu cơ:',NULL,NULL,'2022-10-28',1,NULL),
+(16,1,4,3,'• Phân cải tạo đất',NULL,NULL,'2022-10-28',2,NULL),
+(17,1,4,3,'• Ure:',NULL,NULL,'2022-10-28',3,NULL),
+(18,1,4,3,'• Phân DAP:',NULL,NULL,'2022-10-28',4,NULL),
+(19,1,4,3,'• Phân NPK:','11.5 kg',NULL,'2022-10-28',5,NULL),
+(20,1,4,3,'• Phân Khác:',NULL,NULL,'2022-10-28',6,NULL);
 
 /*Table structure for table `sudungthuoc` */
 
@@ -266,17 +297,32 @@ CREATE TABLE `sudungthuoc` (
 /*Data for the table `sudungthuoc` */
 
 insert  into `sudungthuoc`(`ID`,`IDVUNGTRONG`,`IDNHATKY`,`TENTHUOC`,`GIATRI`,`SOLUONG`,`CACHSUDUNG`,`NGAYTHUCHIEN`,`GHICHU`) values 
-(1,1,5,'+ Thuốc trừ ốc:',NULL,NULL,'220 lit/lần/ha','2022-10-26',NULL),
-(2,1,5,'+ Thuốc trừ cỏ:',NULL,NULL,'220 lit/lần/ha','2022-10-26',NULL),
-(3,1,5,'+ Thuốc trừ bệnh:',NULL,NULL,'220 lit/lần/ha','2022-10-26',NULL),
-(4,1,5,'+ Thuốc trừ bệnh:',NULL,NULL,'220 lit/lần/ha','2022-10-26',NULL),
-(5,1,5,'+ Thuốc trừ bệnh:',NULL,NULL,'220 lit/lần/ha','2022-10-26',NULL),
-(6,1,5,'+ Phối hợp thuốc (trừ sâu - bệnh):',NULL,NULL,'220 lit/lần/ha','2022-10-26',NULL),
-(7,1,5,'+ Phối hợp thuốc (trừ sâu - bệnh):',NULL,NULL,'220 lit/lần/ha','2022-10-26',NULL),
-(8,1,5,'+ Phối hợp thuốc (trừ rầy - bệnh):',NULL,NULL,'220lit/lần/ha','2022-10-26',NULL),
-(9,1,5,'+ Phối hợp thuốc (trừ rầy - bệnh):',NULL,NULL,'220lit/lần/ha','2022-10-26',NULL),
-(10,1,5,'+ Phun theo thời điểm:',NULL,NULL,'3NSS ốc','2022-10-26',NULL),
-(11,1,5,'+ Phun theo thời điểm:',NULL,NULL,'2NSS cỏ','2022-10-26',NULL);
+(1,1,5,'+ Thuốc trừ ốc:',NULL,NULL,'200 lit/lần/ha.','2022-09-17',NULL),
+(2,1,5,'+ Thuốc trừ cỏ:',NULL,NULL,'200 lit/lần/ha.','2022-09-21',NULL),
+(3,1,5,'+ Thuốc trừ bệnh:',NULL,NULL,'200 lit/lần/ha.','2022-11-02',NULL),
+(4,1,5,'+ Thuốc trừ bệnh:',NULL,NULL,'200 lit/lần/ha.','2022-11-22',NULL),
+(5,1,5,'+ Thuốc trừ bệnh:',NULL,NULL,'200 lit/lần/ha.','2022-12-07',NULL),
+(6,1,5,'+ Phối hợp thuốc (trừ sâu - bệnh):',NULL,NULL,'200 lit/lần/ha.','2022-11-02',NULL),
+(8,1,5,'+ Phối hợp thuốc (trừ rầy - bệnh):',NULL,NULL,'200 lit/lần/ha.','2022-11-22',NULL),
+(10,1,5,'+ Phun theo thời điểm:',NULL,NULL,'','0000-00-00',NULL);
+
+/*Table structure for table `tennongho` */
+
+DROP TABLE IF EXISTS `tennongho`;
+
+CREATE TABLE `tennongho` (
+  `ID` int(11) DEFAULT NULL,
+  `IDVUNGTRONG` int(11) DEFAULT NULL,
+  `HOTEN` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `DIENTICH` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `SANLUONGDUKIEN` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `GHICHU` varchar(205) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT '1',
+  KEY `IDVUNGTRONG` (`IDVUNGTRONG`),
+  CONSTRAINT `tennongho_ibfk_1` FOREIGN KEY (`IDVUNGTRONG`) REFERENCES `dmvungtrong` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `tennongho` */
 
 /*Table structure for table `thongtinvungtrong` */
 
@@ -297,12 +343,24 @@ CREATE TABLE `thongtinvungtrong` (
   PRIMARY KEY (`ID`),
   KEY `IDVUNGTRONG` (`IDVUNGTRONG`),
   CONSTRAINT `thongtinvungtrong_ibfk_1` FOREIGN KEY (`IDVUNGTRONG`) REFERENCES `dmvungtrong` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `thongtinvungtrong` */
 
 insert  into `thongtinvungtrong`(`ID`,`IDVUNGTRONG`,`NGAYSANXUAT`,`DAT_DIENTICH`,`DAT_LOAIDAT`,`DAT_DOPH`,`KV_TEN`,`KV_KEHOACH`,`THUHOACH_NGAY`,`THUHOACH_SANLUONG`,`GHICHU`) values 
-(1,1,'2022-10-26','27 công','Đất sét pha thịt.','5','Khu vực sản xuất hợp tác xã nông nghiệp Phước An','Kế hoạch sản xuất Lúa cao sản vụ Hè Thu','2023-01-31','5 tấn',NULL);
+(1,1,'2022-09-18','2 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','14 tấn',NULL),
+(2,2,'2022-09-18','0.5 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','3.5 tấn',NULL),
+(3,1,'2022-09-18','2 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','14 tấn',''),
+(4,2,'2022-09-18','0.5 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','3.5 tấn',''),
+(5,3,'2022-09-18','2.5 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','17.5 tấn',''),
+(6,4,'2022-09-18','2 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','14 tấn',''),
+(7,5,'2022-09-18','1 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','7 tấn',''),
+(8,6,'2022-09-18','1.5 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','10.5 tấn',''),
+(9,7,'2022-09-18','3 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','21 tấn',''),
+(10,8,'2022-09-18','2.5 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','17.5 tấn',''),
+(11,9,'2022-09-18','2 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','14 tấn',''),
+(12,10,'2022-09-18','1 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','7 tấn',''),
+(13,11,'2022-09-18','0.8 ha','cát pha sét.','5.5','Khu vực sản xuất Hợp tác xã Nông nghiệp Phước An.','Kế hoạch sản xuất Lúa OM5451 vụ Đông Xuân sớm.','2022-12-25','5.6 tấn','');
 
 /* Function  structure for function  `f_solannhatky` */
 
@@ -393,16 +451,16 @@ DELIMITER $$
 BEGIN
 	SET SESSION group_concat_max_len = 1000000;
 	
-	SELECT f_solannhatky(p_idvungtrong,1) as SOLANBONPHAN, f_solannhatky(p_idvungtrong,2) AS SOLANSUDUNGTHUOC, nhatky.IDNHATKY, nhatky.IDVUNGTRONG, nhatky.SUDUNGNHATKY, case when nhatky.BONPHAN = 1 then nhatky.NHATKYPHANBON when nhatky.THUOCBVTV = 1 then nhatky.NHATKYSUDUNGTHUOC else replace(group_concat('<p class="c-title3">',nhatky.TENNHATKY,' ',nhatky.CACHSUDUNGNHATKY,'</p>'),'>,<','><') end as TENNHATKY, DATE_FORMAT(nhatky.NGAYTHUCHIENNHATKY,'%d/%m/%Y') as NGAYTHUCHIENNHATKY
+	SELECT f_solannhatky(p_idvungtrong,1) as SOLANBONPHAN, f_solannhatky(p_idvungtrong,2) AS SOLANSUDUNGTHUOC, nhatky.IDNHATKY, nhatky.IDVUNGTRONG, nhatky.SUDUNGNHATKY, case when nhatky.BONPHAN = 1 then nhatky.NHATKYPHANBON when nhatky.THUOCBVTV = 1 then nhatky.NHATKYSUDUNGTHUOC else replace(group_concat('<p class="c-title3">',nhatky.TENNHATKY,' ',nhatky.CACHSUDUNGNHATKY,'</p>'),'>,<','><') end as TENNHATKY, nhatky.NGAYTHUCHIENNHATKY
 	FROM (
-		SELECT cc.ID AS IDNHATKY, cc.IDVUNGTRONG, cc.BONPHAN, cc.THUOCBVTV, CONCAT('- ',dd.TENLOAI,': ',cc.TENNHATKY) AS SUDUNGNHATKY, ii.TENNHATKY, IFNULL(ii.CACHSUDUNG,'') AS CACHSUDUNGNHATKY, ii.NGAYTHUCHIEN AS NGAYTHUCHIENNHATKY, dd.SAPXEP AS SAPXEPLOAINHATKY, ii.SAPXEP AS SAPXEPNHATKY, sdphan.NHATKYPHANBON, sdthuoc.NHATKYSUDUNGTHUOC
+		SELECT cc.ID AS IDNHATKY, cc.IDVUNGTRONG, cc.BONPHAN, cc.THUOCBVTV, CONCAT('- ',dd.TENLOAI,': ',cc.TENNHATKY) AS SUDUNGNHATKY, ii.TENNHATKY, IFNULL(ii.CACHSUDUNG,'') AS CACHSUDUNGNHATKY, DATE_FORMAT(ii.NGAYTHUCHIEN,'%d/%m/%Y') AS NGAYTHUCHIENNHATKY, dd.SAPXEP AS SAPXEPLOAINHATKY, ii.SAPXEP AS SAPXEPNHATKY, sdphan.NHATKYPHANBON, sdthuoc.NHATKYSUDUNGTHUOC
 		FROM nhatkysanxuat cc
 			LEFT JOIN sudungnhatky ii ON ii.IDNHATKY = cc.ID AND ii.IDVUNGTRONG = p_idvungtrong
-			left join (SELECT nhatky.IDNHATKY, nhatky.IDVUNGTRONG, replace(GROUP_CONCAT('<p class="c-title3">','+ Lần: ',nhatky.STT,'</p>','<p class="c-title4">','&#8594; Ngày thực hiện: ',nhatky.NGAYTHUCHIEN,'</p>','<p class="c-title4">','&#8594; ',nhatky.SUDUNGPHANBON,'</p>',nhatky.CACHSUDUNGPHANBON ORDER BY nhatky.STT),'>,<','><') AS NHATKYPHANBON
+			left join (SELECT nhatky.IDNHATKY, nhatky.IDVUNGTRONG, replace(GROUP_CONCAT('<p class="c-title3">','+ Lần: ',nhatky.STT,'</p>','<p class="c-title4">','-> Ngày thực hiện: ',nhatky.NGAYTHUCHIEN,'</p>','<p class="c-title4">','-> ',nhatky.SUDUNGPHANBON,'</p>',nhatky.CACHSUDUNGPHANBON ORDER BY nhatky.STT),'>,<','><') AS NHATKYPHANBON
 					FROM (
 						SELECT (@row_n3:=@row_n3 + 1) AS STT, phanbon.IDNHATKY, phanbon.IDVUNGTRONG, phanbon.IDKYTHUATBONPHAN, phanbon.SUDUNGPHANBON, phanbon.CACHSUDUNGPHANBON, phanbon.NGAYTHUCHIEN
 						FROM (
-							SELECT aa.IDNHATKY, aa.IDVUNGTRONG, aa.IDKYTHUATBONPHAN, bb.SUDUNGPHANBON, replace(GROUP_CONCAT('<p class="c-title6">',aa.TENPHANBON,' ',IFNULL(aa.SOLUONG,''),'</p>'),'>,<','><') AS CACHSUDUNGPHANBON, date_format(aa.NGAYTHUCHIEN,'%d/%m/%Y') as NGAYTHUCHIEN
+							SELECT aa.IDNHATKY, aa.IDVUNGTRONG, aa.IDKYTHUATBONPHAN, bb.SUDUNGPHANBON, replace(GROUP_CONCAT('<p class="c-title6">',aa.TENPHANBON,' ',IFNULL(aa.SOLUONG,''),'</p>' ORDER BY aa.SAPXEP),'>,<','><') AS CACHSUDUNGPHANBON, date_format(aa.NGAYTHUCHIEN,'%d/%m/%Y') as NGAYTHUCHIEN
 							FROM sudungphanbon aa, kythuatbonphan bb
 							WHERE aa.IDVUNGTRONG = p_idvungtrong AND aa.IDNHATKY = p_idnhatky
 							AND bb.ID = aa.IDKYTHUATBONPHAN AND bb.IDVUNGTRONG = p_idvungtrong
@@ -413,11 +471,12 @@ BEGIN
 				) sdphan on sdphan.IDVUNGTRONG = cc.IDVUNGTRONG and sdphan.IDVUNGTRONG = p_idvungtrong
 			left join (SELECT nhatky.IDNHATKY, nhatky.IDVUNGTRONG, replace(GROUP_CONCAT('<p class="c-title3">',nhatky.TENTHUOC,'</p>',nhatky.CACHSUDUNGTHUOCBVTV),'>,<','><') AS NHATKYSUDUNGTHUOC
 					FROM (
-						SELECT thuocbvtv.IDNHATKY, thuocbvtv.IDVUNGTRONG, thuocbvtv.TENTHUOC, replace(GROUP_CONCAT('<p class="c-title4">','&#8594; Lần: ',thuocbvtv.STT,'</p>','<p class="c-title6">','• Ngày thực hiện: ',thuocbvtv.NGAYTHUCHIEN,'</p>','<p class="c-title6">','• Số lượng/Sử dụng: ',thuocbvtv.CACHSUDUNGTHUOC,'</p>' ORDER BY thuocbvtv.STT),'>,<','><') AS CACHSUDUNGTHUOCBVTV
+						SELECT thuocbvtv.IDNHATKY, thuocbvtv.IDVUNGTRONG, CASE WHEN SUM(thuocbvtv.SOLAN) = 0 THEN CONCAT(thuocbvtv.TENTHUOC, ' Không') ELSE CONCAT(thuocbvtv.TENTHUOC, ' ', SUM(thuocbvtv.SOLAN), ' lần') END AS TENTHUOC, CASE WHEN SUM(thuocbvtv.SOLAN) = 0 THEN '' ELSE replace(GROUP_CONCAT('<p class="c-title4">','-> Lần: ',thuocbvtv.STT,'</p>','<p class="c-title6">','• Ngày thực hiện: ',thuocbvtv.NGAYTHUCHIEN,'</p>','<p class="c-title6">','• Số lượng nước phun: ',thuocbvtv.CACHSUDUNGTHUOC,'</p>' ORDER BY thuocbvtv.STT),'>,<','><') end AS CACHSUDUNGTHUOCBVTV
 						FROM (
-							SELECT (@row_n3:=CASE WHEN @tenthuoc=aa.TENTHUOC THEN @row_n3+1 ELSE 1 END) AS STT, aa.ID, aa.IDNHATKY, aa.IDVUNGTRONG, @tenthuoc:=aa.TENTHUOC AS TENTHUOC, IFNULL(aa.CACHSUDUNG,'') AS CACHSUDUNGTHUOC, date_format(aa.NGAYTHUCHIEN,'%d/%m/%Y') as NGAYTHUCHIEN
+							SELECT (@row_n3:=CASE WHEN @tenthuoc=aa.TENTHUOC THEN @row_n3+1 ELSE 1 END) AS STT, aa.ID, aa.IDNHATKY, aa.IDVUNGTRONG, @tenthuoc:=aa.TENTHUOC AS TENTHUOC, CASE WHEN IFNULL(aa.CACHSUDUNG,'') = '' THEN 0 ELSE COUNT(aa.TENTHUOC) END AS SOLAN,IFNULL(aa.CACHSUDUNG,'') AS CACHSUDUNGTHUOC, date_format(aa.NGAYTHUCHIEN,'%d/%m/%Y') as NGAYTHUCHIEN
 							FROM sudungthuoc aa, (SELECT @row_n3:=0,@tenthuoc:='') AS temp3
 							WHERE aa.IDVUNGTRONG = p_idvungtrong AND aa.IDNHATKY = p_idnhatky
+							GROUP BY aa.TENTHUOC, aa.ID, aa.IDNHATKY, aa.IDVUNGTRONG, aa.NGAYTHUCHIEN
 						) thuocbvtv
 						GROUP BY thuocbvtv.IDNHATKY, thuocbvtv.IDVUNGTRONG, thuocbvtv.TENTHUOC
 						order by thuocbvtv.ID, thuocbvtv.STT
