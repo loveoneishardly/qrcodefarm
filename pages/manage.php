@@ -83,8 +83,8 @@
                 <table style="width: 100%">
                     <tr>
                         <td align="center">
-                            <input type="button" value="XEM THÔNG TIN VÙNG TRỒNG" id='xemthongtinvungtrong' class="qt_button"/>
                             <input type="button" value="XEM DANH SÁCH VÙNG TRỒNG" id='xemdanhsachvungtrong' class="qt_button"/>
+                            <input type="button" value="XEM THÔNG TIN VÙNG TRỒNG" id='xemthongtinvungtrong' class="qt_button"/>
                         </td>
                     </tr>
                 </table>
@@ -132,7 +132,7 @@
             $("#listvungtrong").jqxGrid({
                 source: dataAdapter,
                 width: '100%',
-                height: '300',
+                height: '650',
                 source: dataAdapter,
                 columnsresize: true,
                 showfilterrow: true,
