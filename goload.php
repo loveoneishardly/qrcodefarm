@@ -3,13 +3,27 @@
     include_once('controllers/AppController.php');
 
     if(isset($_GET['check'])) {
+        $check_session = 0;
+		if(!isset($_SESSION["sansang"])){
+            $check_session = "";
+        } else {
+            if($_SESSION["sansang"] != "1"){
+                $check_session = $_SESSION["sansang"];
+            }
+        }
+
         ob_start();
+
         switch ($_GET['check']) {
             case "_home":
                 include("pages/index.php");
             break;
             case "_index":
+                $trangthai = $check_session;
                 include("pages/manage.php");
+            break;
+            case "_addthongtinvungtrong":
+                include("pages/themvungtrong.php");
             break;
             case "_thongtinvungtrong":
                 $IDVUNGTRONG = "";
@@ -61,7 +75,6 @@
 
     if(isset($_GET['page'])) {
         
-        /*
         if(!isset($_SESSION["sansang"])){
                 header("Location: go?check=_home");
         } else {
@@ -69,17 +82,19 @@
                 header("Location: go?check=_home");
             }
         }
-        */
         
         ob_start();
 
         switch ($_GET['page']) {
             case "_home":
-                
                 include("pages/index.php");
             break;
             case "_index":
+                $trangthai = $_SESSION["sansang"];
                 include("pages/manage.php");
+            break;
+            case "_addthongtinvungtrong":
+                include("pages/themvungtrong.php");
             break;
             case "_thongtinvungtrong":
                 $IDVUNGTRONG = "";
