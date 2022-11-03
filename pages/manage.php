@@ -94,11 +94,15 @@
                             <input type="button" value="XEM DANH SÁCH VÙNG TRỒNG" id='xemdanhsachvungtrong' class="qt_button"/>
                             <input type="button" value="XEM THÔNG TIN VÙNG TRỒNG" id='xemthongtinvungtrong' class="qt_button"/>
                             <input type="button" value="THÊM VÙNG TRỒNG" id='themvungtrong' class="qt_button"/>
+                            <input type="button" value="TẠO QR CODE" id='taoqrcode' class="qt_button"/>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
+        <div class="w3-col" id="contentqrcode">
+            <img src='./lib/images/vnpt.png' style='position:relative;display:block;width:240px;height:240px;margin:30px auto;' id="QRCode">
+        </di>
     </div>
     <div title="Về đầu trang" id="top-up">
     <i class="fas fa-arrow-circle-up"></i></div>
@@ -112,6 +116,7 @@
             $("#xemthongtinvungtrong").jqxButton({ width: 240, height: 40 });
             $("#xemdanhsachvungtrong").jqxButton({ width: 240, height: 40 });
             $("#themvungtrong").jqxButton({ width: 160, height: 40 });
+            $("#taoqrcode").jqxButton({ width: 160, height: 40 });
             $(window).scroll(function () {
                 if ($(this).scrollTop() > offset)
                 $('#top-up').fadeIn(duration);else
@@ -144,7 +149,7 @@
             $("#listvungtrong").jqxGrid({
                 source: dataAdapter,
                 width: '100%',
-                height: '600',
+                height: '550',
                 source: dataAdapter,
                 columnsresize: true,
                 showfilterrow: true,
@@ -196,6 +201,24 @@
             });
             $("#themvungtrong").click(function(){
                 window.open("go?check=_addthongtinvungtrong", '_blank');
+            });
+            $("#taoqrcode").click(function(){
+                var mavungtrong = $("#idmavungtrong").val();
+                if (mavungtrong){
+                    location.href='#contentqrcode';
+                    $.ajax({
+                        type: 'POST',
+                        url: 'go',
+                        data: {
+                            for: "taomaqrcode",
+                            ID: mavungtrong
+                        }
+                    }).done(function(data){
+                        $('#QRCode').attr('src', data);
+                    });
+                } else {
+                    alert("Chưa chọn vùng định danh.");
+                }
             });
         });
         function loadDSvungtrong(){

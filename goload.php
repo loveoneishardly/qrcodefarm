@@ -1,6 +1,7 @@
 <?php
     session_start();
     include_once('controllers/AppController.php');
+    include_once('controllers/QrCode.php');
 
     if(isset($_GET['check'])) {
         $check_session = 0;
@@ -55,6 +56,11 @@
 
     if(isset($_POST['for'])) {
         switch ($_POST['for']) {
+            case "taomaqrcode":
+                $ID = $_POST['ID'];
+                $res = (new CreateQRCode())->CreateQRCode($ID);
+                echo $res;
+            break;
             default:
                 echo "Chức năng không tồn tại";
         }
