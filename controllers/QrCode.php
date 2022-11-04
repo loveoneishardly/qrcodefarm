@@ -3,12 +3,12 @@
 
     class CreateQRCode {
 
-        public function CreateQRcode($ID){
+        public function CreateQRcodeVungTrong($ID){
             $imgname ="qrcodefarm.png";
             $data = isset($_GET['data']) ? $_GET['data'] : "http://113.161.136.250:8181/qrcodefarm/go?check=_thongtinvungtrong&ID=".$ID;
             $logo = isset($_GET['logo']) ? $_GET['logo'] : './lib/images/vnpt.png';
             $sdir = explode("/",$_SERVER['REQUEST_URI']);
-            $dir = str_replace($sdir[count($sdir)-1],"",$_SERVER['REQUEST_URI']).'lib/images/';
+            $dir = str_replace($sdir[count($sdir)-1],"",$_SERVER['REQUEST_URI']);
             QRcode::png($data,$imgname,QR_ECLEVEL_L,11.45,0);
             $QR = imagecreatefrompng($imgname);
             if($logo !== FALSE){

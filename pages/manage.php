@@ -102,7 +102,7 @@
         </div>
         <div class="w3-col" id="contentqrcode">
             <img src='./lib/images/vnpt.png' style='position:relative;display:block;width:240px;height:240px;margin:30px auto;' id="QRCode">
-        </di>
+        </div>
     </div>
     <div title="Về đầu trang" id="top-up">
     <i class="fas fa-arrow-circle-up"></i></div>
@@ -116,7 +116,7 @@
             $("#xemthongtinvungtrong").jqxButton({ width: 240, height: 40 });
             $("#xemdanhsachvungtrong").jqxButton({ width: 240, height: 40 });
             $("#themvungtrong").jqxButton({ width: 160, height: 40 });
-            $("#taoqrcode").jqxButton({ width: 160, height: 40 });
+            $("#taoqrcode").jqxButton({ width: 130, height: 40 });
             $(window).scroll(function () {
                 if ($(this).scrollTop() > offset)
                 $('#top-up').fadeIn(duration);else
@@ -210,8 +210,8 @@
                         type: 'POST',
                         url: 'go',
                         data: {
-                            for: "taomaqrcode",
-                            ID: mavungtrong
+                            for: "_taomaqrcode",
+                            mavungtrong: mavungtrong
                         }
                     }).done(function(data){
                         $('#QRCode').attr('src', data);

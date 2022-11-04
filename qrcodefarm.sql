@@ -866,7 +866,7 @@ insert  into `thongtinvungtrong`(`ID`,`IDVUNGTRONG`,`NGAYSANXUAT`,`DAT_DIENTICH`
 /*!50003 DROP FUNCTION IF EXISTS `f_solannhatky` */;
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `f_solannhatky`(p_idvungtrong varchar(100),
+/*!50003 CREATE FUNCTION `f_solannhatky`(p_idvungtrong varchar(100),
 	p_type varchar(100)
 ) RETURNS varchar(1024) CHARSET utf8
 BEGIN
@@ -894,7 +894,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `p_load_dsnhatky`(
+/*!50003 CREATE PROCEDURE `p_load_dsnhatky`(
 	p_idvungtrong VARCHAR(150)
     )
 BEGIN
@@ -910,7 +910,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `p_load_listvungtrong`(
+/*!50003 CREATE PROCEDURE `p_load_listvungtrong`(
 	p_iddonvi varchar(150)
 )
 BEGIN
@@ -926,7 +926,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `p_load_thongtinnhatky`(
+/*!50003 CREATE PROCEDURE `p_load_thongtinnhatky`(
 	p_idvungtrong VARCHAR(150),
 	p_idnhatky VARCHAR(150)
 )
@@ -979,7 +979,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `p_load_thongtinvungtrong`(
+/*!50003 CREATE PROCEDURE `p_load_thongtinvungtrong`(
 	p_idvungtrong varchar(150)
 )
 BEGIN

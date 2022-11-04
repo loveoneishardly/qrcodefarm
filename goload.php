@@ -56,9 +56,9 @@
 
     if(isset($_POST['for'])) {
         switch ($_POST['for']) {
-            case "taomaqrcode":
-                $ID = $_POST['ID'];
-                $res = (new CreateQRCode())->CreateQRCode($ID);
+            case "_taomaqrcode":
+                $ID = $_POST['mavungtrong'];
+                $res = (new CreateQRCode())->CreateQRcodeVungTrong($ID);
                 echo $res;
             break;
             default:
