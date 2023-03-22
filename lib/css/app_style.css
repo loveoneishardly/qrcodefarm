@@ -284,7 +284,9 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
   input:focus,
   textarea:focus,
   select:focus {
-    outline: none; }
+    outline: none; 
+    background-color: #f1f0ad;
+  }
   
   .tabs {
     display: block;

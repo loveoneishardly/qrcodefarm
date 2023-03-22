@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="lib/images/vnpt_icon.ico" type="image/x-icon">
         <link href="lib/css/app_style.css" rel="stylesheet"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="lib/js/jquery-1.11.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="lib/css/css/all.css">
         <link rel="stylesheet" type="text/css" href="lib/css/css/fontawesome.css">
         <link rel="stylesheet" type="text/css" href="lib/css/css/brands.css">
@@ -86,15 +86,20 @@
             </div>
             <div class="w3-col">
                 <input type="hidden" id="idmavungtrong" name="idmavungtrong" />
+                <input type="hidden" id="madinhdanhvungtrong" name="madinhdanhvungtrong" />
+                <input type="hidden" id="loaisanphamtrong" name="loaisanphamtrong" />
                 <input type="hidden" id="session_u" name="session_u" value="<?php echo $trangthai; ?>"/>
+                <input type="hidden" id="sodienthoai" name="sodienthoai" />
                 <hr>
                 <table style="width: 100%">
                     <tr>
                         <td align="center">
                             <input type="button" value="XEM DANH SÁCH VÙNG TRỒNG" id='xemdanhsachvungtrong' class="qt_button"/>
                             <input type="button" value="XEM THÔNG TIN VÙNG TRỒNG" id='xemthongtinvungtrong' class="qt_button"/>
-                            <input type="button" value="THÊM VÙNG TRỒNG" id='themvungtrong' class="qt_button"/>
+                            <input type="button" value="CẬP NHẬT VÙNG TRỒNG" id='capnhatvungtrong' class="qt_button"/>
                             <input type="button" value="TẠO QR CODE" id='taoqrcode' class="qt_button"/>
+                            <input type="button" value="GET INFO API" id='getinfo_api_vfarm' class="qt_button"/>
+                            <input type="button" value="UPDATE INFO API" id='updateinfo_api_vfarm' class="qt_button"/>
                         </td>
                     </tr>
                 </table>
@@ -111,12 +116,14 @@
         var offset = 50;
         var duration = 500;
         var currentTab = 0;
-        var trangthai = $("#session_u").val();
+        var trangthai = ""; //$("#session_u").val();
         $(document).ready(function () {
             $("#xemthongtinvungtrong").jqxButton({ width: 240, height: 40 });
             $("#xemdanhsachvungtrong").jqxButton({ width: 240, height: 40 });
-            $("#themvungtrong").jqxButton({ width: 160, height: 40 });
+            $("#capnhatvungtrong").jqxButton({ width: 200, height: 40 });
             $("#taoqrcode").jqxButton({ width: 130, height: 40 });
+            $("#getinfo_api_vfarm").jqxButton({ width: 130, height: 40 });
+            $("#updateinfo_api_vfarm").jqxButton({ width: 150, height: 40 });
             $(window).scroll(function () {
                 if ($(this).scrollTop() > offset)
                 $('#top-up').fadeIn(duration);else
@@ -137,7 +144,9 @@
                     { name: 'HOPTACXA'},
                     { name: 'SANPHAMTRONG'},
                     { name: 'GHICHU'},
-                    { name: 'TRANGTHAI'}
+                    { name: 'TRANGTHAI'},
+                    { name: 'LOAISANPHAM'},
+                    { name: 'SODIENTHOAI'}
                 ],
                 url: 'go?for=loadlistvungtrong&iddonvi=1',
                 cache: false,
@@ -177,7 +186,9 @@
                     { text: 'Hợp Tác Xã', datafield: 'HOPTACXA', width: 300, align: 'center', cellsalign: 'left'},
                     { text: 'Sản Phẩm Trồng', datafield: 'SANPHAMTRONG', width: 200, align: 'center', cellsalign: 'left'},
                     { text: 'Ghi Chú', datafield: 'GHICHU', width: 150, align: 'center', cellsalign: 'left'},
-                    { text: 'Trạng Thái', datafield: 'TRANGTHAI', width: 150, align: 'center', cellsalign: 'center'}
+                    { text: 'Trạng Thái', datafield: 'TRANGTHAI', width: 150, align: 'center', cellsalign: 'center'},
+                    { text: 'Loại sản phẩm', datafield: 'LOAISANPHAM', width: 150, align: 'center', cellsalign: 'center'},
+                    { text: 'Số điện thoại', datafield: 'SODIENTHOAI', width: 150, align: 'center', cellsalign: 'center'}
                 ]
             });
             $('#listvungtrong').on('rowclick', function (event) {
@@ -185,6 +196,9 @@
                 var rowBoundIndex = args.rowindex;
                 var selectedRowData_dsvungtrong = $('#listvungtrong').jqxGrid('getrowdata', rowBoundIndex);
                 $("#idmavungtrong").val(selectedRowData_dsvungtrong.ID);
+                $("#madinhdanhvungtrong").val(selectedRowData_dsvungtrong.MAVUNGTRONG);
+                $("#loaisanphamtrong").val(selectedRowData_dsvungtrong.LOAISANPHAM);
+                $("#sodienthoai").val(selectedRowData_dsvungtrong.SODIENTHOAI);
             });
             $("#xemthongtinvungtrong").click(function(){
                 var mavungtrong = $("#idmavungtrong").val();
@@ -199,8 +213,49 @@
             $("#xemdanhsachvungtrong").click(function(){
                 loadDSvungtrong();
             });
-            $("#themvungtrong").click(function(){
-                window.open("go?check=_addthongtinvungtrong", '_blank');
+            $("#getinfo_api_vfarm").click(function(){
+                var mavungtrong = $("#idmavungtrong").val();
+                var madinhdanh = $("#madinhdanhvungtrong").val();
+                var loaisanpham = $("#loaisanphamtrong").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'go',
+                    data: {
+                        for: "_getinfoapivfarm",
+                        madinhdanh: madinhdanh,
+                        loaisanpham: loaisanpham,
+                        mavungtrong: mavungtrong
+                    }
+                }).done(function(data){
+                    var jsonData = JSON.parse(data);   
+                    if (jsonData.code == 200){
+                        alert("Lấy thông tin thành công!");
+                    } else {
+                        alert("Lấy thông tin thất bại!");
+                    }
+                });
+            });
+            $("#updateinfo_api_vfarm").click(function(){
+                var mavungtrong = $("#idmavungtrong").val();
+                var madinhdanh = $("#madinhdanhvungtrong").val();
+                var loaisanpham = $("#loaisanphamtrong").val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'go',
+                    data: {
+                        for: "_updateinfoapivfarm",
+                        madinhdanh: madinhdanh,
+                        loaisanpham: loaisanpham,
+                        mavungtrong: mavungtrong
+                    }
+                }).done(function(data){
+                    var jsonData = JSON.parse(data);   
+                    if (jsonData.code == 200){
+                        alert("Cập nhật thành công!");
+                    } else {
+                        alert("Cập nhật thất bại!");
+                    }
+                });
             });
             $("#taoqrcode").click(function(){
                 var mavungtrong = $("#idmavungtrong").val();
@@ -218,6 +273,14 @@
                     });
                 } else {
                     alert("Chưa chọn vùng định danh.");
+                }
+            });
+            $("#capnhatvungtrong").click(function(){
+                var SODIENTHOAI = $("#sodienthoai").val();
+                if (SODIENTHOAI == "-1"){
+                    window.open("go?check=_registerinfo", '_blank');
+                } else {
+                    window.open("go?check=_registerinfo"+SODIENTHOAI, '_blank');
                 }
             });
         });
