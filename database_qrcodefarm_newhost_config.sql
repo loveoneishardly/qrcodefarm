@@ -12,7 +12,7 @@ MySQL - 8.0.32-0ubuntu0.20.04.2 : Database - qrcodefarm
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`qrcodefarm` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`qrcodefarm` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `qrcodefarm`;
 
@@ -54,7 +54,7 @@ CREATE TABLE `dmvungtrong` (
   `KV_TEN` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `KV_KEHOACH` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `TITILE_DISPLAY` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `SODIENTHOAI` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `SODIENTHOAI` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `TRANGTHAI` int DEFAULT '1',
   PRIMARY KEY (`ID`,`MAVUNGTRONG`),
   KEY `IDDONVI` (`IDDONVI`),
@@ -65,55 +65,55 @@ CREATE TABLE `dmvungtrong` (
 
 insert  into `dmvungtrong`(`ID`,`IDDONVI`,`TENVUNGTRONG`,`MAVUNGTRONG`,`TENNONGHO`,`DIACHI`,`HOPTACXA`,`SANPHAMTRONG`,`GHICHU`,`LOAISANPHAM`,`KV_TEN`,`KV_KEHOACH`,`TITILE_DISPLAY`,`SODIENTHOAI`,`TRANGTHAI`) values 
 (1,1,'Vùng trồng lúa','OWGILT','Thạch Hưng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0344044227',1),
-(2,1,'Vùng trồng lúa','AIAQGE','Lâm Bình Minh','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(3,1,'Vùng trồng lúa','XRIBNL','Sơn Hùng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(4,1,'Vùng trồng lúa','','Lâm Suy','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(5,1,'Vùng trồng lúa','','Khưu Văn Điền','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(6,1,'Vùng trồng lúa','WTODTB','Lâm Huy Cường','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(7,1,'Vùng trồng lúa','PMNQXM','Kim Ben','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(8,1,'Vùng trồng lúa','','Châu Thị Phước','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(9,1,'Vùng trồng lúa','','Triệu Lộc','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(10,1,'Vùng trồng lúa','','Dương Quý','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(11,1,'Vùng trồng lúa','','Thái Sà Rây','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(12,1,'Vùng trồng lúa','GUXGZN','Kim Chành Thu','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(13,1,'Vùng trồng lúa','','Trần Thanh Bạch','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(14,1,'Vùng trồng lúa','','Thạch Cẩm Nhung','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(15,1,'Vùng trồng lúa','WHWENC','Lý Vỏ','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(16,1,'Vùng trồng lúa','','Cao Văn Tài','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(17,1,'Vùng trồng lúa','QHCNGV','Trần Văn Thời','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(18,1,'Vùng trồng lúa','','Huỳnh Thị La','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(19,1,'Vùng trồng lúa','','Trần Tam','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(20,1,'Vùng trồng lúa','OWGILT','Thạch Hưng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(21,1,'Vùng trồng lúa','AIAQGE','Lâm Bình Minh','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(22,1,'Vùng trồng lúa','','Trà Văn Khương','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(23,1,'Vùng trồng lúa','','Lâm Minh Hiển','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(24,1,'Vùng trồng lúa','PMNQXM','Kim Ben','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(25,1,'Vùng trồng lúa','','Hêng Dên','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(26,1,'Vùng trồng lúa','','Lâm Ngọc Thương','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(27,1,'Vùng trồng lúa','','Lâm Minh Hiển','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(28,1,'Vùng trồng lúa','','Sơn Quách','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(29,1,'Vùng trồng lúa','TKQVBE','Thạch Sươl','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(30,1,'Vùng trồng lúa','','Châu Dương','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(31,1,'Vùng trồng lúa','CCOXNH','Hêng Pến','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(32,1,'Vùng trồng lúa','','Lý Sà Miết','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(33,1,'Vùng trồng lúa','','Kim Dũng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(34,1,'Vùng trồng lúa','WEUPEJ','Từ Đức Thành','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(35,1,'Vùng trồng lúa','WKORIC','Ông Kim Phước','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(36,1,'Vùng trồng lúa','OWGILT','Thạch Hưng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(37,1,'Vùng trồng lúa','','Lâm Sanh','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(38,1,'Vùng trồng lúa','','Lâm Kết','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(39,1,'Vùng trồng lúa','PUFLHI','Ngô Văn Thành Em','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(40,1,'Vùng trồng lúa','','Ông Kim Hậu','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(41,1,'Vùng trồng lúa','','Lâm Thị Yến','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(42,1,'Vùng trồng lúa','','Sơn Thạch','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(43,1,'Vùng trồng lúa','','La Quân','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(44,1,'Vùng trồng lúa','','Dương Hữu Nghĩa','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(45,1,'Vùng trồng lúa','','Hêng Phến','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(46,1,'Vùng trồng lúa','SZWFTJ','Từ Thị Kim Vi','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(47,1,'Vùng trồng lúa','','La Sên','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(48,1,'Vùng trồng lúa','','Triệu Khuôn','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(49,1,'Vùng trồng lúa','','Trần Len','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1),
-(50,1,'Vùng trồng lúa','','Lâm Thành Sang','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,NULL,1);
+(2,1,'Vùng trồng lúa','AIAQGE','Lâm Bình Minh','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0982834848',1),
+(3,1,'Vùng trồng lúa','XRIBNL','Sơn Hùng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0988290887',1),
+(4,1,'Vùng trồng lúa','','Lâm Suy','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(5,1,'Vùng trồng lúa','','Khưu Văn Điền','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0366494328',1),
+(6,1,'Vùng trồng lúa','WTODTB','Lâm Huy Cường','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(7,1,'Vùng trồng lúa','PMNQXM','Kim Ben','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0339555462',1),
+(8,1,'Vùng trồng lúa','','Châu Thị Phước','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0365410347',1),
+(9,1,'Vùng trồng lúa','','Triệu Lộc','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0985618257',1),
+(10,1,'Vùng trồng lúa','','Dương Quý','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(11,1,'Vùng trồng lúa','','Thái Sà Rây','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0396146872',1),
+(12,1,'Vùng trồng lúa','GUXGZN','Kim Chành Thu','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(13,1,'Vùng trồng lúa','','Trần Thanh Bạch','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(14,1,'Vùng trồng lúa','','Thạch Cẩm Nhung','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0984470499',1),
+(15,1,'Vùng trồng lúa','WHWENC','Lý Vỏ','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(16,1,'Vùng trồng lúa','','Cao Văn Tài','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(17,1,'Vùng trồng lúa','QHCNGV','Trần Văn Thời','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0976002404',1),
+(18,1,'Vùng trồng lúa','','Huỳnh Thị La','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(19,1,'Vùng trồng lúa','','Trần Tam','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(20,1,'Vùng trồng lúa','OWGILT','Thạch Hưng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0344044227',1),
+(21,1,'Vùng trồng lúa','AIAQGE','Lâm Bình Minh','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0982834848',1),
+(22,1,'Vùng trồng lúa','','Trà Văn Khương','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(23,1,'Vùng trồng lúa','','Lâm Minh Hiển','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0366076307',1),
+(24,1,'Vùng trồng lúa','PMNQXM','Kim Ben','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0339555462',1),
+(25,1,'Vùng trồng lúa','','Hêng Dên','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(26,1,'Vùng trồng lúa','','Lâm Ngọc Thương','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(27,1,'Vùng trồng lúa','','Lâm Minh Hiển','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(28,1,'Vùng trồng lúa','','Sơn Quách','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(29,1,'Vùng trồng lúa','TKQVBE','Thạch Sươl','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0326061943',1),
+(30,1,'Vùng trồng lúa','','Châu Dương','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(31,1,'Vùng trồng lúa','CCOXNH','Hêng Pến','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0333244380',1),
+(32,1,'Vùng trồng lúa','','Lý Sà Miết','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(33,1,'Vùng trồng lúa','','Kim Dũng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(34,1,'Vùng trồng lúa','WEUPEJ','Từ Đức Thành','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0349185677',1),
+(35,1,'Vùng trồng lúa','WKORIC','Ông Kim Phước','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(36,1,'Vùng trồng lúa','OWGILT','Thạch Hưng','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0344044227',1),
+(37,1,'Vùng trồng lúa','','Lâm Sanh','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0395819087',1),
+(38,1,'Vùng trồng lúa','','Lâm Kết','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(39,1,'Vùng trồng lúa','PUFLHI','Ngô Văn Thành Em','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0326000212',1),
+(40,1,'Vùng trồng lúa','','Ông Kim Hậu','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(41,1,'Vùng trồng lúa','','Lâm Thị Yến','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(42,1,'Vùng trồng lúa','','Sơn Thạch','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(43,1,'Vùng trồng lúa','','La Quân','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0386320940',1),
+(44,1,'Vùng trồng lúa','','Dương Hữu Nghĩa','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(45,1,'Vùng trồng lúa','','Hêng Phến','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa OM5451','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0333244380',1),
+(46,1,'Vùng trồng lúa','SZWFTJ','Từ Thị Kim Vi','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'0372976833',1),
+(47,1,'Vùng trồng lúa','','La Sên','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(48,1,'Vùng trồng lúa','','Triệu Khuôn','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(49,1,'Vùng trồng lúa','','Trần Len','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1),
+(50,1,'Vùng trồng lúa','','Lâm Thành Sang','Ấp Phước An, xã Phú Tân, huyện Châu Thành, tỉnh Sóc Trăng','Hợp tác xã Nông nghiệp Phước An','Lúa RVT','',1,'Hợp tác xã Nông nghiệp Phước An','Kế hoạch sản xuất lúa',NULL,'',1);
 
 /*Table structure for table `kythuatbonphan` */
 
@@ -3076,45 +3076,6 @@ BEGIN
     END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `p_get_phonenumber` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `p_get_phonenumber` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`minhstg`@`%` PROCEDURE `p_get_phonenumber`(
-	p_madinhdanh VARCHAR(200)
-)
-BEGIN
-	SELECT MAVUNGTRONG, LOAISANPHAM, MAVUNGTRONG, KV_TEN, KV_KEHOACH, HOPTACXA, TENNONGHO, SODIENTHOAI
-	FROM dmvungtrong WHERE MAVUNGTRONG = p_madinhdanh;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `p_check_phonenumber` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `p_check_phonenumber` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`minhstg`@`%` PROCEDURE `p_check_phonenumber`(
-    p_sodienthoai VARCHAR(150)
-    )
-BEGIN
-	DECLARE v_check INT(2);
-	SELECT COUNT(*) INTO v_check FROM dmvungtrong WHERE SODIENTHOAI = p_sodienthoai;
-	
-	IF v_check > 0 THEN
-		SELECT '1' AS TRANGTHAI, SODIENTHOAI
-		FROM dmvungtrong WHERE ifnull(SODIENTHOAI,'-1') = p_sodienthoai
-		LIMIT 1;
-	ELSE
-		SELECT '0' AS TRANGTHAI, '' AS SODIENTHOAI
-		FROM DUAL;
-	END IF;
-    END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `p_check_codeapi` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `p_check_codeapi` */;
@@ -3139,6 +3100,30 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `p_check_phonenumber` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `p_check_phonenumber` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`minhstg`@`%` PROCEDURE `p_check_phonenumber`(
+	p_sodienthoai VARCHAR(250)
+)
+BEGIN
+	DECLARE v_check INT(2);
+	SELECT COUNT(*) INTO v_check FROM dmvungtrong WHERE SODIENTHOAI = p_sodienthoai;
+	
+	IF v_check > 0 THEN
+		SELECT '1' AS TRANGTHAI, SODIENTHOAI
+		FROM dmvungtrong WHERE IFNULL(SODIENTHOAI,'-1') = p_sodienthoai
+		LIMIT 1;
+	ELSE
+		SELECT '0' AS TRANGTHAI, '' AS SODIENTHOAI
+		FROM DUAL;
+	END IF;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `p_get_info_phonenumber` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `p_get_info_phonenumber` */;
@@ -3146,11 +3131,32 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`minhstg`@`%` PROCEDURE `p_get_info_phonenumber`(
-	p_sodienthoai VARCHAR(150)
+	p_sodienthoai varchar(250)
 )
 BEGIN
-	SELECT MAVUNGTRONG, LOAISANPHAM, MAVUNGTRONG, KV_TEN, KV_KEHOACH, HOPTACXA
-	FROM dmvungtrong WHERE SODIENTHOAI = p_sodienthoai;
+	SELECT kq.ID, kq.MAVUNGTRONG, kq.LOAISANPHAM, kq.KV_TEN, kq.KV_KEHOACH, kq.HOPTACXA, CONCAT(kq.TENNONGHO,' - ', 'Vùng ',kq.stt) AS TENNONGHO
+	FROM (
+		SELECT (@row_n1:=@row_n1 + 1) AS stt, dm.ID, dm.MAVUNGTRONG, dm.LOAISANPHAM, dm.KV_TEN, dm.KV_KEHOACH, dm.HOPTACXA, dm.TENNONGHO
+		FROM dmvungtrong dm, (SELECT @row_n1:=0) AS temp1
+		WHERE IFNULL(dm.SODIENTHOAI,'-1') = p_sodienthoai
+	) AS kq
+	ORDER BY kq.stt;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `p_get_phonenumber` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `p_get_phonenumber` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`minhstg`@`%` PROCEDURE `p_get_phonenumber`(
+	p_madinhdanh VARCHAR(250)
+)
+BEGIN
+	SELECT MAVUNGTRONG, LOAISANPHAM, MAVUNGTRONG, KV_TEN, KV_KEHOACH, HOPTACXA, TENNONGHO, SODIENTHOAI
+	FROM dmvungtrong WHERE MAVUNGTRONG = p_madinhdanh
+	limit 1;
     END */$$
 DELIMITER ;
 
