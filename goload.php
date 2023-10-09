@@ -138,6 +138,8 @@
             break;
             case "_suathongtinvungtrong":
                 $sodienthoai = $_POST['sodienthoai'];
+                $thongtinchung_dientich = $_POST['thongtinchung_dientich'];
+                $giongvacachxulygiong_tengiong = $_POST['giongvacachxulygiong_tengiong'];
                 $thoivu_hethu = $_POST['thoivu_hethu'];
                 $thoivu_thudong = $_POST['thoivu_thudong'];
                 $thoivu_dongxuan =$_POST['thoivu_dongxuan'];
@@ -256,7 +258,7 @@
                 $thuhoach_xuanhe = $_POST['thuhoach_xuanhe'];
                 $nangsuatbinhquan = $_POST['nangsuatbinhquan'];
                 $key = $_POST['key'];
-                $res = (new ApiController())->FUpdateApiVfarmID($sodienthoai, $thoivu_hethu, $thoivu_thudong, $thoivu_dongxuan, $thoivu_xuanhe, $phanbon_tongphanbon, $phanbon_vusanxuat, $phanbon_donvibon, $phanbon_thuchiencongviec, $phanbon_congcu, $phanbon_huuco_bonlot, 
+                $res = (new ApiController())->FUpdateApiVfarmID($sodienthoai, $thongtinchung_dientich, $giongvacachxulygiong_tengiong, $thoivu_hethu, $thoivu_thudong, $thoivu_dongxuan, $thoivu_xuanhe, $phanbon_tongphanbon, $phanbon_vusanxuat, $phanbon_donvibon, $phanbon_thuchiencongviec, $phanbon_congcu, $phanbon_huuco_bonlot, 
                     $phanbon_huuco_bonlan1, $phanbon_huuco_bonlan2, $phanbon_huuco_bonlan3, $phanbon_huuco_bonlan4, $phanbon_huuco_bonlan5, $phanbon_huuco_note, $phanbon_caitaodat_bonlot, $phanbon_caitaodat_bonlan1, $phanbon_caitaodat_bonlan2, $phanbon_caitaodat_bonlan3, 
                     $phanbon_caitaodat_bonlan4, $phanbon_caitaodat_bonlan5, $phanbon_caitaodat_note, $phanbon_ure_bonlot, $phanbon_ure_bonlan1, $phanbon_ure_bonlan2, $phanbon_ure_bonlan3, $phanbon_ure_bonlan4, 
                     $phanbon_ure_bonlan5, $phanbon_ure_note, $phanbon_lan_bonlot, $phanbon_lan_bonlan1, $phanbon_lan_bonlan2, $phanbon_lan_bonlan3, $phanbon_lan_bonlan4, $phanbon_lan_bonlan5, $phanbon_lan_note, $phanbon_kali_bonlot, 

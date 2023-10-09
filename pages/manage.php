@@ -100,6 +100,7 @@
                             <input type="button" value="TẠO QR CODE" id='taoqrcode' class="qt_button"/>
                             <input type="button" value="GET INFO API" id='getinfo_api_vfarm' class="qt_button"/>
                             <input type="button" value="UPDATE INFO API" id='updateinfo_api_vfarm' class="qt_button"/>
+                            <input type="button" />
                         </td>
                     </tr>
                 </table>

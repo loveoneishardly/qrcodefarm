@@ -95,11 +95,18 @@
                 </span>
                 <span align="center" style="">
                     <input  type="button" value="xóa dữ liệu" id="xoacookie" />
+                    <input  type="button" value="lấy IP" id="layip" onclick="ip_local()" />
                 </span>
             </div>
+            Your IP: <span id="ip" style="font-weight: bold;"></span>
         </div>
     </header>
     <script>
+        function ip_local() {
+            $.getJSON("https://api.ipify.org?format=json", function(data) {
+                console.log(data.ip);
+            });
+        }
         function createCookie(cname, cvalue, exdays) {
             const d = new Date();
             d.setTime(d.getTime() + (exdays*24*60*60*1000));

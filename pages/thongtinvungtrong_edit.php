@@ -6,7 +6,11 @@
         <link rel="icon" href="lib/images/vnpt_icon.ico" type="image/x-icon">
         <link href="lib/css/app_style.css" rel="stylesheet"/>
         <script src="lib/js/jquery-1.11.1.min.js"></script>
+        <script src="lib/js/cute-alert.js"></script>
+        <script src="lib/js/warning.js?v=5"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+        <link href="lib/css/style.css" rel="stylesheet">
+        
     </head>
     <style type="text/css">
         #top-up {
@@ -81,7 +85,7 @@
                             echo '<p class="c-title5">- Tên nông hộ: <b>'.$data1["object"]["thongTinChung"]["tenNguoiDaiDien"].'</b></p>';
                             echo '<p class="c-title5">- Địa chỉ: '.$data1["object"]["thongTinChung"]["diaChi"].'</p>';
                             echo '<p><b>3. Hợp tác xã: </b>'.$data_info1[0]["HOPTACXA"].' </p>';
-                            if (isset($data2["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"])) {
+                            if (isset($data1["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"])) {
                                 echo '<p><b>4. Thông tin sản phẩm:</b> '.$data1["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"].'</p>';
                             } else {
                                 echo '<p><b>4. Thông tin sản phẩm:</b> </p>';
@@ -123,9 +127,9 @@
                             echo '<p><b>1. Ngày sản xuất:</b> '.$data2["object"]["thongTinKhaoSat"]["thoigianhoatdong"].'</p>';
                             echo '<p class="c-title1">2. Thông tin đất canh tác</p>';
                             if (isset($data2["object"]["thongTinChung"]["dienTichLuaHA"])){
-                                echo '<p class="c-title5">- Diện tích canh tác: '.$data2["object"]["thongTinChung"]["dienTichLuaHA"].' ha</p>'; 
+                                echo '<p class="c-title5">- Diện tích canh tác: <input type = "text" class="w3-input" id="thongtinchung_dientich" value="'.$data2["object"]["thongTinChung"]["dienTichLuaHA"].'" /> ha</p>'; 
                             } else {
-                                echo '<p class="c-title5">- Diện tích canh tác: ...... ha</p>';
+                                echo '<p class="c-title5">- Diện tích canh tác: <input type = "text" class="w3-input" id="thongtinchung_dientich" value="" /> ha</p>';
                             }
                             echo '<p class="c-title5">- Loại đất sản xuất:</p>';
                             if (isset($data2["object"]["datCanhTac"]["loaiDatSanXuat"])) {
@@ -138,9 +142,9 @@
                             echo '<p class="c-title1">4. Nhật ký sản xuất:</p>';
                             echo '<p class="c-title2">&#9658; Chọn giống và cách xử lý giống</p>';
                             if (isset($data2["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"])) {
-                                echo '<p class="c-title3">+ Tên giống: '.$data2["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"].'</p>';
+                                echo '<p class="c-title3">+ Tên giống: <input type = "text" class="w3-input" id="giongvacachxulygiong_tengiong" value="'.$data2["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"].'" /></p>';
                             } else {
-                                echo '<p class="c-title3">+ Tên giống: </p>';
+                                echo '<p class="c-title3">+ Tên giống: <input type = "text" class="w3-input" id="giongvacachxulygiong_tengiong" value="" /></p>';
                             }
                             if (isset($data2["object"]["giongVaXuLyGiong"]["xuLyHatGiong"])) {
                                 if ($data2["object"]["giongVaXuLyGiong"]["xuLyHatGiong"] == 1) {
@@ -1377,8 +1381,449 @@
             $('#top-up').click(function () {
                 $('body,html').animate({scrollTop: 0}, duration);
             });
+            /*
+            $("#capnhatthongtinvungtrong").click(function(){
+                alert("Cập nhật thông tin thành công 11");
+            });
+            */
+            
             $("#capnhatthongtinvungtrong").click(function(){
                 var sodienthoai = '0' + <?php echo $_GET['SODIENTHOAI'] ?>;
+                var thongtinchung_dientich = $("#thongtinchung_dientich").val();
+                var giongvacachxulygiong_tengiong = $("#giongvacachxulygiong_tengiong").val();
+                var thoivu_hethu = $("#thoivu_hethu").val();
+                var thoivu_thudong = $("#thoivu_thudong").val();
+                var thoivu_dongxuan =$("#thoivu_dongxuan").val();
+                var thoivu_xuanhe = $("#thoivu_xuanhe").val();
+                var phanbon_tongphanbon = $("#phanbon_tongphanbon").val();
+                var phanbon_vusanxuat = $("#phanbon_vusanxuat option:selected").text();
+                var phanbon_donvibon = $("#phanbon_donvibon option:selected").text();
+                var phanbon_thuchiencongviec = $("#phanbon_thuchiencongviec option:selected").text();
+                var phanbon_congcu = $("#phanbon_congcu option:selected").text();
+                var phanbon_huuco_bonlot = $("#phanbon_huuco_bonlot").val();
+                var phanbon_huuco_bonlan1 = $("#phanbon_huuco_bonlan1").val();
+                var phanbon_huuco_bonlan2 = $("#phanbon_huuco_bonlan2").val();
+                var phanbon_huuco_bonlan3 = $("#phanbon_huuco_bonlan3").val();
+                var phanbon_huuco_bonlan4 = $("#phanbon_huuco_bonlan4").val();
+                var phanbon_huuco_bonlan5 = $("#phanbon_huuco_bonlan5").val();
+                var phanbon_huuco_note = $("#phanbon_huuco_note").val();
+                var phanbon_caitaodat_bonlot = $("#phanbon_caitaodat_bonlot").val();
+                var phanbon_caitaodat_bonlan1 = $("#phanbon_caitaodat_bonlan1").val();
+                var phanbon_caitaodat_bonlan2 = $("#phanbon_caitaodat_bonlan2").val();
+                var phanbon_caitaodat_bonlan3 = $("#phanbon_caitaodat_bonlan3").val();
+                var phanbon_caitaodat_bonlan4 = $("#phanbon_caitaodat_bonlan4").val();
+                var phanbon_caitaodat_bonlan5 = $("#phanbon_caitaodat_bonlan5").val();
+                var phanbon_caitaodat_note = $("#phanbon_caitaodat_note").val();
+                var phanbon_ure_bonlot = $("#phanbon_ure_bonlot").val();
+                var phanbon_ure_bonlan1 = $("#phanbon_ure_bonlan1").val();
+                var phanbon_ure_bonlan2 = $("#phanbon_ure_bonlan2").val();
+                var phanbon_ure_bonlan3 = $("#phanbon_ure_bonlan3").val();
+                var phanbon_ure_bonlan4 = $("#phanbon_ure_bonlan4").val();
+                var phanbon_ure_bonlan5 = $("#phanbon_ure_bonlan5").val();
+                var phanbon_ure_note = $("#phanbon_ure_note").val();
+                var phanbon_lan_bonlot = $("#phanbon_lan_bonlot").val();
+                var phanbon_lan_bonlan1 = $("#phanbon_lan_bonlan1").val();
+                var phanbon_lan_bonlan2 = $("#phanbon_lan_bonlan2").val();
+                var phanbon_lan_bonlan3 = $("#phanbon_lan_bonlan3").val();
+                var phanbon_lan_bonlan4 = $("#phanbon_lan_bonlan4").val();
+                var phanbon_lan_bonlan5 = $("#phanbon_lan_bonlan5").val();
+                var phanbon_lan_note = $("#phanbon_lan_note").val();
+                var phanbon_kali_bonlot = $("#phanbon_kali_bonlot").val();
+                var phanbon_kali_bonlan1 = $("#phanbon_kali_bonlan1").val();
+                var phanbon_kali_bonlan2 = $("#phanbon_kali_bonlan2").val();
+                var phanbon_kali_bonlan3 = $("#phanbon_kali_bonlan3").val();
+                var phanbon_kali_bonlan4 = $("#phanbon_kali_bonlan4").val();
+                var phanbon_kali_bonlan5 = $("#phanbon_kali_bonlan5").val();
+                var phanbon_kali_note = $("#phanbon_kali_note").val();
+                var phanbon_dap_bonlot = $("#phanbon_dap_bonlot").val();
+                var phanbon_dap_bonlan1 = $("#phanbon_dap_bonlan1").val();
+                var phanbon_dap_bonlan2 = $("#phanbon_dap_bonlan2").val();
+                var phanbon_dap_bonlan3 = $("#phanbon_dap_bonlan3").val();
+                var phanbon_dap_bonlan4 = $("#phanbon_dap_bonlan4").val();
+                var phanbon_dap_bonlan5 = $("#phanbon_dap_bonlan5").val();
+                var phanbon_dap_note = $("#phanbon_dap_note").val();
+                var phanbon_npk_tenphan = $("#phanbon_npk_tenphan").val();
+                var phanbon_npk_bonlot = $("#phanbon_npk_bonlot").val();
+                var phanbon_npk_bonlan1 = $("#phanbon_npk_bonlan1").val();
+                var phanbon_npk_bonlan2 = $("#phanbon_npk_bonlan2").val();
+                var phanbon_npk_bonlan3 = $("#phanbon_npk_bonlan3").val();
+                var phanbon_npk_bonlan4 = $("#phanbon_npk_bonlan4").val();
+                var phanbon_npk_bonlan5 = $("#phanbon_npk_bonlan5").val();
+                var phanbon_npk_note = $("#phanbon_npk_note").val();
+                var phanbon_khac_tenphan = $("#phanbon_khac_tenphan").val();
+                var phanbon_khac_bonlot = $("#phanbon_khac_bonlot").val();
+                var phanbon_khac_bonlan1 = $("#phanbon_khac_bonlan1").val();
+                var phanbon_khac_bonlan2 = $("#phanbon_khac_bonlan2").val();
+                var phanbon_khac_bonlan3 = $("#phanbon_khac_bonlan3").val();
+                var phanbon_khac_bonlan4 = $("#phanbon_khac_bonlan4").val();
+                var phanbon_khac_bonlan5 = $("#phanbon_khac_bonlan5").val();
+                var phanbon_khac_note = $("#phanbon_khac_note").val();
+                var phanbon_phanbonla_tenphan = $("#phanbon_phanbonla_tenphan").val();
+                var phanbon_phanbonla_bonlot = $("#phanbon_phanbonla_bonlot").val();
+                var phanbon_phanbonla_bonlan1 = $("#phanbon_phanbonla_bonlan1").val();
+                var phanbon_phanbonla_bonlan2 = $("#phanbon_phanbonla_bonlan2").val();
+                var phanbon_phanbonla_bonlan3 = $("#phanbon_phanbonla_bonlan3").val();
+                var phanbon_phanbonla_bonlan4 = $("#phanbon_phanbonla_bonlan4").val();
+                var phanbon_phanbonla_bonlan5 = $("#phanbon_phanbonla_bonlan5").val();
+                var phanbon_phanbonla_note = $("#phanbon_phanbonla_note").val();
+                var thuocbvtv_solanphun_buouvang = $("#thuocbvtv_solanphun_buouvang").val();
+                var thuocbvtv_soluong_buouvang = $("#thuocbvtv_soluong_buouvang").val();
+                var thuocbvtv_solanphun_truco = $("#thuocbvtv_solanphun_truco").val();
+                var thuocbvtv_soluong_truco = $("#thuocbvtv_soluong_truco").val();
+                var thuocbvtv_solanphun_trusau = $("#thuocbvtv_solanphun_trusau").val();
+                var thuocbvtv_soluong_trusau = $("#thuocbvtv_soluong_trusau").val();
+                var thuocbvtv_solanphun_truray = $("#thuocbvtv_solanphun_truray").val();
+                var thuocbvtv_soluong_truray = $("#thuocbvtv_soluong_truray").val();
+                var thuocbvtv_solanphun_trubenh = $("#thuocbvtv_solanphun_trubenh").val();
+                var thuocbvtv_soluong_trubenh = $("#thuocbvtv_soluong_trubenh").val();
+                var thuocbvtv_solanphun_trusautruray = $("#thuocbvtv_solanphun_trusautruray").val();
+                var thuocbvtv_soluong_trusautruray = $("#thuocbvtv_soluong_trusautruray").val();
+                var thuocbvtv_solanphun_trusautrubenh = $("#thuocbvtv_solanphun_trusautrubenh").val();
+                var thuocbvtv_soluong_trusautrubenh = $("#thuocbvtv_soluong_trusautrubenh").val();
+                var thuocbvtv_solanphun_truraytrubenh = $("#thuocbvtv_solanphun_truraytrubenh").val();
+                var thuocbvtv_soluong_truraytrubenh = $("#thuocbvtv_soluong_truraytrubenh").val();
+                var thuocbvtv_solanphun_trusautruraytrubenh = $("#thuocbvtv_solanphun_trusautruraytrubenh").val();
+                var thuocbvtv_soluong_trusautruraytrubenh = $("#thuocbvtv_soluong_trusautruraytrubenh").val();
+                var thuocbvtv_solanphun_lancuoi = $("#thuocbvtv_solanphun_lancuoi").val();
+                var thuocbvtv_soluong_lancuoi = $("#thuocbvtv_soluong_lancuoi").val();
+                var thuocbvtv_phundinhky = $("#thuocbvtv_phundinhky").val();
+                var thuocbvtv_phundinhky_thoigianphun = $("#thuocbvtv_phundinhky_thoigianphun").val();
+                var thuocbvtv_phundinhky_lydophun = $("#thuocbvtv_phundinhky_lydophun").val();
+                var thuocbvtv_phunthoidiem_lan1 = $("#thuocbvtv_phunthoidiem_lan1").val();
+                var thuocbvtv_phunthoidiem_lan2 = $("#thuocbvtv_phunthoidiem_lan2").val();
+                var thuocbvtv_phunthoidiem_lan3 = $("#thuocbvtv_phunthoidiem_lan3").val();
+                var thuocbvtv_phunthoidiem_lan4 = $("#thuocbvtv_phunthoidiem_lan4").val();
+                var thuocbvtv_phunthoidiem_lan5 = $("#thuocbvtv_phunthoidiem_lan5").val();
+                var thuocbvtv_phunthoidiem_lan6 = $("#thuocbvtv_phunthoidiem_lan6").val();
+                var thuocbvtv_phunthoidiem_lan7 = $("#thuocbvtv_phunthoidiem_lan7").val();
+                var thuocbvtv_phunthoidiem_lan8 = $("#thuocbvtv_phunthoidiem_lan8").val();
+                var thuocbvtv_phunthoidiem_lan9 = $("#thuocbvtv_phunthoidiem_lan9").val();
+                var thuocbvtv_phunthoidiem_lan10 = $("#thuocbvtv_phunthoidiem_lan10").val();
+                var thuocbvtv_phunthoidiem_lydophun = $("#thuocbvtv_phunthoidiem_lydophun").val();
+                var thuocbvtv_phunthuockhi = $("#thuocbvtv_phunthuockhi option:selected").text();
+                var thuocbvtv_thuchiencongviec = $("#thuocbvtv_thuchiencongviec option:selected").text();
+                var thuocbvtv_phuongtien = $("#thuocbvtv_phuongtien option:selected").text();
+                var thuhoach_hethu = $("#thuhoach_hethu").val();
+                var thuhoach_thudong = $("#thuhoach_thudong").val();
+                var thuhoach_dongxuan = $("#thuhoach_dongxuan").val();
+                var thuhoach_xuanhe = $("#thuhoach_xuanhe").val();
+                var nangsuatbinhquan = $("#nangsuatbinhquan").val();
+                if(check_number(sodienthoai) == 0){
+                    alert("Không có thông tin! Vui lòng kiểm tra lại!");
+                } else if (phanbon_vusanxuat == "") {
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Vụ sản xuất đang trống","phanbon_vusanxuat");
+                } else if (phanbon_donvibon == ""){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Đơn vị bón đang trống","phanbon_donvibon");
+                } else if (phanbon_thuchiencongviec == ""){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Thực hiện công việc đang trống","phanbon_thuchiencongviec");
+                } else if (phanbon_congcu == ""){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Công cụ, phương tiện đang trống","phanbon_congcu");
+                } else if (thuocbvtv_phunthuockhi == ""){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phun thuốc khi đang trống","thuocbvtv_phunthuockhi");
+                } else if (thuocbvtv_thuchiencongviec == ""){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thực hiện công việc đang trống","thuocbvtv_thuchiencongviec");
+                } else if (thuocbvtv_phuongtien == ""){
+                    nofi_alert("Sử dụng thuốc BVTV -> Công cụ, phương tiện đang trống","thuocbvtv_phuongtien");
+                } else if (!checknumber_binary(thongtinchung_dientich)){
+                    nofi_alert("Thông tin sản xuất -> Diện tích đất canh tác nhập sai định dạng","thongtinchung_dientich");
+                } else if (!checknumber_binary(phanbon_tongphanbon)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Tổng số lần bón phân nhập sai định dạng","phanbon_tongphanbon");
+                } else if (!checknumber_binary(phanbon_huuco_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lót nhập sai định dạng","phanbon_huuco_bonlot");
+                } else if (!checknumber_binary(phanbon_huuco_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 1 nhập sai định dạng","phanbon_huuco_bonlan1");
+                } else if (!checknumber_binary(phanbon_huuco_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 2 nhập sai định dạng","phanbon_huuco_bonlan2");
+                } else if (!checknumber_binary(phanbon_huuco_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 3 nhập sai định dạng","phanbon_huuco_bonlan3");
+                } else if (!checknumber_binary(phanbon_huuco_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 4 nhập sai định dạng","phanbon_huuco_bonlan4");
+                } else if (!checknumber_binary(phanbon_huuco_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 5 nhập sai định dạng","phanbon_huuco_bonlan5");
+                } else if (!checknumber_binary(phanbon_caitaodat_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lót nhập sai định dạng","phanbon_caitaodat_bonlot");
+                } else if (!checknumber_binary(phanbon_caitaodat_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 1 nhập sai định dạng","phanbon_caitaodat_bonlan1");
+                } else if (!checknumber_binary(phanbon_caitaodat_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 2 nhập sai định dạng","phanbon_caitaodat_bonlan2");
+                } else if (!checknumber_binary(phanbon_caitaodat_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 3 nhập sai định dạng","phanbon_caitaodat_bonlan3");
+                } else if (!checknumber_binary(phanbon_caitaodat_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 4 nhập sai định dạng","phanbon_caitaodat_bonlan4");
+                } else if (!checknumber_binary(phanbon_caitaodat_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 5 nhập sai định dạng","phanbon_caitaodat_bonlan5");
+                } else if (!checknumber_binary(phanbon_ure_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lót nhập sai định dạng","phanbon_huuco_bonlot");
+                } else if (!checknumber_binary(phanbon_ure_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 1 nhập sai định dạng","phanbon_ure_bonlan1");
+                } else if (!checknumber_binary(phanbon_ure_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 2 nhập sai định dạng","phanbon_ure_bonlan2");
+                } else if (!checknumber_binary(phanbon_ure_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 3 nhập sai định dạng","phanbon_ure_bonlan3");
+                } else if (!checknumber_binary(phanbon_ure_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 4 nhập sai định dạng","phanbon_ure_bonlan4");
+                } else if (!checknumber_binary(phanbon_ure_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 5 nhập sai định dạng","phanbon_ure_bonlan5");
+                } else if (!checknumber_binary(phanbon_lan_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lót nhập sai định dạng","phanbon_lan_bonlot");
+                } else if (!checknumber_binary(phanbon_lan_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 1 nhập sai định dạng","phanbon_lan_bonlan1");
+                } else if (!checknumber_binary(phanbon_lan_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 2 nhập sai định dạng","phanbon_lan_bonlan1");
+                } else if (!checknumber_binary(phanbon_lan_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 3 nhập sai định dạng","phanbon_lan_bonlan1");
+                } else if (!checknumber_binary(phanbon_lan_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 4 nhập sai định dạng","phanbon_lan_bonlan1");
+                } else if (!checknumber_binary(phanbon_lan_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 5 nhập sai định dạng","phanbon_lan_bonlan1");
+                } else if (!checknumber_binary(phanbon_kali_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lót nhập sai định dạng","phanbon_kali_bonlot");
+                } else if (!checknumber_binary(phanbon_kali_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 1 nhập sai định dạng","phanbon_kali_bonlan1");
+                } else if (!checknumber_binary(phanbon_kali_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 2 nhập sai định dạng","phanbon_kali_bonlan2");
+                } else if (!checknumber_binary(phanbon_kali_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 3 nhập sai định dạng","phanbon_kali_bonlan3");
+                } else if (!checknumber_binary(phanbon_kali_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 4 nhập sai định dạng","phanbon_kali_bonlan4");
+                } else if (!checknumber_binary(phanbon_kali_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 5 nhập sai định dạng","phanbon_kali_bonlan5");
+                } else if (!checknumber_binary(phanbon_dap_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lót nhập sai định dạng","phanbon_dap_bonlot");
+                } else if (!checknumber_binary(phanbon_dap_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 1 nhập sai định dạng","phanbon_dap_bonlan1");
+                } else if (!checknumber_binary(phanbon_dap_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 2 nhập sai định dạng","phanbon_dap_bonlan2");
+                } else if (!checknumber_binary(phanbon_dap_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 3 nhập sai định dạng","phanbon_dap_bonlan3");
+                } else if (!checknumber_binary(phanbon_dap_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 4 nhập sai định dạng","phanbon_dap_bonlan4");
+                } else if (!checknumber_binary(phanbon_dap_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 5 nhập sai định dạng","phanbon_dap_bonlan5");
+                } else if (!checknumber_binary(phanbon_npk_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lót nhập sai định dạng","phanbon_npk_bonlot");
+                } else if (!checknumber_binary(phanbon_npk_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 1 nhập sai định dạng","phanbon_npk_bonlan1");
+                } else if (!checknumber_binary(phanbon_npk_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 2 nhập sai định dạng","phanbon_npk_bonlan2");
+                } else if (!checknumber_binary(phanbon_npk_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 3 nhập sai định dạng","phanbon_npk_bonlan3");
+                } else if (!checknumber_binary(phanbon_npk_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 4 nhập sai định dạng","phanbon_npk_bonlan4");
+                } else if (!checknumber_binary(phanbon_npk_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 5 nhập sai định dạng","phanbon_npk_bonlan5");
+                } else if (!checknumber_binary(phanbon_khac_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lót nhập sai định dạng","phanbon_khac_bonlot");
+                } else if (!checknumber_binary(phanbon_khac_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 1 nhập sai định dạng","phanbon_khac_bonlan1");
+                } else if (!checknumber_binary(phanbon_khac_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 2 nhập sai định dạng","phanbon_khac_bonlan2");
+                } else if (!checknumber_binary(phanbon_khac_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 3 nhập sai định dạng","phanbon_khac_bonlan3");
+                } else if (!checknumber_binary(phanbon_khac_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 4 nhập sai định dạng","phanbon_khac_bonlan4");
+                } else if (!checknumber_binary(phanbon_khac_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 5 nhập sai định dạng","phanbon_khac_bonlan5");
+                } else if (!checknumber_binary(phanbon_phanbonla_bonlot)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lót nhập sai định dạng","phanbon_phanbonla_bonlot");
+                } else if (!checknumber_binary(phanbon_phanbonla_bonlan1)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 1 nhập sai định dạng","phanbon_phanbonla_bonlan1");
+                } else if (!checknumber_binary(phanbon_phanbonla_bonlan2)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 2 nhập sai định dạng","phanbon_phanbonla_bonlan2");
+                } else if (!checknumber_binary(phanbon_phanbonla_bonlan3)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 3 nhập sai định dạng","phanbon_phanbonla_bonlan3");
+                } else if (!checknumber_binary(phanbon_phanbonla_bonlan4)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 4 nhập sai định dạng","phanbon_phanbonla_bonlan4");
+                } else if (!checknumber_binary(phanbon_phanbonla_bonlan5)){
+                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 5 nhập sai định dạng","phanbon_phanbonla_bonlan5");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_buouvang)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ ốc Bươu Vàng -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_buouvang");
+                } else if (!checknumber_binary(thuocbvtv_soluong_buouvang)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ ốc Bươu Vàng -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_buouvang");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_truco)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ cỏ -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_truco");
+                } else if (!checknumber_binary(thuocbvtv_soluong_truco)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ cỏ -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_truco");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_trusau)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ sâu -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trusau");
+                } else if (!checknumber_binary(thuocbvtv_soluong_trusau)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ sâu -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trusau");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_truray)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ rầy -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_truray");
+                } else if (!checknumber_binary(thuocbvtv_soluong_truray)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ rầy -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_truray");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_trubenh)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ bệnh -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trubenh");
+                } else if (!checknumber_binary(thuocbvtv_soluong_trubenh)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ bệnh -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trubenh");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_trusautruray)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ rầy) -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trusautruray");
+                } else if (!checknumber_binary(thuocbvtv_soluong_trusautruray)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ rầy) -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trusautruray");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_trusautrubenh)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ bệnh) -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trusautrubenh");
+                } else if (!checknumber_binary(thuocbvtv_soluong_trusautrubenh)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ bệnh) -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trusautrubenh");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_truraytrubenh)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ rầy, trừ bệnh) -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_truraytrubenh");
+                } else if (!checknumber_binary(thuocbvtv_soluong_truraytrubenh)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ rầy, trừ bệnh) -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_truraytrubenh");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_trusautruraytrubenh)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ rầy, trừ bệnh) -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trusautruraytrubenh");
+                } else if (!checknumber_binary(thuocbvtv_soluong_trusautruraytrubenh)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ rầy, trừ bệnh) -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trusautruraytrubenh");
+                } else if (!checknumber_binary(thuocbvtv_solanphun_lancuoi)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thời điểm sử dụng thuốc BVTV lần cuối -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_lancuoi");
+                } else if (!checknumber_binary(thuocbvtv_soluong_lancuoi)){
+                    nofi_alert("Sử dụng thuốc BVTV -> Thời điểm sử dụng thuốc BVTV lần cuối -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_lancuoi");
+                } else if (!checknumber_binary(nangsuatbinhquan)){
+                    nofi_alert("Thu hoạch -> Năng suất bình quân nhập sai định dạng","nangsuatbinhquan");
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'go',
+                        data: {
+                            for: "_suathongtinvungtrong111111111111111111",
+                            sodienthoai: sodienthoai,
+                            thongtinchung_dientich: thongtinchung_dientich,
+                            giongvacachxulygiong_tengiong: giongvacachxulygiong_tengiong,
+                            thoivu_hethu: thoivu_hethu,
+                            thoivu_thudong: thoivu_thudong,
+                            thoivu_dongxuan: thoivu_dongxuan,
+                            thoivu_xuanhe: thoivu_xuanhe,
+                            phanbon_tongphanbon: phanbon_tongphanbon,
+                            phanbon_vusanxuat: phanbon_vusanxuat,
+                            phanbon_donvibon: phanbon_donvibon,
+                            phanbon_thuchiencongviec: phanbon_thuchiencongviec,
+                            phanbon_congcu: phanbon_congcu,
+                            phanbon_huuco_bonlot: phanbon_huuco_bonlot,
+                            phanbon_huuco_bonlan1: phanbon_huuco_bonlan1,
+                            phanbon_huuco_bonlan2: phanbon_huuco_bonlan2,
+                            phanbon_huuco_bonlan3: phanbon_huuco_bonlan3,
+                            phanbon_huuco_bonlan4: phanbon_huuco_bonlan4,
+                            phanbon_huuco_bonlan5: phanbon_huuco_bonlan5,
+                            phanbon_huuco_note: phanbon_huuco_note,
+                            phanbon_caitaodat_bonlot: phanbon_caitaodat_bonlot,
+                            phanbon_caitaodat_bonlan1: phanbon_caitaodat_bonlan1,
+                            phanbon_caitaodat_bonlan2: phanbon_caitaodat_bonlan2,
+                            phanbon_caitaodat_bonlan3: phanbon_caitaodat_bonlan3,
+                            phanbon_caitaodat_bonlan4: phanbon_caitaodat_bonlan4,
+                            phanbon_caitaodat_bonlan5: phanbon_caitaodat_bonlan5,
+                            phanbon_caitaodat_note: phanbon_caitaodat_note,
+                            phanbon_ure_bonlot: phanbon_ure_bonlot,
+                            phanbon_ure_bonlan1: phanbon_ure_bonlan1,
+                            phanbon_ure_bonlan2: phanbon_ure_bonlan2,
+                            phanbon_ure_bonlan3: phanbon_ure_bonlan3,
+                            phanbon_ure_bonlan4: phanbon_ure_bonlan4,
+                            phanbon_ure_bonlan5: phanbon_ure_bonlan5,
+                            phanbon_ure_note: phanbon_ure_note,
+                            phanbon_lan_bonlot: phanbon_lan_bonlot,
+                            phanbon_lan_bonlan1: phanbon_lan_bonlan1,
+                            phanbon_lan_bonlan2: phanbon_lan_bonlan2,
+                            phanbon_lan_bonlan3: phanbon_lan_bonlan3,
+                            phanbon_lan_bonlan4: phanbon_lan_bonlan4,
+                            phanbon_lan_bonlan5: phanbon_lan_bonlan5,
+                            phanbon_lan_note: phanbon_lan_note,
+                            phanbon_kali_bonlot: phanbon_kali_bonlot,
+                            phanbon_kali_bonlan1: phanbon_kali_bonlan1,
+                            phanbon_kali_bonlan2: phanbon_kali_bonlan2,
+                            phanbon_kali_bonlan3: phanbon_kali_bonlan3,
+                            phanbon_kali_bonlan4: phanbon_kali_bonlan4,
+                            phanbon_kali_bonlan5: phanbon_kali_bonlan5,
+                            phanbon_kali_note: phanbon_kali_note,
+                            phanbon_dap_bonlot: phanbon_dap_bonlot,
+                            phanbon_dap_bonlan1: phanbon_dap_bonlan1,
+                            phanbon_dap_bonlan2: phanbon_dap_bonlan2,
+                            phanbon_dap_bonlan3: phanbon_dap_bonlan3,
+                            phanbon_dap_bonlan4: phanbon_dap_bonlan4,
+                            phanbon_dap_bonlan5: phanbon_dap_bonlan5,
+                            phanbon_dap_note: phanbon_dap_note,
+                            phanbon_npk_tenphan: phanbon_npk_tenphan,
+                            phanbon_npk_bonlot: phanbon_npk_bonlot,
+                            phanbon_npk_bonlan1: phanbon_npk_bonlan1,
+                            phanbon_npk_bonlan2: phanbon_npk_bonlan2,
+                            phanbon_npk_bonlan3: phanbon_npk_bonlan3,
+                            phanbon_npk_bonlan4: phanbon_npk_bonlan4,
+                            phanbon_npk_bonlan5: phanbon_npk_bonlan5,
+                            phanbon_npk_note: phanbon_npk_note,
+                            phanbon_khac_tenphan: phanbon_khac_tenphan,
+                            phanbon_khac_bonlot: phanbon_khac_bonlot,
+                            phanbon_khac_bonlan1: phanbon_khac_bonlan1,
+                            phanbon_khac_bonlan2: phanbon_khac_bonlan2,
+                            phanbon_khac_bonlan3: phanbon_khac_bonlan3,
+                            phanbon_khac_bonlan4: phanbon_khac_bonlan4,
+                            phanbon_khac_bonlan5: phanbon_khac_bonlan5,
+                            phanbon_khac_note: phanbon_khac_note,
+                            phanbon_phanbonla_tenphan: phanbon_phanbonla_tenphan,
+                            phanbon_phanbonla_bonlot: phanbon_phanbonla_bonlot,
+                            phanbon_phanbonla_bonlan1: phanbon_phanbonla_bonlan1,
+                            phanbon_phanbonla_bonlan2: phanbon_phanbonla_bonlan2,
+                            phanbon_phanbonla_bonlan3: phanbon_phanbonla_bonlan3,
+                            phanbon_phanbonla_bonlan4: phanbon_phanbonla_bonlan4,
+                            phanbon_phanbonla_bonlan5: phanbon_phanbonla_bonlan5,
+                            phanbon_phanbonla_note: phanbon_phanbonla_note,
+                            thuocbvtv_solanphun_buouvang: thuocbvtv_solanphun_buouvang,
+                            thuocbvtv_soluong_buouvang: thuocbvtv_soluong_buouvang,
+                            thuocbvtv_solanphun_truco: thuocbvtv_solanphun_truco,
+                            thuocbvtv_soluong_truco: thuocbvtv_soluong_truco,
+                            thuocbvtv_solanphun_trusau: thuocbvtv_solanphun_trusau,
+                            thuocbvtv_soluong_trusau: thuocbvtv_soluong_trusau,
+                            thuocbvtv_solanphun_truray: thuocbvtv_solanphun_truray,
+                            thuocbvtv_soluong_truray: thuocbvtv_soluong_truray,
+                            thuocbvtv_solanphun_trubenh: thuocbvtv_solanphun_trubenh,
+                            thuocbvtv_soluong_trubenh: thuocbvtv_soluong_trubenh,
+                            thuocbvtv_solanphun_trusautruray: thuocbvtv_solanphun_trusautruray,
+                            thuocbvtv_soluong_trusautruray: thuocbvtv_soluong_trusautruray,
+                            thuocbvtv_solanphun_trusautrubenh: thuocbvtv_solanphun_trusautrubenh,
+                            thuocbvtv_soluong_trusautrubenh: thuocbvtv_soluong_trusautrubenh,
+                            thuocbvtv_solanphun_truraytrubenh: thuocbvtv_solanphun_truraytrubenh,
+                            thuocbvtv_soluong_truraytrubenh: thuocbvtv_soluong_truraytrubenh,
+                            thuocbvtv_solanphun_trusautruraytrubenh: thuocbvtv_solanphun_trusautruraytrubenh,
+                            thuocbvtv_soluong_trusautruraytrubenh: thuocbvtv_soluong_trusautruraytrubenh,
+                            thuocbvtv_solanphun_lancuoi: thuocbvtv_solanphun_lancuoi,
+                            thuocbvtv_soluong_lancuoi: thuocbvtv_soluong_lancuoi,
+                            thuocbvtv_phundinhky: thuocbvtv_phundinhky,
+                            thuocbvtv_phundinhky_thoigianphun: thuocbvtv_phundinhky_thoigianphun,
+                            thuocbvtv_phundinhky_lydophun: thuocbvtv_phundinhky_lydophun,
+                            thuocbvtv_phunthoidiem_lan1: thuocbvtv_phunthoidiem_lan1,
+                            thuocbvtv_phunthoidiem_lan2: thuocbvtv_phunthoidiem_lan2,
+                            thuocbvtv_phunthoidiem_lan3: thuocbvtv_phunthoidiem_lan3,
+                            thuocbvtv_phunthoidiem_lan4: thuocbvtv_phunthoidiem_lan4,
+                            thuocbvtv_phunthoidiem_lan5: thuocbvtv_phunthoidiem_lan5,
+                            thuocbvtv_phunthoidiem_lan6: thuocbvtv_phunthoidiem_lan6,
+                            thuocbvtv_phunthoidiem_lan7: thuocbvtv_phunthoidiem_lan7,
+                            thuocbvtv_phunthoidiem_lan8: thuocbvtv_phunthoidiem_lan8,
+                            thuocbvtv_phunthoidiem_lan9: thuocbvtv_phunthoidiem_lan9,
+                            thuocbvtv_phunthoidiem_lan10: thuocbvtv_phunthoidiem_lan10,
+                            thuocbvtv_phunthoidiem_lydophun: thuocbvtv_phunthoidiem_lydophun,
+                            thuocbvtv_phunthuockhi: thuocbvtv_phunthuockhi,
+                            thuocbvtv_thuchiencongviec: thuocbvtv_thuchiencongviec,
+                            thuocbvtv_phuongtien: thuocbvtv_phuongtien,
+                            thuhoach_hethu: thuhoach_hethu,
+                            thuhoach_thudong: thuhoach_thudong,
+                            thuhoach_dongxuan: thuhoach_dongxuan,
+                            thuhoach_xuanhe: thuhoach_xuanhe,
+                            nangsuatbinhquan: nangsuatbinhquan,
+                            key: "Vnpt@123"
+                        }
+                    }).done(function(data){
+                        var jsonData = JSON.parse(data);   
+                        if (jsonData.code == 200){
+                            alert("Cập nhật thành công!");
+                        } else {
+                            alert("Cập nhật thất bại!");
+                        }
+                    });
+                }
+            });
+        });
+
+
+        /* comment tạm thời bỏ để test trước, nào hướng dẫn xong mở lại
+            $("#capnhatthongtinvungtrong").click(function(){
+                var sodienthoai = '0' + <?php echo $_GET['SODIENTHOAI'] ?>;
+				var thongtinchung_dientich = $("#thongtinchung_dientich").val();
+                var giongvacachxulygiong_tengiong = $("#giongvacachxulygiong_tengiong").val();
                 var thoivu_hethu = $("#thoivu_hethu").val();
                 var thoivu_thudong = $("#thoivu_thudong").val();
                 var thoivu_dongxuan =$("#thoivu_dongxuan").val();
@@ -1526,6 +1971,8 @@
                         data: {
                             for: "_suathongtinvungtrong",
                             sodienthoai: sodienthoai,
+							thongtinchung_dientich: thongtinchung_dientich,
+                            giongvacachxulygiong_tengiong: giongvacachxulygiong_tengiong,
                             thoivu_hethu: thoivu_hethu,
                             thoivu_thudong: thoivu_thudong,
                             thoivu_dongxuan: thoivu_dongxuan,
@@ -1654,8 +2101,8 @@
                         }
                     });
                 }
-            });
-        });
+            });*/
     </script>
 </body>
 </html>
+
