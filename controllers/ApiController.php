@@ -300,6 +300,24 @@
                         $xuanhe_thuhoach12  = date("d",strtotime($thuhoach_xuanhe));
                     }
                 }
+                $tong_phanhuuco = ($phanbon_huuco_bonlot == "" ? 0 : $phanbon_huuco_bonlot) + ($phanbon_huuco_bonlan1 == "" ? 0 : $phanbon_huuco_bonlan1) + ($phanbon_huuco_bonlan2 == "" ? 0 : $phanbon_huuco_bonlan2) + ($phanbon_huuco_bonlan3 == "" ? 0 : $phanbon_huuco_bonlan3) + ($phanbon_huuco_bonlan4 == "" ? 0 : $phanbon_huuco_bonlan4) + ($phanbon_huuco_bonlan5 == "" ? 0 : $phanbon_huuco_bonlan5);
+                if ($tong_phanhuuco == 0) {$tong_phanhuuco = "";}
+                $tong_phancaitaodat = ($phanbon_caitaodat_bonlot == "" ? 0 : $phanbon_caitaodat_bonlot) + ($phanbon_caitaodat_bonlan1 == "" ? 0 : $phanbon_caitaodat_bonlan1) + ($phanbon_caitaodat_bonlan2 == "" ? 0 : $phanbon_caitaodat_bonlan2) + ($phanbon_caitaodat_bonlan3 == "" ? 0 : $phanbon_caitaodat_bonlan3) + ($phanbon_caitaodat_bonlan4 == "" ? 0 : $phanbon_caitaodat_bonlan4) + ($phanbon_caitaodat_bonlan5 == "" ? 0 : $phanbon_caitaodat_bonlan5);
+                if ($tong_phancaitaodat == 0) {$tong_phancaitaodat = "";}
+                $tong_phanure = ($phanbon_ure_bonlot == "" ? 0 : $phanbon_ure_bonlot) + ($phanbon_ure_bonlan1 == "" ? 0 : $phanbon_ure_bonlan1) + ($phanbon_ure_bonlan2 == "" ? 0 : $phanbon_ure_bonlan2) + ($phanbon_ure_bonlan3 == "" ? 0 : $phanbon_ure_bonlan3) + ($phanbon_ure_bonlan4 == "" ? 0 : $phanbon_ure_bonlan4) + ($phanbon_ure_bonlan5 == "" ? 0 : $phanbon_ure_bonlan5);
+                if ($tong_phanure == 0) {$tong_phanure = "";}
+                $tong_phanlan = ($phanbon_lan_bonlot == "" ? 0 : $phanbon_lan_bonlot) + ($phanbon_lan_bonlan1 == "" ? 0 : $phanbon_lan_bonlan1) + ($phanbon_lan_bonlan2 == "" ? 0 : $phanbon_lan_bonlan2) + ($phanbon_lan_bonlan3 == "" ? 0 : $phanbon_lan_bonlan3) + ($phanbon_lan_bonlan4 == "" ? 0 : $phanbon_lan_bonlan4) + ($phanbon_lan_bonlan5 == "" ? 0 : $phanbon_lan_bonlan5);
+                if ($tong_phanlan == 0) {$tong_phanlan = "";}
+                $tong_phankali = ($phanbon_kali_bonlot == "" ? 0 : $phanbon_kali_bonlot) + ($phanbon_kali_bonlan1 == "" ? 0 : $phanbon_kali_bonlan1) + ($phanbon_kali_bonlan2 == "" ? 0 : $phanbon_kali_bonlan2) + ($phanbon_kali_bonlan3 == "" ? 0 : $phanbon_kali_bonlan3) + ($phanbon_kali_bonlan4 == "" ? 0 : $phanbon_kali_bonlan4) + ($phanbon_kali_bonlan5 == "" ? 0 : $phanbon_kali_bonlan5);
+                if ($tong_phankali == 0) {$tong_phankali = "";}
+                $tong_phandap = ($phanbon_dap_bonlot == "" ? 0 : $phanbon_dap_bonlot) + ($phanbon_dap_bonlan1 == "" ? 0 : $phanbon_dap_bonlan1) + ($phanbon_dap_bonlan2 == "" ? 0 : $phanbon_dap_bonlan2) + ($phanbon_dap_bonlan3 == "" ? 0 : $phanbon_dap_bonlan3) + ($phanbon_dap_bonlan4 == "" ? 0 : $phanbon_dap_bonlan4) + ($phanbon_dap_bonlan5 == "" ? 0 : $phanbon_dap_bonlan5);
+                if ($tong_phandap == 0) {$tong_phandap = "";}
+                $tong_phannpk = ($phanbon_npk_bonlot == "" ? 0 : $phanbon_npk_bonlot) + ($phanbon_npk_bonlan1 == "" ? 0 : $phanbon_npk_bonlan1) + ($phanbon_npk_bonlan2 == "" ? 0 : $phanbon_npk_bonlan2) + ($phanbon_npk_bonlan3 == "" ? 0 : $phanbon_npk_bonlan3) + ($phanbon_npk_bonlan4 == "" ? 0 : $phanbon_npk_bonlan4) + ($phanbon_npk_bonlan5 == "" ? 0 : $phanbon_npk_bonlan5);
+                if ($tong_phannpk == 0) {$tong_phannpk = "";}
+                $tong_phankhac = ($phanbon_khac_bonlot == "" ? 0 : $phanbon_khac_bonlot) + ($phanbon_khac_bonlan1 == "" ? 0 : $phanbon_khac_bonlan1) + ($phanbon_khac_bonlan2 == "" ? 0 : $phanbon_khac_bonlan2) + ($phanbon_khac_bonlan3 == "" ? 0 : $phanbon_khac_bonlan3) + ($phanbon_khac_bonlan4 == "" ? 0 : $phanbon_khac_bonlan4) + ($phanbon_khac_bonlan5 == "" ? 0 : $phanbon_khac_bonlan5);
+                if ($tong_phankhac == 0) {$tong_phankhac = "";}
+                $tong_phanbonla = ($phanbon_phanbonla_bonlot == "" ? 0 : $phanbon_phanbonla_bonlot) + ($phanbon_phanbonla_bonlan1 == "" ? 0 : $phanbon_phanbonla_bonlan1) + ($phanbon_phanbonla_bonlan2 == "" ? 0 : $phanbon_phanbonla_bonlan2) + ($phanbon_phanbonla_bonlan3 == "" ? 0 : $phanbon_phanbonla_bonlan3) + ($phanbon_phanbonla_bonlan4 == "" ? 0 : $phanbon_phanbonla_bonlan4) + ($phanbon_phanbonla_bonlan5 == "" ? 0 : $phanbon_phanbonla_bonlan5);
+                if ($tong_phanbonla == 0) {$tong_phanbonla = "";}
                 $curl_data_edit =  array(
                     "thongTinChung" => array(
                         "dienTichLuaHA" => $thongtinchung_dientich
@@ -411,20 +429,23 @@
                         "donViBon" => $phanbon_donvibon,
                         "aiBonPhan" => $phanbon_thuchiencongviec,
                         "congCuPhTien" => $phanbon_congcu,
-                        "pHCBonLot" => $phanbon_huuco_bonlot,
-                        "pHCLan1" => $phanbon_huuco_bonlan1,
-                        "pHCLan2" => $phanbon_huuco_bonlan2,
-                        "pHCLan3" => $phanbon_huuco_bonlan3,
-                        "pHCLan4" => $phanbon_huuco_bonlan4,
-                        "pHCLan5" => $phanbon_huuco_bonlan5,
-                        "pHCNote" => $phanbon_huuco_note,
-                        "pCTDBonLot" => $phanbon_caitaodat_bonlot,
-                        "pCTDLan1" => $phanbon_caitaodat_bonlan1,
-                        "pCTDLan2" => $phanbon_caitaodat_bonlan2,
-                        "pCTDLan3" => $phanbon_caitaodat_bonlan3,
-                        "pCTDLan4" => $phanbon_caitaodat_bonlan4,
-                        "pCTDLan5" => $phanbon_caitaodat_bonlan5,
-                        "pCTDNote" => $phanbon_caitaodat_note,
+                        "phctong" => $tong_phanhuuco,
+                        "phcbonLot" => $phanbon_huuco_bonlot,
+                        "phclan1" => $phanbon_huuco_bonlan1,
+                        "phclan2" => $phanbon_huuco_bonlan2,
+                        "phclan3" => $phanbon_huuco_bonlan3,
+                        "phclan4" => $phanbon_huuco_bonlan4,
+                        "phclan5" => $phanbon_huuco_bonlan5,
+                        "phcnote" => $phanbon_huuco_note,
+                        "pctdtong" => $tong_phancaitaodat,
+                        "pctdbonLot" => $phanbon_caitaodat_bonlot,
+                        "pctdlan1" => $phanbon_caitaodat_bonlan1,
+                        "pctdlan2" => $phanbon_caitaodat_bonlan2,
+                        "pctdlan3" => $phanbon_caitaodat_bonlan3,
+                        "pctdlan4" => $phanbon_caitaodat_bonlan4,
+                        "pctdlan5" => $phanbon_caitaodat_bonlan5,
+                        "pctdnote" => $phanbon_caitaodat_note,
+                        "ureTong" => $tong_phanure,
                         "ureBonLot" => $phanbon_ure_bonlot,
                         "ureLan1" => $phanbon_ure_bonlan1,
                         "ureLan2" => $phanbon_ure_bonlan2,
@@ -432,13 +453,15 @@
                         "ureLan4" => $phanbon_ure_bonlan4,
                         "ureLan5" => $phanbon_ure_bonlan5,
                         "ureNote" => $phanbon_ure_note,
-                        "pLanBonLot" => $phanbon_lan_bonlot,
-                        "pLanLan1" => $phanbon_lan_bonlan1,
-                        "pLanLan2" => $phanbon_lan_bonlan2,
-                        "pLanLan3" => $phanbon_lan_bonlan3,
-                        "pLanLan4" => $phanbon_lan_bonlan4,
-                        "pLanLan5" => $phanbon_lan_bonlan5,
-                        "pLanNote" => $phanbon_lan_note,
+                        "planTong" => $tong_phanlan,
+                        "planBonLot" => $phanbon_lan_bonlot,
+                        "planLan1" => $phanbon_lan_bonlan1,
+                        "planLan2" => $phanbon_lan_bonlan2,
+                        "planLan3" => $phanbon_lan_bonlan3,
+                        "planLan4" => $phanbon_lan_bonlan4,
+                        "planLan5" => $phanbon_lan_bonlan5,
+                        "planNote" => $phanbon_lan_note,
+                        "pkaliTong" => $tong_phankali,
                         "pkaliBonLot" => $phanbon_kali_bonlot,
                         "pkaliLan1" => $phanbon_kali_bonlan1,
                         "pkaliLan2" => $phanbon_kali_bonlan2,
@@ -446,6 +469,7 @@
                         "pkaliLan4" => $phanbon_kali_bonlan4,
                         "pkaliLan5" => $phanbon_kali_bonlan5,
                         "pkaliNote" => $phanbon_kali_note,
+                        "pdapTong" => $tong_phandap,
                         "pdapBonLot" => $phanbon_dap_bonlot,
                         "pdapLan1" => $phanbon_dap_bonlan1,
                         "pdapLan2" => $phanbon_dap_bonlan2,
@@ -453,14 +477,16 @@
                         "pdapLan4" => $phanbon_dap_bonlan4,
                         "pdapLan5" => $phanbon_dap_bonlan5,
                         "pdapNote" => $phanbon_dap_note,
+                        "phNpkTong" => $tong_phannpk,
                         "tenPhanNPK" => $phanbon_npk_tenphan,
                         "phNpkBonLot" => $phanbon_npk_bonlot,
-                        "nhNpkLan1" => $phanbon_npk_bonlan1,
-                        "nhNpkLan2" => $phanbon_npk_bonlan2,
-                        "nhNpkLan3" => $phanbon_npk_bonlan3,
-                        "nhNpkLan4" => $phanbon_npk_bonlan4,
-                        "nhNpkLan5" => $phanbon_npk_bonlan5,
+                        "phNpkLan1" => $phanbon_npk_bonlan1,
+                        "phNpkLan2" => $phanbon_npk_bonlan2,
+                        "phNpkLan3" => $phanbon_npk_bonlan3,
+                        "phNpkLan4" => $phanbon_npk_bonlan4,
+                        "phNpkLan5" => $phanbon_npk_bonlan5,
                         "phNpkTNote" => $phanbon_npk_note,
+                        "phKhacTong" => $tong_phankhac,
                         "tenPhKhac" => $phanbon_khac_tenphan,
                         "phKhacBonLot" => $phanbon_khac_bonlot,
                         "phKhacLan1" => $phanbon_khac_bonlan1,
@@ -469,6 +495,7 @@
                         "phKhacLan4" => $phanbon_khac_bonlan4,
                         "phKhacLan5" => $phanbon_khac_bonlan5,
                         "phKhacNote" => $phanbon_khac_note,
+                        "phBLTong" => $tong_phanbonla,
                         "tenPhBL" => $phanbon_phanbonla_tenphan,
                         "phBLBonLot" => $phanbon_phanbonla_bonlot,
                         "phBLLan1" => $phanbon_phanbonla_bonlan1,

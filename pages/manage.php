@@ -203,10 +203,11 @@
             });
             $("#xemthongtinvungtrong").click(function(){
                 var mavungtrong = $("#idmavungtrong").val();
+                var loaisanpham = $("#loaisanphamtrong").val();
                 if (mavungtrong != "" && trangthai == "1") {
-                    window.open("go?page=_thongtinvungtrong&ID="+mavungtrong, "_blank");
+                    window.open("go?page=_thongtinvungtrong&ID="+mavungtrong + "&loaisanpham=" + loaisanpham, "_blank");
                 } else if (mavungtrong != "" && trangthai == "") {
-					window.open("go?check=_thongtinvungtrong&ID="+mavungtrong, "_blank");
+					window.open("go?check=_thongtinvungtrong&ID="+mavungtrong + "&loaisanpham=" + loaisanpham, "_blank");
 				} else {
                     alert("Chưa chọn vùng định danh.");
                 }
@@ -217,7 +218,6 @@
             $("#getinfo_api_vfarm").click(function(){
                 var mavungtrong = $("#idmavungtrong").val();
                 var madinhdanh = $("#madinhdanhvungtrong").val();
-                var loaisanpham = $("#loaisanphamtrong").val();
                 $.ajax({
                     type: 'POST',
                     url: 'go',

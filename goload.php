@@ -29,10 +29,13 @@
             break;
             case "_thongtinvungtrong":
                 $IDVUNGTRONG = "";
+                $LOAISANPHAM = "";
                 if (isset($_GET['ID'])) {
                     $IDVUNGTRONG = $_GET['ID'];
+                    $LOAISANPHAM = $_GET['loaisanpham'];
                 } else {
                     $IDVUNGTRONG = "0";
+                    $LOAISANPHAM = "0";
                 }
                 $checkAPI = (new AppController())->FCheckCodeApi($IDVUNGTRONG);
                 if ($checkAPI["result"] == 0){
@@ -52,7 +55,13 @@
                 } else {
                     $responeInfo = json_encode((new AppController())->FGetInFoID($IDVUNGTRONG));
                     $responeAPI = (new ApiController())->FGetInFoApiVfarmID($IDVUNGTRONG);
-                    include("pages/thongtinvungtrong_APIVfarm.php");
+                    if ($LOAISANPHAM == "1") {
+                        include("pages/thongtinvungtrong_APIVfarm.php");
+                    } else if ($LOAISANPHAM == "2") {
+                        include("pages/thongtinvungtrong_API_BUOI.php");
+                    } else if ($LOAISANPHAM == "3") {
+                        include("pages/thongtinvungtrong_API_TOM.php");
+                    }
                 }
                 
             break;
@@ -68,15 +77,23 @@
                     include("pages/ferror.php");
                 } else {
                     $SDT = "";
+                    $LOAISANPHAM_EDIT = "";
                     $reponse_sdt = (new AppController())->FGetPhoneNumber($madinhdanh);
                     foreach ($reponse_sdt as $key) {
                         $SDT = $key["SODIENTHOAI"];
+                        $LOAISANPHAM_EDIT = $key["LOAISANPHAM"];
                     }
                     $MAXACNHAN = $key_secret;
                     if ($SDT) {
                         $responeupdateInfo = json_encode((new AppController())->FUpdateInFoID($SDT));
                         $responeupdateAPI = (new ApiController())->FUpdateInFoApiVfarmID($SDT, $MAXACNHAN);
-                        include("pages/thongtinvungtrong_edit.php");
+                        if ($LOAISANPHAM_EDIT == "1") {
+                            include("pages/thongtinvungtrong_edit.php");
+                        } else if ($LOAISANPHAM_EDIT == "2") {
+                            include("pages/thongtinvungtrong_edit_buoi.php");
+                        } else if ($LOAISANPHAM_EDIT == "3") {
+                            include("pages/thongtinvungtrong_edit_tom.php");
+                        }
                     } else {
                         include("pages/ferror.php");
                     }
