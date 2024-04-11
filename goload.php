@@ -290,6 +290,10 @@
                 );
                 echo $res;
             break;
+            case "_suathongtinvungtrong_buoi":
+                $res = (new ApiController())->FUpdateBuoiApiVfarmID();
+                echo $res;
+            break;
             default:
                 echo "Chức năng không tồn tại";
         }
