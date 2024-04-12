@@ -44,7 +44,7 @@
         .w3-display-right {
             position: fixed !important;
         }
-        #capnhatthongtinvungtrong{
+        #capnhatthongtinvungtrong_buoi{
             color: #FFF;
             background: #004F9E;
             cursor: pointer;
@@ -56,6 +56,15 @@
         .w3-row-padding{
             margin-top: 50px
         }
+        #tooltip {
+    display: none;
+    position: absolute;
+    padding: 5px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    z-index: 1000; /* Đảm bảo tooltip hiển thị trên các phần tử khác */
+}
     </style>
 <body>
     <header>
@@ -64,9 +73,11 @@
         </div>
     </header>
     <div class="w3-container w3-display-right">
-        <input  type="button" value="CẬP NHẬT" id="capnhatthongtinvungtrong" /><br>
+        <input  type="button" value="CẬP NHẬT" id="capnhatthongtinvungtrong_buoi" /><br>
         <span style="color:red;font-weight: bold;">(*) là bắt buộc</span>
     </div>
+    <div id="tooltip" style="display: none; position: absolute; padding: 5px; background-color: black; color: white; border-radius: 5px;">Tooltip</div>
+
     <div class="w3-row-padding">
         <div class="w3-col">
             <h2>I. Thông Tin Chung</h2>
@@ -416,14 +427,14 @@
                             }
                             if ($giayxacnhangiong == "1"){
                                 echo '<p class="c-title3">+ Giấy xác nhận nguồn gốc giống bưởi: <label style="color:red;font-weight:bold;">(*)</label><select class="w3-select" id="buoi_giayxacnhangiong">
-                                    <option selected>Có</option>
+                                    <option value = "1" selected>Có</option>
                                     <option>----------------------------</option>
                                     <option value = "1">Có</option>
                                     <option value = "0">Không</option>
                                 </select></p>';
                             } else {
                                 echo '<p class="c-title3">+ Giấy xác nhận nguồn gốc giống bưởi: <label style="color:red;font-weight:bold;">(*)</label><select class="w3-select" id="buoi_giayxacnhangiong">
-                                    <option selected>Không</option>
+                                    <option value = "0" selected>Không</option>
                                     <option>----------------------------</option>
                                     <option value = "1">Có</option>
                                     <option value = "0">Không</option>
@@ -435,14 +446,14 @@
                             }
                             if ($xulycaygiong == "1"){
                                 echo '<p class="c-title3">+ Xử lý cây giống: <label style="color:red;font-weight:bold;">(*)</label><select class="w3-select" id="buoi_xulycaygiong">
-                                    <option selected>Có</option>
+                                    <option value = "1" selected>Có</option>
                                     <option>----------------------------</option>
                                     <option value = "1">Có</option>
                                     <option value = "0">Không</option>
                                 </select></p>';
                             } else {
                                 echo '<p class="c-title3">+ Xử lý cây giống: <label style="color:red;font-weight:bold;">(*)</label><select class="w3-select" id="buoi_xulycaygiong">
-                                    <option selected>Không</option>
+                                    <option value = "0" selected>Không</option>
                                     <option>----------------------------</option>
                                     <option value = "1">Có</option>
                                     <option value = "0">Không</option>
@@ -453,7 +464,7 @@
                                     echo '<p class="c-title3">Chế phẩm xử lý: <input type = "text" class="w3-input" id="buoi_chephamxuly" value = "'.$data2["object"]["thongTinSanXuat"]["chePhamXuLy"].'" /></p>';
                                 }
                             }  else {
-                                echo '<p class="c-title3">Chế phẩm xử lý: <input type = "text" class="w3-input" id="buoi_mucdichxuly" value = "" /></p>';
+                                echo '<p class="c-title3">Chế phẩm xử lý: <input type = "text" class="w3-input" id="buoi_chephamxuly" value = "" /></p>';
                             }
 
                             if (isset($data2["object"]["thongTinSanXuat"]["mdXuLyCay"])) {
@@ -461,44 +472,49 @@
                             } else {
                                 echo '<p class="c-title3">+ Mục đích xử lý cây giống để làm gì? <input type = "text" class="w3-input" id="buoi_mucdichxuly" value = "" /></p>';
                             }
-
-
-
                             echo '<p class="c-title2">&#9658; Mật độ và khoảng cách trồng</p>';
                             if (isset($data2["object"]["thongTinSanXuat"]["matDoCayTrong"])) {
-                                echo '<p class="c-title3">+ Mật độ: '.$data2["object"]["thongTinSanXuat"]["matDoCayTrong"].' cây/1.000m<sup>2</sup></p>';
+                                echo '<p class="c-title3">+ Mật độ: <input type = "text" class="w3-input" id="buoi_matdocaytrong" value = "'.$data2["object"]["thongTinSanXuat"]["matDoCayTrong"].'" /> cây/1.000m<sup>2</sup></p>';
                             } else {
-                                echo '<p class="c-title3">+ Mật độ:</p>';
+                                echo '<p class="c-title3">+ Mật độ: <input type = "text" class="w3-input" id="buoi_matdocaytrong" value = "" /></p>';
                             }
                             if (isset($data2["object"]["thongTinSanXuat"]["khgCachCayTrong"])) {
-                                echo '<p class="c-title3">+ Khoảng cách trồng: '.$data2["object"]["thongTinSanXuat"]["khgCachCayTrong"].' m</p>';
+                                echo '<p class="c-title3">+ Khoảng cách trồng: <input type = "text" class="w3-input" id="buoi_khoangcachtrong" value = "'.$data2["object"]["thongTinSanXuat"]["khgCachCayTrong"].'" /> m</p>';
                             } else {
-                                echo '<p class="c-title3">+ Khoảng cách trồng:</p>';
+                                echo '<p class="c-title3">+ Khoảng cách trồng: <input type = "text" class="w3-input" id="buoi_khoangcachtrong" value = "" /></p>';
                             }
                             echo '<p class="c-title2">&#9658; Bờ bao, đê bao</p>';
+                            $bodebobao = "";
                             if (isset($data2["object"]["kyThuatCanhTac"]["boBaoDeBao"])) {
-                                echo '<p class="c-title3">+ '.$data2["object"]["kyThuatCanhTac"]["boBaoDeBao"].'</p>';
+                                $bodebobao = $data2["object"]["kyThuatCanhTac"]["boBaoDeBao"];
                             }
+                            echo '<p class="c-title3"><label style="color:red;font-weight:bold;">(*)</label><select class="w3-select" id="buoi_bodebobao">
+                                    <option selected>'.$bodebobao.'</option>
+                                    <option>----------------------------</option>
+                                    <option>Chung</option>
+                                    <option>Riêng</option>
+                                    <option>Cả hai</option>
+                                </select></p>';
                             if (isset($data2["object"]["kyThuatCanhTac"]["chieuCaoDeBao"])) {
-                                echo '<p class="c-title3">+ Chiều cao: '.$data2["object"]["kyThuatCanhTac"]["chieuCaoDeBao"].' . Chiều rộng: '.$data2["object"]["kyThuatCanhTac"]["chieuRongDeBao"].'</p>';
+                                echo '<p class="c-title3">+ Chiều cao: <input type = "text" class="w3-input" id="buoi_chieucaobobao" value = "'.$data2["object"]["kyThuatCanhTac"]["chieuCaoDeBao"].'" />  Chiều rộng: <input type = "text" class="w3-input" id="buoi_chieurongbobao" value = "'.$data2["object"]["kyThuatCanhTac"]["chieuRongDeBao"].'" /></p>';
                             } else {
-                                echo '<p class="c-title3">+ Chiều cao:........Chiều rộng:........</p>';
+                                echo '<p class="c-title3">+ Chiều cao: <input type = "text" class="w3-input" id="buoi_chieucaobobao" value = "" /> Chiều rộng: <input type = "text" class="w3-input" id="buoi_chieurongbobao" value = "" /></p>';
                             }
                             echo '<p class="c-title2">&#9658; Cống, bọng</p>';
                             if (isset($data2["object"]["kyThuatCanhTac"]["cgBongSl"])) {
-                                echo '<p class="c-title3">+ Số lượng: '.$data2["object"]["kyThuatCanhTac"]["cgBongSl"].'</p>';
+                                echo '<p class="c-title3">+ Số lượng: <input type = "text" class="w3-input" id="buoi_slongbong" value = "'.$data2["object"]["kyThuatCanhTac"]["cgBongSl"].'" /></p>';
                             } else {
-                                echo '<p class="c-title3">+ Số lượng:</p>';
+                                echo '<p class="c-title3">+ Số lượng: <input type = "text" class="w3-input" id="buoi_slongbong" value = "" /></p>';
                             }
                             if (isset($data2["object"]["kyThuatCanhTac"]["cgBongDgKinh"])) {
-                                echo '<p class="c-title3">+ Đường kính: '.$data2["object"]["kyThuatCanhTac"]["cgBongDgKinh"].' (m)</p>';
+                                echo '<p class="c-title3">+ Đường kính: <input type = "text" class="w3-input" id="buoi_duongkinhongbong" value = "'.$data2["object"]["kyThuatCanhTac"]["cgBongDgKinh"].'" /> (m)</p>';
                             } else {
-                                echo '<p class="c-title3">+ Đường kính::</p>';
+                                echo '<p class="c-title3">+ Đường kính: <input type = "text" class="w3-input" id="buoi_duongkinhongbong" value = "" /></p>';
                             }
                             if (isset($data2["object"]["kyThuatCanhTac"]["cgBongCachDat"])) {
-                                echo '<p class="c-title3">+ Cách đặt cống, bọng: '.$data2["object"]["kyThuatCanhTac"]["cgBongCachDat"].'</p>';
+                                echo '<p class="c-title3">+ Cách đặt cống, bọng: <input type = "text" class="w3-input" id="buoi_cachdatongbong" value = "'.$data2["object"]["kyThuatCanhTac"]["cgBongCachDat"].'" /></p>';
                             } else {
-                                echo '<p class="c-title3">+ Cách đặt cống, bọng:</p>';
+                                echo '<p class="c-title3">+ Cách đặt cống, bọng: <input type = "text" class="w3-input" id="buoi_cachdatongbong" value = "" /></p>';
                             }
                             echo '<p class="c-title2">&#9658; Kích thước mương, liếp</p>';
                             $liepdai = "";$lieprong = "";$liepcao = "";$muongdai = "";$muongrong = "";$muongcao = "";
@@ -690,16 +706,22 @@
                                 </tr>
                             </table>';
                             if (isset($data2["object"]["kyThuatCanhTac"]["quanLyCoDai"])) {
-                                echo '<p class="c-title2">&#9658; Quản lý cỏ dại: '.$data2["object"]["kyThuatCanhTac"]["quanLyCoDai"].'</p>';
+                                echo '<p class="c-title2">&#9658; Quản lý cỏ dại: <input type = "text" class="w3-input" id="buoi_quanlycodai" value = "'.$data2["object"]["kyThuatCanhTac"]["quanLyCoDai"].'" /></p>';
                             } else {
-                                echo '<p class="c-title2">&#9658; Quản lý cỏ dại:</p>';   
+                                echo '<p class="c-title2">&#9658; Quản lý cỏ dại: <input type = "text" class="w3-input" id="buoi_quanlycodai" value = "" /></p>';   
                             }
                             echo '<p class="c-title2">&#9658; Phân bón và kỹ thuật bón phân</p>';
-                            if (isset($data2["object"]["kyThuatBonPhan"]["dvBonPhan"])){
-                                echo '<p class="c-title3">+ Đơn vị tính: '.$data2["object"]["kyThuatBonPhan"]["dvBonPhan"].'</p>';
-                            } else {
-                                echo '<p class="c-title3">+ Đơn vị tính:</p>';
+                            $phanbon_donvibon = "";
+                            if (isset($data2["object"]["kyThuatBonPhan"]["dvBonPhan"])) {
+                                $phanbon_donvibon = $data2["object"]["kyThuatBonPhan"]["dvBonPhan"];
                             }
+                            echo '<p class="c-title3"><label style="color:red;font-weight:bold;">(*)</label><select class="w3-select" id="buoi_phanbon_donvibon">
+                                    <option selected>'.$phanbon_donvibon.'</option>
+                                    <option>----------------------------</option>
+                                    <option>kg/ha</option>
+                                    <option>kg/công</option>
+                                    <option>kg/1000m2</option>
+                                </select></p>';
                             $thoiky1 = "";$thoidiem1 = "";$loaiphan1 = "";$lieuluong1 = "";$cachbon1 = "";$thoigiantuoi1 = "";
                             $thoiky2 = "";$thoidiem2 = "";$loaiphan2 = "";$lieuluong2 = "";$cachbon2 = "";$thoigiantuoi2 = "";
                             $thoiky3 = "";$thoidiem3 = "";$loaiphan3 = "";$lieuluong3 = "";$cachbon3 = "";$thoigiantuoi3 = "";
@@ -829,46 +851,46 @@
                                 $loaiphan8 = '...';
                             }
                             if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp01"])) {
-                                $lieuluong1 = $data2["object"]["kyThuatBonPhan"]["bpLoaiPhan01"];
+                                $lieuluong1 = $data2["object"]["kyThuatBonPhan"]["lieuLuongBp01"];
                             } else {
                                 $lieuluong1 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["bpLoaiPhan02"])) {
-                                $lieuluong2 = $data2["object"]["kyThuatBonPhan"]["bpLoaiPhan02"];
+                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp02"])) {
+                                $lieuluong2 = $data2["object"]["kyThuatBonPhan"]["lieuLuongBp02"];
                             } else {
                                 $lieuluong2 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["bpLoaiPhan03"])) {
-                                $lieuluong3 = $data2["object"]["kyThuatBonPhan"]["bpLoaiPhan03"];
+                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp03"])) {
+                                $lieuluong3 = $data2["object"]["kyThuatBonPhan"]["lieuLuongBp03"];
                             } else {
                                 $lieuluong3 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["bpLoaiPhan04"])) {
-                                $lieuluong4 = $data2["object"]["kyThuatBonPhan"]["bpLoaiPhan04"];
+                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp04"])) {
+                                $lieuluong4 = $data2["object"]["kyThuatBonPhan"]["lieuLuongBp04"];
                             } else {
                                 $lieuluong4 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["bpLoaiPhan05"])) {
-                                $lieuluong5 = $data2["object"]["kyThuatBonPhan"]["bpLoaiPhan05"];
+                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp05"])) {
+                                $lieuluong5 = $data2["object"]["kyThuatBonPhan"]["lieuLuongBp05"];
                             } else {
                                 $lieuluong5 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["bpLoaiPhan06"])) {
-                                $lieuluong6 = $data2["object"]["kyThuatBonPhan"]["bpLoaiPhan06"];
+                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp06"])) {
+                                $lieuluong6 = $data2["object"]["kyThuatBonPhan"]["lieuLuongBp06"];
                             } else {
                                 $lieuluong6 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["bpLoaiPhan07"])) {
-                                $lieuluong7 = $data2["object"]["kyThuatBonPhan"]["bpLoaiPhan07"];
+                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp07"])) {
+                                $lieuluong7 = $data2["object"]["kyThuatBonPhan"]["lieuLuongBp07"];
                             } else {
                                 $lieuluong7 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["bpLoaiPhan08"])) {
-                                $lieuluong8 = $data2["object"]["kyThuatBonPhan"]["bpLoaiPhan08"];
+                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp08"])) {
+                                $lieuluong8 = $data2["object"]["kyThuatBonPhan"]["lieuLuongBp08"];
                             } else {
                                 $lieuluong8 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp01"])) {
+                            if (isset($data2["object"]["kyThuatBonPhan"]["cachBon01"])) {
                                 $cachbon1 = $data2["object"]["kyThuatBonPhan"]["cachBon01"];
                             } else {
                                 $cachbon1 = '...';
@@ -908,7 +930,7 @@
                             } else {
                                 $cachbon8 = '...';
                             }
-                            if (isset($data2["object"]["kyThuatBonPhan"]["lieuLuongBp01"])) {
+                            if (isset($data2["object"]["kyThuatBonPhan"]["hieuQuaBp01"])) {
                                 $thoigiantuoi1 = $data2["object"]["kyThuatBonPhan"]["hieuQuaBp01"];
                             } else {
                                 $thoigiantuoi1 = '...';
@@ -958,68 +980,68 @@
                                     <td>Hiệu quả</td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thoiky1.'</td>
-                                    <td>'.$thoidiem1.'</td>
-                                    <td>'.$loaiphan1.'</td>
-                                    <td>'.$lieuluong1.'</td>
-                                    <td>'.$cachbon1.'</td>
-                                    <td>'.$thoigiantuoi1.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoiky1" value = "'.$thoiky1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoidiem1" value = "'.$thoidiem1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_loaiphan1" value = "'.$loaiphan1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_lieuluong1" value = "'.$lieuluong1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_cachbon1" value = "'.$cachbon1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoigiantuoi1" value = "'.$thoigiantuoi1.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thoiky2.'</td>
-                                    <td>'.$thoidiem2.'</td>
-                                    <td>'.$loaiphan2.'</td>
-                                    <td>'.$lieuluong2.'</td>
-                                    <td>'.$cachbon2.'</td>
-                                    <td>'.$thoigiantuoi2.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoiky2" value = "'.$thoiky2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoidiem2" value = "'.$thoidiem2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_loaiphan2" value = "'.$loaiphan2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_lieuluong2" value = "'.$lieuluong2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_cachbon2" value = "'.$cachbon2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoigiantuoi2" value = "'.$thoigiantuoi2.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thoiky3.'</td>
-                                    <td>'.$thoidiem3.'</td>
-                                    <td>'.$loaiphan3.'</td>
-                                    <td>'.$lieuluong3.'</td>
-                                    <td>'.$cachbon3.'</td>
-                                    <td>'.$thoigiantuoi3.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoiky3" value = "'.$thoiky3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoidiem3" value = "'.$thoidiem3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_loaiphan3" value = "'.$loaiphan3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_lieuluong3" value = "'.$lieuluong3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_cachbon3" value = "'.$cachbon3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoigiantuoi3" value = "'.$thoigiantuoi3.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thoiky4.'</td>
-                                    <td>'.$thoidiem4.'</td>
-                                    <td>'.$loaiphan4.'</td>
-                                    <td>'.$lieuluong4.'</td>
-                                    <td>'.$cachbon4.'</td>
-                                    <td>'.$thoigiantuoi4.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoiky4" value = "'.$thoiky4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoidiem4" value = "'.$thoidiem4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_loaiphan4" value = "'.$loaiphan4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_lieuluong4" value = "'.$lieuluong4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_cachbon4" value = "'.$cachbon4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoigiantuoi4" value = "'.$thoigiantuoi4.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thoiky5.'</td>
-                                    <td>'.$thoidiem5.'</td>
-                                    <td>'.$loaiphan5.'</td>
-                                    <td>'.$lieuluong5.'</td>
-                                    <td>'.$cachbon5.'</td>
-                                    <td>'.$thoigiantuoi5.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoiky5" value = "'.$thoiky5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoidiem5" value = "'.$thoidiem5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_loaiphan5" value = "'.$loaiphan5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_lieuluong5" value = "'.$lieuluong5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_cachbon5" value = "'.$cachbon5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoigiantuoi5" value = "'.$thoigiantuoi5.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thoiky6.'</td>
-                                    <td>'.$thoidiem6.'</td>
-                                    <td>'.$loaiphan6.'</td>
-                                    <td>'.$lieuluong6.'</td>
-                                    <td>'.$cachbon6.'</td>
-                                    <td>'.$thoigiantuoi6.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoiky6" value = "'.$thoiky6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoidiem6" value = "'.$thoidiem6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_loaiphan6" value = "'.$loaiphan6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_lieuluong6" value = "'.$lieuluong6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_cachbon6" value = "'.$cachbon6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoigiantuoi6" value = "'.$thoigiantuoi6.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thoiky7.'</td>
-                                    <td>'.$thoidiem7.'</td>
-                                    <td>'.$loaiphan7.'</td>
-                                    <td>'.$lieuluong7.'</td>
-                                    <td>'.$cachbon7.'</td>
-                                    <td>'.$thoigiantuoi7.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoiky7" value = "'.$thoiky7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoidiem7" value = "'.$thoidiem7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_loaiphan7" value = "'.$loaiphan7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_lieuluong7" value = "'.$lieuluong7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_cachbon7" value = "'.$cachbon7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoigiantuoi7" value = "'.$thoigiantuoi7.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thoiky8.'</td>
-                                    <td>'.$thoidiem8.'</td>
-                                    <td>'.$loaiphan8.'</td>
-                                    <td>'.$lieuluong8.'</td>
-                                    <td>'.$cachbon8.'</td>
-                                    <td>'.$thoigiantuoi8.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoiky8" value = "'.$thoiky8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoidiem8" value = "'.$thoidiem8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_loaiphan8" value = "'.$loaiphan8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_lieuluong8" value = "'.$lieuluong8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_cachbon8" value = "'.$cachbon8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_phanbon_thoigiantuoi8" value = "'.$thoigiantuoi8.'" /></td>
                                 </tr>
                             </table>';
                             echo '<p class="c-title2">&#9658; Sử dụng thuốc BVTV</p>';
@@ -1281,92 +1303,98 @@
                                     <td>Hiệu quả</td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thuocthoiky1.'</td>
-                                    <td>'.$thuocthoidiem1.'</td>
-                                    <td>'.$thuocloaisau1.'</td>
-                                    <td>'.$thuocloaithuoc1.'</td>
-                                    <td>'.$thuoclieuluong1.'</td>
-                                    <td>'.$thuochieuqua1.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoiky1" value = "'.$thuocthoiky1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoidiem1" value = "'.$thuocthoidiem1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaisau1" value = "'.$thuocloaisau1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaithuoc1" value = "'.$thuocloaithuoc1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_lieuluong1" value = "'.$thuoclieuluong1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_hieuqua1" value = "'.$thuochieuqua1.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thuocthoiky2.'</td>
-                                    <td>'.$thuocthoidiem2.'</td>
-                                    <td>'.$thuocloaisau2.'</td>
-                                    <td>'.$thuocloaithuoc2.'</td>
-                                    <td>'.$thuoclieuluong2.'</td>
-                                    <td>'.$thuochieuqua2.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoiky2" value = "'.$thuocthoiky2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoidiem2" value = "'.$thuocthoidiem2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaisau2" value = "'.$thuocloaisau2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaithuoc2" value = "'.$thuocloaithuoc2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_lieuluong2" value = "'.$thuoclieuluong2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_hieuqua2" value = "'.$thuochieuqua2.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thuocthoiky3.'</td>
-                                    <td>'.$thuocthoidiem3.'</td>
-                                    <td>'.$thuocloaisau3.'</td>
-                                    <td>'.$thuocloaithuoc3.'</td>
-                                    <td>'.$thuoclieuluong3.'</td>
-                                    <td>'.$thuochieuqua3.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoiky3" value = "'.$thuocthoiky3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoidiem3" value = "'.$thuocthoidiem3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaisau3" value = "'.$thuocloaisau3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaithuoc3" value = "'.$thuocloaithuoc3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_lieuluong3" value = "'.$thuoclieuluong3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_hieuqua3" value = "'.$thuochieuqua3.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thuocthoiky4.'</td>
-                                    <td>'.$thuocthoidiem4.'</td>
-                                    <td>'.$thuocloaisau4.'</td>
-                                    <td>'.$thuocloaithuoc4.'</td>
-                                    <td>'.$thuoclieuluong4.'</td>
-                                    <td>'.$thuochieuqua4.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoiky4" value = "'.$thuocthoiky4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoidiem4" value = "'.$thuocthoidiem4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaisau4" value = "'.$thuocloaisau4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaithuoc4" value = "'.$thuocloaithuoc4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_lieuluong4" value = "'.$thuoclieuluong4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_hieuqua4" value = "'.$thuochieuqua4.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thuocthoiky5.'</td>
-                                    <td>'.$thuocthoidiem5.'</td>
-                                    <td>'.$thuocloaisau5.'</td>
-                                    <td>'.$thuocloaithuoc5.'</td>
-                                    <td>'.$thuoclieuluong5.'</td>
-                                    <td>'.$thuochieuqua5.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoiky5" value = "'.$thuocthoiky5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoidiem5" value = "'.$thuocthoidiem5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaisau5" value = "'.$thuocloaisau5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaithuoc5" value = "'.$thuocloaithuoc5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_lieuluong5" value = "'.$thuoclieuluong5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_hieuqua5" value = "'.$thuochieuqua5.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thuocthoiky6.'</td>
-                                    <td>'.$thuocthoidiem6.'</td>
-                                    <td>'.$thuocloaisau6.'</td>
-                                    <td>'.$thuocloaithuoc6.'</td>
-                                    <td>'.$thuoclieuluong6.'</td>
-                                    <td>'.$thuochieuqua6.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoiky6" value = "'.$thuocthoiky6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoidiem6" value = "'.$thuocthoidiem6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaisau6" value = "'.$thuocloaisau6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaithuoc6" value = "'.$thuocloaithuoc6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_lieuluong6" value = "'.$thuoclieuluong6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_hieuqua6" value = "'.$thuochieuqua6.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thuocthoiky7.'</td>
-                                    <td>'.$thuocthoidiem7.'</td>
-                                    <td>'.$thuocloaisau7.'</td>
-                                    <td>'.$thuocloaithuoc7.'</td>
-                                    <td>'.$thuoclieuluong7.'</td>
-                                    <td>'.$thuochieuqua7.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoiky7" value = "'.$thuocthoiky7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoidiem7" value = "'.$thuocthoidiem7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaisau7" value = "'.$thuocloaisau7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaithuoc7" value = "'.$thuocloaithuoc7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_lieuluong7" value = "'.$thuoclieuluong7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_hieuqua7" value = "'.$thuochieuqua7.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$thuocthoiky8.'</td>
-                                    <td>'.$thuocthoidiem8.'</td>
-                                    <td>'.$thuocloaisau8.'</td>
-                                    <td>'.$thuocloaithuoc8.'</td>
-                                    <td>'.$thuoclieuluong8.'</td>
-                                    <td>'.$thuochieuqua8.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoiky8" value = "'.$thuocthoiky8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_thoidiem8" value = "'.$thuocthoidiem8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaisau8" value = "'.$thuocloaisau8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_loaithuoc8" value = "'.$thuocloaithuoc8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_lieuluong8" value = "'.$thuoclieuluong8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_bvtv_hieuqua8" value = "'.$thuochieuqua8.'" /></td>
                                 </tr>
                             </table>';
 
                             echo '<p class="c-title2">&#9658; Xử lý ra hoa tự nhiên</p>';
                             if (isset($data2["object"]["xuLyRaHoa"]["ldRaHoaTuNh"])){
-                                echo '<p class="c-title3">+ Lý do: '.$data2["object"]["xuLyRaHoa"]["ldRaHoaTuNh"].'</p>';
+                                echo '<p class="c-title3">+ Lý do: <input type = "text" class="w3-input" id="buoi_rahoatn_lydo" value = "'.$data2["object"]["xuLyRaHoa"]["ldRaHoaTuNh"].'" /></p>';
                             } else {
-                                echo '<p class="c-title3">+ Lý do:</p>';
+                                echo '<p class="c-title3">+ Lý do: <input type = "text" class="w3-input" id="buoi_rahoatn_lydo" value = "" /></p>';
                             }
                             if (isset($data2["object"]["xuLyRaHoa"]["soLanRaHoa"])){
-                                echo '<p class="c-title3">+ Số lần ra hoa trong năm: '.$data2["object"]["xuLyRaHoa"]["soLanRaHoa"].'</p>';
+                                echo '<p class="c-title3">+ Số lần ra hoa trong năm: <input type = "text" class="w3-input" id="buoi_rahoatn_solan" value = "'.$data2["object"]["xuLyRaHoa"]["soLanRaHoa"].'" /></p>';
                             } else {
-                                echo '<p class="c-title3">+ Số lần ra hoa trong năm:</p>';
+                                echo '<p class="c-title3">+ Số lần ra hoa trong năm: <input type = "text" class="w3-input" id="buoi_rahoatn_solan" value = "" /></p>';
                             }
                             if (isset($data2["object"]["xuLyRaHoa"]["thGianRaHoa"])){
-                                echo '<p class="c-title3">+ Thời gian ra hoa: '.$data2["object"]["xuLyRaHoa"]["thGianRaHoa"].' . Thời gian ra hoa từng đợt: '.$data2["object"]["xuLyRaHoa"]["thGianRaHoaTgDot"].'</p>';
+                                echo '<p class="c-title3">+ Thời gian ra hoa: <input type = "text" class="w3-input" id="buoi_rahoatn_thoigian" value = "'.$data2["object"]["xuLyRaHoa"]["thGianRaHoa"].'" />" . Thời gian ra hoa từng đợt: <input type = "text" class="w3-input" id="buoi_rahoatn_tungdot" value = "'.$data2["object"]["xuLyRaHoa"]["thGianRaHoaTgDot"].'" /></p>';
                             } else {
-                                echo '<p class="c-title3">+ Thời gian ra hoa:......Thời gian ra hoa từng đợt:.....</p>';
+                                echo '<p class="c-title3">+ Thời gian ra hoa: <input type = "text" class="w3-input" id="buoi_rahoatn_thoigian" value = "" /> Thời gian ra hoa từng đợt: <input type = "text" class="w3-input" id="buoi_rahoatn_tungdot" value = "" /></p>';
                             }
-                            if (isset($data2["object"]["xuLyRaHoa"]["donViLlgPhanBon"])){
-                                echo '<p class="c-title3">+ Sử dụng phân bón : Đơn vị tính liều lượng: '.$data2["object"]["xuLyRaHoa"]["donViLlgPhanBon"].'</p>';
-                            } else {
-                                echo '<p class="c-title3">+ Sử dụng phân bón : Đơn vị tính liều lượng:</p>';
+                            $rahoa_phanbon_donvibon = "";
+                            if (isset($data2["object"]["xuLyRaHoa"]["donViLlgPhanBon"])) {
+                                $rahoa_phanbon_donvibon = $data2["object"]["xuLyRaHoa"]["donViLlgPhanBon"];
                             }
+                            echo '<p class="c-title3">+ Sử dụng phân bón : Đơn vị tính liều lượng:<label style="color:red;font-weight:bold;">(*)</label><select class="w3-select" id="buoi_rahoa_phanbon_donvibon">
+                                    <option selected>'.$rahoa_phanbon_donvibon.'</option>
+                                    <option>----------------------------</option>
+                                    <option>kg/ha</option>
+                                    <option>kg/công</option>
+                                    <option>kg/1000m2</option>
+                                </select></p>';
                             $tnthoidiem1 = "";$tnloaiphan1 = "";$tnlieuluong1 = "";$tncachbon1 = "";
                             $tnthoidiem2 = "";$tnloaiphan2 = "";$tnlieuluong2 = "";$tncachbon2 = "";
                             $tnthoidiem3 = "";$tnloaiphan3 = "";$tnlieuluong3 = "";$tncachbon3 = "";
@@ -1459,28 +1487,28 @@
                                     <td>Cách bón</td>
                                 </tr>
                                 <tr>
-                                    <td>'.$tnthoidiem1.'</td>
-                                    <td>'.$tnloaiphan1.'</td>
-                                    <td>'.$tnlieuluong1.'</td>
-                                    <td>'.$tncachbon1.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnthoidiem1" value = "'.$tnthoidiem1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnloaiphan1" value = "'.$tnloaiphan1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnlieuluong1" value = "'.$tnlieuluong1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tncachbon1" value = "'.$tncachbon1.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$tnthoidiem2.'</td>
-                                    <td>'.$tnloaiphan2.'</td>
-                                    <td>'.$tnlieuluong2.'</td>
-                                    <td>'.$tncachbon2.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnthoidiem2" value = "'.$tnthoidiem2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnloaiphan2" value = "'.$tnloaiphan2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnlieuluong2" value = "'.$tnlieuluong2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tncachbon2" value = "'.$tncachbon2.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$tnthoidiem3.'</td>
-                                    <td>'.$tnloaiphan3.'</td>
-                                    <td>'.$tnlieuluong3.'</td>
-                                    <td>'.$tncachbon3.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnthoidiem3" value = "'.$tnthoidiem3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnloaiphan3" value = "'.$tnloaiphan3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnlieuluong3" value = "'.$tnlieuluong3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tncachbon3" value = "'.$tncachbon3.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$tnthoidiem4.'</td>
-                                    <td>'.$tnloaiphan4.'</td>
-                                    <td>'.$tnlieuluong4.'</td>
-                                    <td>'.$tncachbon4.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnthoidiem4" value = "'.$tnthoidiem4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnloaiphan4" value = "'.$tnloaiphan4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnlieuluong4" value = "'.$tnlieuluong4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tncachbon4" value = "'.$tncachbon4.'" /></td>
                                 </tr>
                             </table>';
                             echo '<p class="c-title3">+ Phòng trừ sâu bệnh:</p>';
@@ -1597,41 +1625,47 @@
                                     <td>Hiệu quả</td>
                                 </tr>
                                 <tr>
-                                    <td>'.$tnsauthoidiem1.'</td>
-                                    <td>'.$tnsauloaisau1.'</td>
-                                    <td>'.$tnsauloaithuoc1.'</td>
-                                    <td>'.$tnsaulieuluong1.'</td>
-                                    <td>'.$tnsauhieuqua1.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauthoidiem1" value = "'.$tnsauthoidiem1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauloaisau1" value = "'.$tnsauloaisau1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauloaithuoc1" value = "'.$tnsauloaithuoc1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsaulieuluong1" value = "'.$tnsaulieuluong1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauhieuqua1" value = "'.$tnsauhieuqua1.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$tnsauthoidiem2.'</td>
-                                    <td>'.$tnsauloaisau2.'</td>
-                                    <td>'.$tnsauloaithuoc2.'</td>
-                                    <td>'.$tnsaulieuluong2.'</td>
-                                    <td>'.$tnsauhieuqua2.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauthoidiem2" value = "'.$tnsauthoidiem2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauloaisau2" value = "'.$tnsauloaisau2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauloaithuoc2" value = "'.$tnsauloaithuoc2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsaulieuluong2" value = "'.$tnsaulieuluong2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauhieuqua2" value = "'.$tnsauhieuqua2.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$tnsauthoidiem3.'</td>
-                                    <td>'.$tnsauloaisau3.'</td>
-                                    <td>'.$tnsauloaithuoc3.'</td>
-                                    <td>'.$tnsaulieuluong3.'</td>
-                                    <td>'.$tnsauhieuqua3.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauthoidiem3" value = "'.$tnsauthoidiem3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauloaisau3" value = "'.$tnsauloaisau3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauloaithuoc3" value = "'.$tnsauloaithuoc3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsaulieuluong3" value = "'.$tnsaulieuluong3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauhieuqua3" value = "'.$tnsauhieuqua3.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$tnsauthoidiem4.'</td>
-                                    <td>'.$tnsauloaisau4.'</td>
-                                    <td>'.$tnsauloaithuoc4.'</td>
-                                    <td>'.$tnsaulieuluong4.'</td>
-                                    <td>'.$tnsauhieuqua4.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauthoidiem4" value = "'.$tnsauthoidiem4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauloaisau4" value = "'.$tnsauloaisau4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauloaithuoc4" value = "'.$tnsauloaithuoc4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsaulieuluong4" value = "'.$tnsaulieuluong4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_tnsauhieuqua4" value = "'.$tnsauhieuqua4.'" /></td>
                                 </tr>
                             </table>';
 
                             echo '<p class="c-title2">&#9658; Áp dụng kỹ thuật xử lý ra hoa tập trung</p>';
-                            if (isset($data2["object"]["xuLyRaHoa"]["donViBphanRaHoaTtg"])){
-                                echo '<p class="c-title3">+ Bón phân: Đơn vị tính liều lượng: '.$data2["object"]["xuLyRaHoa"]["donViBphanRaHoaTtg"].'</p>';
-                            } else {
-                                echo '<p class="c-title3">+ Bón phân: Đơn vị tính liều lượng:</p>';
+                            $rahoatt_phanbon_donvibon = "";
+                            if (isset($data2["object"]["xuLyRaHoa"]["donViBphanRaHoaTtg"])) {
+                                $rahoatt_phanbon_donvibon = $data2["object"]["xuLyRaHoa"]["donViBphanRaHoaTtg"];
                             }
+                            echo '<p class="c-title3">+ Sử dụng phân bón : Đơn vị tính liều lượng:<label style="color:red;font-weight:bold;">(*)</label><select class="w3-select" id="buoi_rahoatt_phanbon_donvibon">
+                                    <option selected>'.$rahoatt_phanbon_donvibon.'</option>
+                                    <option>----------------------------</option>
+                                    <option>kg/ha</option>
+                                    <option>kg/công</option>
+                                    <option>kg/1000m2</option>
+                                </select></p>';
                             $ttloaiphan1 = "";$ttthoidiem1 = "";$ttlieuluong1 = "";$ttcachbon1 = "";
                             $ttloaiphan2 = "";$ttthoidiem2 = "";$ttlieuluong2 = "";$ttcachbon2 = "";
                             $ttloaiphan3 = "";$ttthoidiem3 = "";$ttlieuluong3 = "";$ttcachbon3 = "";
@@ -1724,28 +1758,28 @@
                                     <td>Cách bón</td>
                                 </tr>
                                 <tr>
-                                    <td>'.$ttloaiphan1.'</td>
-                                    <td>'.$ttthoidiem1.'</td>
-                                    <td>'.$ttlieuluong1.'</td>
-                                    <td>'.$ttcachbon1.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttloaiphan1" value = "'.$ttloaiphan1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttthoidiem1" value = "'.$ttthoidiem1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttlieuluong1" value = "'.$ttlieuluong1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttcachbon1" value = "'.$ttcachbon1.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$ttloaiphan2.'</td>
-                                    <td>'.$ttthoidiem2.'</td>
-                                    <td>'.$ttlieuluong2.'</td>
-                                    <td>'.$ttcachbon2.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttloaiphan2" value = "'.$ttloaiphan2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttthoidiem2" value = "'.$ttthoidiem2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttlieuluong2" value = "'.$ttlieuluong2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttcachbon2" value = "'.$ttcachbon2.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$ttloaiphan3.'</td>
-                                    <td>'.$ttthoidiem3.'</td>
-                                    <td>'.$ttlieuluong3.'</td>
-                                    <td>'.$ttcachbon3.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttloaiphan3" value = "'.$ttloaiphan3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttthoidiem3" value = "'.$ttthoidiem3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttlieuluong3" value = "'.$ttlieuluong3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttcachbon3" value = "'.$ttcachbon3.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$ttloaiphan4.'</td>
-                                    <td>'.$ttthoidiem4.'</td>
-                                    <td>'.$ttlieuluong4.'</td>
-                                    <td>'.$ttcachbon4.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttloaiphan4" value = "'.$ttloaiphan4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttthoidiem4" value = "'.$ttthoidiem4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttlieuluong4" value = "'.$ttlieuluong4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttcachbon4" value = "'.$ttcachbon4.'" /></td>
                                 </tr>
                             </table>';
                             echo '<p class="c-title3">+ Phòng trừ sâu bệnh:</p>';
@@ -1836,25 +1870,25 @@
                                     <td>Kết quả</td>
                                 </tr>
                                 <tr>
-                                    <td>'.$ttsauloaisau1.'</td>
-                                    <td>'.$ttsauthoidiem1.'</td>
-                                    <td>'.$ttsauloaithuoc1.'</td>
-                                    <td>'.$ttsaulieuluong1.'</td>
-                                    <td>'.$ttsauhieuqua1.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauloaisau1" value = "'.$ttsauloaisau1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauthoidiem1" value = "'.$ttsauthoidiem1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauloaithuoc1" value = "'.$ttsauloaithuoc1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsaulieuluong1" value = "'.$ttsaulieuluong1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauhieuqua1" value = "'.$ttsauhieuqua1.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$ttsauloaisau2.'</td>
-                                    <td>'.$ttsauthoidiem2.'</td>
-                                    <td>'.$ttsauloaithuoc2.'</td>
-                                    <td>'.$ttsaulieuluong2.'</td>
-                                    <td>'.$ttsauhieuqua2.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauloaisau2" value = "'.$ttsauloaisau2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauthoidiem2" value = "'.$ttsauthoidiem2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauloaithuoc2" value = "'.$ttsauloaithuoc2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsaulieuluong2" value = "'.$ttsaulieuluong2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauhieuqua2" value = "'.$ttsauhieuqua2.'" /></td>
                                 </tr>
                                 <tr>
-                                    <td>'.$ttsauloaisau3.'</td>
-                                    <td>'.$ttsauthoidiem3.'</td>
-                                    <td>'.$ttsauloaithuoc3.'</td>
-                                    <td>'.$ttsaulieuluong3.'</td>
-                                    <td>'.$ttsauhieuqua3.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauloaisau3" value = "'.$ttsauloaisau3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauthoidiem3" value = "'.$ttsauthoidiem3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauloaithuoc3" value = "'.$ttsauloaithuoc3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsaulieuluong3" value = "'.$ttsaulieuluong3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_rahoa_ttsauhieuqua3" value = "'.$ttsauhieuqua3.'" /></td>
                                 </tr>
                             </table>';
                             echo '<p class="c-title1">5. Thu hoạch:</p>';
@@ -2095,48 +2129,48 @@
                                 </tr>
                                 <tr>
                                     <td>Loại 1</td>
-                                    <td>'.$gial1t1.'</td>
-                                    <td>'.$gial1t2.'</td>
-                                    <td>'.$gial1t3.'</td>
-                                    <td>'.$gial1t4.'</td>
-                                    <td>'.$gial1t5.'</td>
-                                    <td>'.$gial1t6.'</td>
-                                    <td>'.$gial1t7.'</td>
-                                    <td>'.$gial1t8.'</td>
-                                    <td>'.$gial1t9.'</td>
-                                    <td>'.$gial1t10.'</td>
-                                    <td>'.$gial1t11.'</td>
-                                    <td>'.$gial1t12.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t1" value = "'.$gial1t1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t2" value = "'.$gial1t2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t3" value = "'.$gial1t3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t4" value = "'.$gial1t4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t5" value = "'.$gial1t5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t6" value = "'.$gial1t6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t7" value = "'.$gial1t7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t8" value = "'.$gial1t8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t9" value = "'.$gial1t9.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t10" value = "'.$gial1t10.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t11" value = "'.$gial1t11.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l1t12" value = "'.$gial1t12.'" /></td>
                                 </tr>
                                 <tr>
                                     <td>Loại 2</td>
-                                    <td>'.$gial2t1.'</td>
-                                    <td>'.$gial2t2.'</td>
-                                    <td>'.$gial2t3.'</td>
-                                    <td>'.$gial2t4.'</td>
-                                    <td>'.$gial2t5.'</td>
-                                    <td>'.$gial2t6.'</td>
-                                    <td>'.$gial2t7.'</td>
-                                    <td>'.$gial2t8.'</td>
-                                    <td>'.$gial2t9.'</td>
-                                    <td>'.$gial2t10.'</td>
-                                    <td>'.$gial2t11.'</td>
-                                    <td>'.$gial2t12.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t1" value = "'.$gial2t1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t2" value = "'.$gial2t2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t3" value = "'.$gial2t3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t4" value = "'.$gial2t4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t5" value = "'.$gial2t5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t6" value = "'.$gial2t6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t7" value = "'.$gial2t7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t8" value = "'.$gial2t8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t9" value = "'.$gial2t9.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t10" value = "'.$gial2t10.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t11" value = "'.$gial2t11.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l2t12" value = "'.$gial2t12.'" /></td>
                                 </tr>
                                 <tr>
                                     <td>Loại 3</td>
-                                    <td>'.$gial3t1.'</td>
-                                    <td>'.$gial3t2.'</td>
-                                    <td>'.$gial3t3.'</td>
-                                    <td>'.$gial3t4.'</td>
-                                    <td>'.$gial3t5.'</td>
-                                    <td>'.$gial3t6.'</td>
-                                    <td>'.$gial3t7.'</td>
-                                    <td>'.$gial3t8.'</td>
-                                    <td>'.$gial3t9.'</td>
-                                    <td>'.$gial3t10.'</td>
-                                    <td>'.$gial3t11.'</td>
-                                    <td>'.$gial3t12.'</td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t1" value = "'.$gial3t1.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t2" value = "'.$gial3t2.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t3" value = "'.$gial3t3.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t4" value = "'.$gial3t4.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t5" value = "'.$gial3t5.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t6" value = "'.$gial3t6.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t7" value = "'.$gial3t7.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t8" value = "'.$gial3t8.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t9" value = "'.$gial3t9.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t10" value = "'.$gial3t10.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t11" value = "'.$gial3t11.'" /></td>
+                                    <td><input type = "text" class="w3-input" id="buoi_dongia_l3t12" value = "'.$gial3t12.'" /></td>
                                 </tr>
                             </table>';
                             echo '<p class="c-title1">6. Thị trường tiêu thụ</p>';
@@ -2165,6 +2199,23 @@
     <div title="Về đầu trang" id="top-up">
     <i class="fas fa-arrow-circle-up"></i></div>
     <script>
+        function showTooltip(event) {
+            var tooltip = document.getElementById('tooltip');
+            var input = event.target;
+
+            tooltip.textContent = input.value; // Hiển thị giá trị của input trong tooltip
+            tooltip.style.display = 'block'; // Hiển thị tooltip
+            tooltip.style.left = event.pageX + 'px'; // Đặt vị trí theo tọa độ X của chuột
+            tooltip.style.top = (event.pageY + 20) + 'px'; // Đặt vị trí theo tọa độ Y của chuột, cộng thêm khoảng cách để không che input
+        }
+
+        // Ẩn tooltip khi click ra ngoài
+        function hideTooltip(event) {
+            var tooltip = document.getElementById('tooltip');
+            if (!event.target.classList.contains('w3-input')) {
+                tooltip.style.display = 'none'; // Ẩn tooltip
+            }
+        }
         var offset = 50;
         var duration = 500;
         function check_number(numberphone){
@@ -2176,6 +2227,11 @@
             }
         }
         $(function(){
+            document.querySelectorAll('.w3-input').forEach(function(input) {
+                input.addEventListener('click', showTooltip);
+            });
+
+            document.addEventListener('click', hideTooltip);
             $(window).scroll(function () {
                 if ($(this).scrollTop() > offset)
                 $('#top-up').fadeIn(duration);else
@@ -2184,303 +2240,169 @@
             $('#top-up').click(function () {
                 $('body,html').animate({scrollTop: 0}, duration);
             });
-            /*
-            $("#capnhatthongtinvungtrong").click(function(){
-                alert("Cập nhật thông tin thành công 11");
-            });
-            */
             
-            $("#capnhatthongtinvungtrong").click(function(){
+            $("#capnhatthongtinvungtrong_buoi").click(function(){
                 var sodienthoai = '0' + <?php echo $_GET['SODIENTHOAI'] ?>;
+                var buoi_thongtinsp = $("#buoi_thongtinsp option:selected").text();
                 var thongtinchung_dientich = $("#thongtinchung_dientich").val();
-                var giongvacachxulygiong_tengiong = $("#giongvacachxulygiong_tengiong").val();
-                var thoivu_hethu = $("#thoivu_hethu").val();
-                var thoivu_thudong = $("#thoivu_thudong").val();
-                var thoivu_dongxuan =$("#thoivu_dongxuan").val();
-                var thoivu_xuanhe = $("#thoivu_xuanhe").val();
-                var phanbon_tongphanbon = $("#phanbon_tongphanbon").val();
-                var phanbon_vusanxuat = $("#phanbon_vusanxuat option:selected").text();
-                var phanbon_donvibon = $("#phanbon_donvibon option:selected").text();
-                var phanbon_thuchiencongviec = $("#phanbon_thuchiencongviec option:selected").text();
-                var phanbon_congcu = $("#phanbon_congcu option:selected").text();
-                var phanbon_huuco_bonlot = $("#phanbon_huuco_bonlot").val();
-                var phanbon_huuco_bonlan1 = $("#phanbon_huuco_bonlan1").val();
-                var phanbon_huuco_bonlan2 = $("#phanbon_huuco_bonlan2").val();
-                var phanbon_huuco_bonlan3 = $("#phanbon_huuco_bonlan3").val();
-                var phanbon_huuco_bonlan4 = $("#phanbon_huuco_bonlan4").val();
-                var phanbon_huuco_bonlan5 = $("#phanbon_huuco_bonlan5").val();
-                var phanbon_huuco_note = $("#phanbon_huuco_note").val();
-                var phanbon_caitaodat_bonlot = $("#phanbon_caitaodat_bonlot").val();
-                var phanbon_caitaodat_bonlan1 = $("#phanbon_caitaodat_bonlan1").val();
-                var phanbon_caitaodat_bonlan2 = $("#phanbon_caitaodat_bonlan2").val();
-                var phanbon_caitaodat_bonlan3 = $("#phanbon_caitaodat_bonlan3").val();
-                var phanbon_caitaodat_bonlan4 = $("#phanbon_caitaodat_bonlan4").val();
-                var phanbon_caitaodat_bonlan5 = $("#phanbon_caitaodat_bonlan5").val();
-                var phanbon_caitaodat_note = $("#phanbon_caitaodat_note").val();
-                var phanbon_ure_bonlot = $("#phanbon_ure_bonlot").val();
-                var phanbon_ure_bonlan1 = $("#phanbon_ure_bonlan1").val();
-                var phanbon_ure_bonlan2 = $("#phanbon_ure_bonlan2").val();
-                var phanbon_ure_bonlan3 = $("#phanbon_ure_bonlan3").val();
-                var phanbon_ure_bonlan4 = $("#phanbon_ure_bonlan4").val();
-                var phanbon_ure_bonlan5 = $("#phanbon_ure_bonlan5").val();
-                var phanbon_ure_note = $("#phanbon_ure_note").val();
-                var phanbon_lan_bonlot = $("#phanbon_lan_bonlot").val();
-                var phanbon_lan_bonlan1 = $("#phanbon_lan_bonlan1").val();
-                var phanbon_lan_bonlan2 = $("#phanbon_lan_bonlan2").val();
-                var phanbon_lan_bonlan3 = $("#phanbon_lan_bonlan3").val();
-                var phanbon_lan_bonlan4 = $("#phanbon_lan_bonlan4").val();
-                var phanbon_lan_bonlan5 = $("#phanbon_lan_bonlan5").val();
-                var phanbon_lan_note = $("#phanbon_lan_note").val();
-                var phanbon_kali_bonlot = $("#phanbon_kali_bonlot").val();
-                var phanbon_kali_bonlan1 = $("#phanbon_kali_bonlan1").val();
-                var phanbon_kali_bonlan2 = $("#phanbon_kali_bonlan2").val();
-                var phanbon_kali_bonlan3 = $("#phanbon_kali_bonlan3").val();
-                var phanbon_kali_bonlan4 = $("#phanbon_kali_bonlan4").val();
-                var phanbon_kali_bonlan5 = $("#phanbon_kali_bonlan5").val();
-                var phanbon_kali_note = $("#phanbon_kali_note").val();
-                var phanbon_dap_bonlot = $("#phanbon_dap_bonlot").val();
-                var phanbon_dap_bonlan1 = $("#phanbon_dap_bonlan1").val();
-                var phanbon_dap_bonlan2 = $("#phanbon_dap_bonlan2").val();
-                var phanbon_dap_bonlan3 = $("#phanbon_dap_bonlan3").val();
-                var phanbon_dap_bonlan4 = $("#phanbon_dap_bonlan4").val();
-                var phanbon_dap_bonlan5 = $("#phanbon_dap_bonlan5").val();
-                var phanbon_dap_note = $("#phanbon_dap_note").val();
-                var phanbon_npk_tenphan = $("#phanbon_npk_tenphan").val();
-                var phanbon_npk_bonlot = $("#phanbon_npk_bonlot").val();
-                var phanbon_npk_bonlan1 = $("#phanbon_npk_bonlan1").val();
-                var phanbon_npk_bonlan2 = $("#phanbon_npk_bonlan2").val();
-                var phanbon_npk_bonlan3 = $("#phanbon_npk_bonlan3").val();
-                var phanbon_npk_bonlan4 = $("#phanbon_npk_bonlan4").val();
-                var phanbon_npk_bonlan5 = $("#phanbon_npk_bonlan5").val();
-                var phanbon_npk_note = $("#phanbon_npk_note").val();
-                var phanbon_khac_tenphan = $("#phanbon_khac_tenphan").val();
-                var phanbon_khac_bonlot = $("#phanbon_khac_bonlot").val();
-                var phanbon_khac_bonlan1 = $("#phanbon_khac_bonlan1").val();
-                var phanbon_khac_bonlan2 = $("#phanbon_khac_bonlan2").val();
-                var phanbon_khac_bonlan3 = $("#phanbon_khac_bonlan3").val();
-                var phanbon_khac_bonlan4 = $("#phanbon_khac_bonlan4").val();
-                var phanbon_khac_bonlan5 = $("#phanbon_khac_bonlan5").val();
-                var phanbon_khac_note = $("#phanbon_khac_note").val();
-                var phanbon_phanbonla_tenphan = $("#phanbon_phanbonla_tenphan").val();
-                var phanbon_phanbonla_bonlot = $("#phanbon_phanbonla_bonlot").val();
-                var phanbon_phanbonla_bonlan1 = $("#phanbon_phanbonla_bonlan1").val();
-                var phanbon_phanbonla_bonlan2 = $("#phanbon_phanbonla_bonlan2").val();
-                var phanbon_phanbonla_bonlan3 = $("#phanbon_phanbonla_bonlan3").val();
-                var phanbon_phanbonla_bonlan4 = $("#phanbon_phanbonla_bonlan4").val();
-                var phanbon_phanbonla_bonlan5 = $("#phanbon_phanbonla_bonlan5").val();
-                var phanbon_phanbonla_note = $("#phanbon_phanbonla_note").val();
-                var thuocbvtv_solanphun_buouvang = $("#thuocbvtv_solanphun_buouvang").val();
-                var thuocbvtv_soluong_buouvang = $("#thuocbvtv_soluong_buouvang").val();
-                var thuocbvtv_solanphun_truco = $("#thuocbvtv_solanphun_truco").val();
-                var thuocbvtv_soluong_truco = $("#thuocbvtv_soluong_truco").val();
-                var thuocbvtv_solanphun_trusau = $("#thuocbvtv_solanphun_trusau").val();
-                var thuocbvtv_soluong_trusau = $("#thuocbvtv_soluong_trusau").val();
-                var thuocbvtv_solanphun_truray = $("#thuocbvtv_solanphun_truray").val();
-                var thuocbvtv_soluong_truray = $("#thuocbvtv_soluong_truray").val();
-                var thuocbvtv_solanphun_trubenh = $("#thuocbvtv_solanphun_trubenh").val();
-                var thuocbvtv_soluong_trubenh = $("#thuocbvtv_soluong_trubenh").val();
-                var thuocbvtv_solanphun_trusautruray = $("#thuocbvtv_solanphun_trusautruray").val();
-                var thuocbvtv_soluong_trusautruray = $("#thuocbvtv_soluong_trusautruray").val();
-                var thuocbvtv_solanphun_trusautrubenh = $("#thuocbvtv_solanphun_trusautrubenh").val();
-                var thuocbvtv_soluong_trusautrubenh = $("#thuocbvtv_soluong_trusautrubenh").val();
-                var thuocbvtv_solanphun_truraytrubenh = $("#thuocbvtv_solanphun_truraytrubenh").val();
-                var thuocbvtv_soluong_truraytrubenh = $("#thuocbvtv_soluong_truraytrubenh").val();
-                var thuocbvtv_solanphun_trusautruraytrubenh = $("#thuocbvtv_solanphun_trusautruraytrubenh").val();
-                var thuocbvtv_soluong_trusautruraytrubenh = $("#thuocbvtv_soluong_trusautruraytrubenh").val();
-                var thuocbvtv_solanphun_lancuoi = $("#thuocbvtv_solanphun_lancuoi").val();
-                var thuocbvtv_soluong_lancuoi = $("#thuocbvtv_soluong_lancuoi").val();
-                var thuocbvtv_phundinhky = $("#thuocbvtv_phundinhky").val();
-                var thuocbvtv_phundinhky_thoigianphun = $("#thuocbvtv_phundinhky_thoigianphun").val();
-                var thuocbvtv_phundinhky_lydophun = $("#thuocbvtv_phundinhky_lydophun").val();
-                var thuocbvtv_phunthoidiem_lan1 = $("#thuocbvtv_phunthoidiem_lan1").val();
-                var thuocbvtv_phunthoidiem_lan2 = $("#thuocbvtv_phunthoidiem_lan2").val();
-                var thuocbvtv_phunthoidiem_lan3 = $("#thuocbvtv_phunthoidiem_lan3").val();
-                var thuocbvtv_phunthoidiem_lan4 = $("#thuocbvtv_phunthoidiem_lan4").val();
-                var thuocbvtv_phunthoidiem_lan5 = $("#thuocbvtv_phunthoidiem_lan5").val();
-                var thuocbvtv_phunthoidiem_lan6 = $("#thuocbvtv_phunthoidiem_lan6").val();
-                var thuocbvtv_phunthoidiem_lan7 = $("#thuocbvtv_phunthoidiem_lan7").val();
-                var thuocbvtv_phunthoidiem_lan8 = $("#thuocbvtv_phunthoidiem_lan8").val();
-                var thuocbvtv_phunthoidiem_lan9 = $("#thuocbvtv_phunthoidiem_lan9").val();
-                var thuocbvtv_phunthoidiem_lan10 = $("#thuocbvtv_phunthoidiem_lan10").val();
-                var thuocbvtv_phunthoidiem_lydophun = $("#thuocbvtv_phunthoidiem_lydophun").val();
-                var thuocbvtv_phunthuockhi = $("#thuocbvtv_phunthuockhi option:selected").text();
-                var thuocbvtv_thuchiencongviec = $("#thuocbvtv_thuchiencongviec option:selected").text();
-                var thuocbvtv_phuongtien = $("#thuocbvtv_phuongtien option:selected").text();
-                var thuhoach_hethu = $("#thuhoach_hethu").val();
-                var thuhoach_thudong = $("#thuhoach_thudong").val();
-                var thuhoach_dongxuan = $("#thuhoach_dongxuan").val();
-                var thuhoach_xuanhe = $("#thuhoach_xuanhe").val();
-                var nangsuatbinhquan = $("#nangsuatbinhquan").val();
+                var buoi_gionggannhat = $("#buoi_gionggannhat").val();
+                var buoi_nguongocgiong = $("#buoi_nguongocgiong option:selected").text();
+                var buoi_giayxacnhangiong = $("#buoi_giayxacnhangiong").val();
+                var buoi_xulycaygiong = $("#buoi_xulycaygiong").val();
+                var buoi_chephamxuly = $("#buoi_chephamxuly").val();
+                var buoi_mucdichxuly = $("#buoi_mucdichxuly").val();
+                var buoi_matdocaytrong = $("#buoi_matdocaytrong").val();
+                var buoi_khoangcachtrong = $("#buoi_khoangcachtrong").val();
+                var buoi_bodebobao = $("#buoi_bodebobao option:selected").text();
+                var buoi_chieucaobobao = $("#buoi_chieucaobobao").val();
+                var buoi_chieurongbobao = $("#buoi_chieurongbobao").val();
+                var buoi_slongbong =$("#buoi_slongbong").val();
+                var buoi_duongkinhongbong =$("#buoi_duongkinhongbong").val();
+                var buoi_cachdatongbong =$("#buoi_cachdatongbong").val();
+                var buoi_quanlycodai =$("#buoi_quanlycodai").val();
+                var buoi_phanbon_thoiky1 =$("#buoi_phanbon_thoiky1").val();
+                var buoi_phanbon_thoidiem1 =$("#buoi_phanbon_thoidiem1").val();
+                var buoi_phanbon_loaiphan1 =$("#buoi_phanbon_loaiphan1").val();
+                var buoi_phanbon_lieuluong1 =$("#buoi_phanbon_lieuluong1").val();
+                var buoi_phanbon_cachbon1 =$("#buoi_phanbon_cachbon1").val();
+                var buoi_phanbon_thoigiantuoi1 =$("#buoi_phanbon_thoigiantuoi1").val();
+                var buoi_phanbon_thoiky2 =$("#buoi_phanbon_thoiky2").val();
+                var buoi_phanbon_thoidiem2 =$("#buoi_phanbon_thoidiem2").val();
+                var buoi_phanbon_loaiphan2 =$("#buoi_phanbon_loaiphan2").val();
+                var buoi_phanbon_lieuluong2 =$("#buoi_phanbon_lieuluong2").val();
+                var buoi_phanbon_cachbon2 =$("#buoi_phanbon_cachbon2").val();
+                var buoi_phanbon_thoigiantuoi2 =$("#buoi_phanbon_thoigiantuoi2").val();
+                var buoi_phanbon_thoiky3 =$("#buoi_phanbon_thoiky3").val();
+                var buoi_phanbon_thoidiem3 =$("#buoi_phanbon_thoidiem3").val();
+                var buoi_phanbon_loaiphan3 =$("#buoi_phanbon_loaiphan3").val();
+                var buoi_phanbon_lieuluong3 =$("#buoi_phanbon_lieuluong3").val();
+                var buoi_phanbon_cachbon3 =$("#buoi_phanbon_cachbon3").val();
+                var buoi_phanbon_thoigiantuoi3 =$("#buoi_phanbon_thoigiantuoi3").val();
+                var buoi_phanbon_thoiky4 =$("#buoi_phanbon_thoiky4").val();
+                var buoi_phanbon_thoidiem4 =$("#buoi_phanbon_thoidiem4").val();
+                var buoi_phanbon_loaiphan4 = $("#buoi_phanbon_loaiphan4").val();
+                var buoi_phanbon_lieuluong4 = $("#buoi_phanbon_lieuluong4").val();
+                var buoi_phanbon_cachbon4 = $("#buoi_phanbon_cachbon4").val();
+                var buoi_phanbon_thoigiantuoi4 = $("#buoi_phanbon_thoigiantuoi4").val();
+                var buoi_phanbon_thoiky5 = $("#buoi_phanbon_thoiky5").val();
+                var buoi_phanbon_thoidiem5 = $("#buoi_phanbon_thoidiem5").val();
+                var buoi_phanbon_loaiphan5 = $("#buoi_phanbon_loaiphan5").val();
+                var buoi_phanbon_lieuluong5 = $("#buoi_phanbon_lieuluong5").val();
+                var buoi_phanbon_cachbon5 = $("#buoi_phanbon_cachbon5").val();
+                var buoi_phanbon_thoigiantuoi5 = $("#buoi_phanbon_thoigiantuoi5").val();
+                var buoi_phanbon_thoiky6 = $("#buoi_phanbon_thoiky6").val();
+                var buoi_phanbon_thoidiem6 = $("#buoi_phanbon_thoidiem6").val();
+                var buoi_phanbon_loaiphan6 = $("#buoi_phanbon_loaiphan6").val();
+                var buoi_phanbon_lieuluong6 = $("#buoi_phanbon_lieuluong6").val();
+                var buoi_phanbon_cachbon6 = $("#buoi_phanbon_cachbon6").val();
+                var buoi_phanbon_thoigiantuoi6 = $("#buoi_phanbon_thoigiantuoi6").val();
+                var buoi_phanbon_thoiky7 = $("#buoi_phanbon_thoiky7").val();
+                var buoi_phanbon_thoidiem7 = $("#buoi_phanbon_thoidiem7").val();
+                var buoi_phanbon_loaiphan7 = $("#buoi_phanbon_loaiphan7").val();
+                var buoi_phanbon_lieuluong7 = $("#buoi_phanbon_lieuluong7").val();
+                var buoi_phanbon_cachbon7 = $("#buoi_phanbon_cachbon7").val();
+                var buoi_phanbon_thoigiantuoi7 = $("#buoi_phanbon_thoigiantuoi7").val();
+                var buoi_phanbon_thoiky8 = $("#buoi_phanbon_thoiky8").val();
+                var buoi_phanbon_thoidiem8 = $("#buoi_phanbon_thoidiem8").val();
+                var buoi_phanbon_loaiphan8 = $("#buoi_phanbon_loaiphan8").val();
+                var buoi_phanbon_lieuluong8 = $("#buoi_phanbon_lieuluong8").val();
+                var buoi_phanbon_cachbon8 = $("#buoi_phanbon_cachbon8").val();
+                var buoi_phanbon_thoigiantuoi8 = $("#buoi_phanbon_thoigiantuoi8").val();
+                var buoi_bvtv_thoiky1 = $("#buoi_bvtv_thoiky1").val();
+                var buoi_bvtv_thoidiem1 = $("#buoi_bvtv_thoidiem1").val();
+                var buoi_bvtv_loaisau1 = $("#buoi_bvtv_loaisau1").val();
+                var buoi_bvtv_loaithuoc1 = $("#buoi_bvtv_loaithuoc1").val();
+                var buoi_bvtv_lieuluong1 = $("#buoi_bvtv_lieuluong1").val();
+                var buoi_bvtv_hieuqua1 = $("#buoi_bvtv_hieuqua1").val();
+                var buoi_bvtv_thoiky2 = $("#buoi_bvtv_thoiky2").val();
+                var buoi_bvtv_thoidiem2 = $("#buoi_bvtv_thoidiem2").val();
+                var buoi_bvtv_loaisau2 = $("#buoi_bvtv_loaisau2").val();
+                var buoi_bvtv_loaithuoc2 = $("#buoi_bvtv_loaithuoc2").val();
+                var buoi_bvtv_lieuluong2 = $("#buoi_bvtv_lieuluong2").val();
+                var buoi_bvtv_hieuqua2 = $("#buoi_bvtv_hieuqua2").val();
+                var buoi_bvtv_thoiky3 = $("#buoi_bvtv_thoiky3").val();
+                var buoi_bvtv_thoidiem3 = $("#buoi_bvtv_thoidiem3").val();
+                var buoi_bvtv_loaisau3 = $("#buoi_bvtv_loaisau3").val();
+                var buoi_bvtv_loaithuoc3 = $("#buoi_bvtv_loaithuoc3").val();
+                var buoi_bvtv_lieuluong3 = $("#buoi_bvtv_lieuluong3").val();
+                var buoi_bvtv_hieuqua3 = $("#buoi_bvtv_hieuqua3").val();
+                var buoi_bvtv_thoiky4 = $("#buoi_bvtv_thoiky4").val();
+                var buoi_bvtv_thoidiem4 = $("#buoi_bvtv_thoidiem4").val();
+                var buoi_bvtv_loaisau4 = $("#buoi_bvtv_loaisau4").val();
+                var buoi_bvtv_loaithuoc4 = $("#buoi_bvtv_loaithuoc4").val();
+                var buoi_bvtv_lieuluong4 = $("#buoi_bvtv_lieuluong4").val();
+                var buoi_bvtv_hieuqua4 = $("#buoi_bvtv_hieuqua4").val();
+                var buoi_bvtv_thoiky5 = $("#buoi_bvtv_thoiky5").val();
+                var buoi_bvtv_thoidiem5 = $("#buoi_bvtv_thoidiem5").val();
+                var buoi_bvtv_loaisau5 = $("#buoi_bvtv_loaisau5").val();
+                var buoi_bvtv_loaithuoc5 = $("#buoi_bvtv_loaithuoc5").val();
+                var buoi_bvtv_lieuluong5 = $("#buoi_bvtv_lieuluong5").val();
+                var buoi_bvtv_hieuqua5 = $("#buoi_bvtv_hieuqua5").val();
+                var buoi_bvtv_thoiky6 = $("#buoi_bvtv_thoiky6").val();
+                var buoi_bvtv_thoidiem6 = $("#buoi_bvtv_thoidiem6").val();
+                var buoi_bvtv_loaisau6 = $("#buoi_bvtv_loaisau6").val();
+                var buoi_bvtv_loaithuoc6 = $("#buoi_bvtv_loaithuoc6").val();
+                var buoi_bvtv_lieuluong6 = $("#buoi_bvtv_lieuluong6").val();
+                var buoi_bvtv_hieuqua6 = $("#buoi_bvtv_hieuqua6").val();
+                var buoi_bvtv_thoiky7 = $("#buoi_bvtv_thoiky7").val();
+                var buoi_bvtv_thoidiem7 = $("#buoi_bvtv_thoidiem7").val();
+                var buoi_bvtv_loaisau7 = $("#buoi_bvtv_loaisau7").val();
+                var buoi_bvtv_loaithuoc7 = $("#buoi_bvtv_loaithuoc7").val();
+                var buoi_bvtv_lieuluong7 = $("#buoi_bvtv_lieuluong7").val();
+                var buoi_bvtv_hieuqua7 = $("#buoi_bvtv_hieuqua7").val();
+                var buoi_bvtv_thoiky8 = $("#buoi_bvtv_thoiky8").val();
+                var buoi_bvtv_thoidiem8 = $("#buoi_bvtv_thoidiem8").val();
+                var buoi_bvtv_loaisau8 = $("#buoi_bvtv_loaisau8").val();
+                var buoi_bvtv_loaithuoc8 = $("#buoi_bvtv_loaithuoc8").val();
+                var buoi_bvtv_lieuluong8 = $("#buoi_bvtv_lieuluong8").val();
+                var buoi_bvtv_hieuqua8 = $("#buoi_bvtv_hieuqua8").val();
+                var buoi_thoigianthuhoach = $("#buoi_thoigianthuhoach").val();
+                var buoi_dacdiemthuhoach = $("#buoi_dacdiemthuhoach").val();
+                var buoi_solanthuhoach = $("#buoi_solanthuhoach").val();
+                var buoi_nsmuathuan = $("#buoi_nsmuathuan").val();
+                var buoi_nsmuanghich = $("#buoi_nsmuanghich").val();
+                var buoi_slmuathuan = $("#buoi_slmuathuan").val();
+                var buoi_slmuanghich = $("#buoi_slmuanghich").val();
+                var buoi_dongia_l1t1 = $("#buoi_dongia_l1t1").val();
+                var buoi_dongia_l1t2 = $("#buoi_dongia_l1t2").val();
+                var buoi_dongia_l1t3 = $("#buoi_dongia_l1t3").val();
+                var buoi_dongia_l1t4 = $("#buoi_dongia_l1t4").val();
+                var buoi_dongia_l1t5 = $("#buoi_dongia_l1t5").val();
+                var buoi_dongia_l1t6 = $("#buoi_dongia_l1t6").val();
+                var buoi_dongia_l1t7 = $("#buoi_dongia_l1t7").val();
+                var buoi_dongia_l1t8 = $("#buoi_dongia_l1t8").val();
+                var buoi_dongia_l1t9 = $("#buoi_dongia_l1t9").val();
+                var buoi_dongia_l1t10 = $("#buoi_dongia_l1t10").val();
+                var buoi_dongia_l1t11 = $("#buoi_dongia_l1t11").val();
+                var buoi_dongia_l1t12 = $("#buoi_dongia_l1t12").val();
+                var buoi_dongia_l2t1 = $("#buoi_dongia_l2t1").val();
+                var buoi_dongia_l2t2 = $("#buoi_dongia_l2t2").val();
+                var buoi_dongia_l2t3 = $("#buoi_dongia_l2t3").val();
+                var buoi_dongia_l2t4 = $("#buoi_dongia_l2t4").val();
+                var buoi_dongia_l2t5 = $("#buoi_dongia_l2t5").val();
+                var buoi_dongia_l2t6 = $("#buoi_dongia_l2t6").val();
+                var buoi_dongia_l2t7 = $("#buoi_dongia_l2t7").val();
+                var buoi_dongia_l2t8 = $("#buoi_dongia_l2t8").val();
+                var buoi_dongia_l2t9 = $("#buoi_dongia_l2t9").val();
+                var buoi_dongia_l2t10 = $("#buoi_dongia_l2t10").val();
+                var buoi_dongia_l2t11 = $("#buoi_dongia_l2t11").val();
+                var buoi_dongia_l2t12 = $("#buoi_dongia_l2t12").val();
+                var buoi_dongia_l3t1 = $("#buoi_dongia_l3t1").val();
+                var buoi_dongia_l3t2 = $("#buoi_dongia_l3t2").val();
+                var buoi_dongia_l3t3 = $("#buoi_dongia_l3t3").val();
+                var buoi_dongia_l3t4 = $("#buoi_dongia_l3t4").val();
+                var buoi_dongia_l3t5 = $("#buoi_dongia_l3t5").val();
+                var buoi_dongia_l3t6 = $("#buoi_dongia_l3t6").val();
+                var buoi_dongia_l3t7 = $("#buoi_dongia_l3t7").val();
+                var buoi_dongia_l3t8 = $("#buoi_dongia_l3t8").val();
+                var buoi_dongia_l3t9 = $("#buoi_dongia_l3t9").val();
+                var buoi_dongia_l3t10 = $("#buoi_dongia_l3t10").val();
+                var buoi_dongia_l3t11 = $("#buoi_dongia_l3t11").val();
+                var buoi_dongia_l3t12 = $("#buoi_dongia_l3t12").val();
+                var buoi_thitruongtieuthu = $("#buoi_thitruongtieuthu").val();
+                var buoi_thitruongngoaitinh = $("#buoi_thitruongngoaitinh").val();
                 if(check_number(sodienthoai) == 0){
                     alert("Không có thông tin! Vui lòng kiểm tra lại!");
-                } else if (phanbon_vusanxuat == "" || phanbon_vusanxuat == " ") {
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Vụ sản xuất đang trống","phanbon_vusanxuat");
-                } else if (phanbon_donvibon == "" || phanbon_donvibon == " "){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Đơn vị bón đang trống","phanbon_donvibon");
-                } else if (phanbon_thuchiencongviec == "" || phanbon_thuchiencongviec == " "){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Thực hiện công việc đang trống","phanbon_thuchiencongviec");
-                } else if (phanbon_congcu == "" || phanbon_congcu == " "){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Công cụ, phương tiện đang trống","phanbon_congcu");
-                } else if (thuocbvtv_phunthuockhi == "" || thuocbvtv_phunthuockhi == " "){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phun thuốc khi đang trống","thuocbvtv_phunthuockhi");
-                } else if (thuocbvtv_thuchiencongviec == "" || thuocbvtv_thuchiencongviec == " "){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thực hiện công việc đang trống","thuocbvtv_thuchiencongviec");
-                } else if (thuocbvtv_phuongtien == "" || thuocbvtv_phuongtien == " "){
-                    nofi_alert("Sử dụng thuốc BVTV -> Công cụ, phương tiện đang trống","thuocbvtv_phuongtien");
-                } else if (!checknumber_binary(thongtinchung_dientich)){
-                    nofi_alert("Thông tin sản xuất -> Diện tích đất canh tác nhập sai định dạng","thongtinchung_dientich");
-                } else if (!checknumber_binary(phanbon_tongphanbon)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Tổng số lần bón phân nhập sai định dạng","phanbon_tongphanbon");
-                } else if (!checknumber_binary(phanbon_huuco_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lót nhập sai định dạng","phanbon_huuco_bonlot");
-                } else if (!checknumber_binary(phanbon_huuco_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 1 nhập sai định dạng","phanbon_huuco_bonlan1");
-                } else if (!checknumber_binary(phanbon_huuco_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 2 nhập sai định dạng","phanbon_huuco_bonlan2");
-                } else if (!checknumber_binary(phanbon_huuco_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 3 nhập sai định dạng","phanbon_huuco_bonlan3");
-                } else if (!checknumber_binary(phanbon_huuco_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 4 nhập sai định dạng","phanbon_huuco_bonlan4");
-                } else if (!checknumber_binary(phanbon_huuco_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân hữu cơ -> Bón lần 5 nhập sai định dạng","phanbon_huuco_bonlan5");
-                } else if (!checknumber_binary(phanbon_caitaodat_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lót nhập sai định dạng","phanbon_caitaodat_bonlot");
-                } else if (!checknumber_binary(phanbon_caitaodat_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 1 nhập sai định dạng","phanbon_caitaodat_bonlan1");
-                } else if (!checknumber_binary(phanbon_caitaodat_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 2 nhập sai định dạng","phanbon_caitaodat_bonlan2");
-                } else if (!checknumber_binary(phanbon_caitaodat_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 3 nhập sai định dạng","phanbon_caitaodat_bonlan3");
-                } else if (!checknumber_binary(phanbon_caitaodat_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 4 nhập sai định dạng","phanbon_caitaodat_bonlan4");
-                } else if (!checknumber_binary(phanbon_caitaodat_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân cải tạo đất -> Bón lần 5 nhập sai định dạng","phanbon_caitaodat_bonlan5");
-                } else if (!checknumber_binary(phanbon_ure_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lót nhập sai định dạng","phanbon_huuco_bonlot");
-                } else if (!checknumber_binary(phanbon_ure_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 1 nhập sai định dạng","phanbon_ure_bonlan1");
-                } else if (!checknumber_binary(phanbon_ure_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 2 nhập sai định dạng","phanbon_ure_bonlan2");
-                } else if (!checknumber_binary(phanbon_ure_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 3 nhập sai định dạng","phanbon_ure_bonlan3");
-                } else if (!checknumber_binary(phanbon_ure_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 4 nhập sai định dạng","phanbon_ure_bonlan4");
-                } else if (!checknumber_binary(phanbon_ure_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Urê -> Bón lần 5 nhập sai định dạng","phanbon_ure_bonlan5");
-                } else if (!checknumber_binary(phanbon_lan_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lót nhập sai định dạng","phanbon_lan_bonlot");
-                } else if (!checknumber_binary(phanbon_lan_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 1 nhập sai định dạng","phanbon_lan_bonlan1");
-                } else if (!checknumber_binary(phanbon_lan_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 2 nhập sai định dạng","phanbon_lan_bonlan1");
-                } else if (!checknumber_binary(phanbon_lan_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 3 nhập sai định dạng","phanbon_lan_bonlan1");
-                } else if (!checknumber_binary(phanbon_lan_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 4 nhập sai định dạng","phanbon_lan_bonlan1");
-                } else if (!checknumber_binary(phanbon_lan_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân lân -> Bón lần 5 nhập sai định dạng","phanbon_lan_bonlan1");
-                } else if (!checknumber_binary(phanbon_kali_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lót nhập sai định dạng","phanbon_kali_bonlot");
-                } else if (!checknumber_binary(phanbon_kali_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 1 nhập sai định dạng","phanbon_kali_bonlan1");
-                } else if (!checknumber_binary(phanbon_kali_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 2 nhập sai định dạng","phanbon_kali_bonlan2");
-                } else if (!checknumber_binary(phanbon_kali_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 3 nhập sai định dạng","phanbon_kali_bonlan3");
-                } else if (!checknumber_binary(phanbon_kali_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 4 nhập sai định dạng","phanbon_kali_bonlan4");
-                } else if (!checknumber_binary(phanbon_kali_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân Kali -> Bón lần 5 nhập sai định dạng","phanbon_kali_bonlan5");
-                } else if (!checknumber_binary(phanbon_dap_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lót nhập sai định dạng","phanbon_dap_bonlot");
-                } else if (!checknumber_binary(phanbon_dap_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 1 nhập sai định dạng","phanbon_dap_bonlan1");
-                } else if (!checknumber_binary(phanbon_dap_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 2 nhập sai định dạng","phanbon_dap_bonlan2");
-                } else if (!checknumber_binary(phanbon_dap_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 3 nhập sai định dạng","phanbon_dap_bonlan3");
-                } else if (!checknumber_binary(phanbon_dap_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 4 nhập sai định dạng","phanbon_dap_bonlan4");
-                } else if (!checknumber_binary(phanbon_dap_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân DAP -> Bón lần 5 nhập sai định dạng","phanbon_dap_bonlan5");
-                } else if (!checknumber_binary(phanbon_npk_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lót nhập sai định dạng","phanbon_npk_bonlot");
-                } else if (!checknumber_binary(phanbon_npk_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 1 nhập sai định dạng","phanbon_npk_bonlan1");
-                } else if (!checknumber_binary(phanbon_npk_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 2 nhập sai định dạng","phanbon_npk_bonlan2");
-                } else if (!checknumber_binary(phanbon_npk_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 3 nhập sai định dạng","phanbon_npk_bonlan3");
-                } else if (!checknumber_binary(phanbon_npk_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 4 nhập sai định dạng","phanbon_npk_bonlan4");
-                } else if (!checknumber_binary(phanbon_npk_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân NPK -> Bón lần 5 nhập sai định dạng","phanbon_npk_bonlan5");
-                } else if (!checknumber_binary(phanbon_khac_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lót nhập sai định dạng","phanbon_khac_bonlot");
-                } else if (!checknumber_binary(phanbon_khac_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 1 nhập sai định dạng","phanbon_khac_bonlan1");
-                } else if (!checknumber_binary(phanbon_khac_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 2 nhập sai định dạng","phanbon_khac_bonlan2");
-                } else if (!checknumber_binary(phanbon_khac_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 3 nhập sai định dạng","phanbon_khac_bonlan3");
-                } else if (!checknumber_binary(phanbon_khac_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 4 nhập sai định dạng","phanbon_khac_bonlan4");
-                } else if (!checknumber_binary(phanbon_khac_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân khác -> Bón lần 5 nhập sai định dạng","phanbon_khac_bonlan5");
-                } else if (!checknumber_binary(phanbon_phanbonla_bonlot)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lót nhập sai định dạng","phanbon_phanbonla_bonlot");
-                } else if (!checknumber_binary(phanbon_phanbonla_bonlan1)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 1 nhập sai định dạng","phanbon_phanbonla_bonlan1");
-                } else if (!checknumber_binary(phanbon_phanbonla_bonlan2)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 2 nhập sai định dạng","phanbon_phanbonla_bonlan2");
-                } else if (!checknumber_binary(phanbon_phanbonla_bonlan3)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 3 nhập sai định dạng","phanbon_phanbonla_bonlan3");
-                } else if (!checknumber_binary(phanbon_phanbonla_bonlan4)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 4 nhập sai định dạng","phanbon_phanbonla_bonlan4");
-                } else if (!checknumber_binary(phanbon_phanbonla_bonlan5)){
-                    nofi_alert("Phân bón và kỹ thuật bón phân -> Phân bón lá -> Bón lần 5 nhập sai định dạng","phanbon_phanbonla_bonlan5");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_buouvang)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ ốc Bươu Vàng -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_buouvang");
-                } else if (!checknumber_binary(thuocbvtv_soluong_buouvang)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ ốc Bươu Vàng -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_buouvang");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_truco)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ cỏ -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_truco");
-                } else if (!checknumber_binary(thuocbvtv_soluong_truco)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ cỏ -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_truco");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_trusau)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ sâu -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trusau");
-                } else if (!checknumber_binary(thuocbvtv_soluong_trusau)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ sâu -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trusau");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_truray)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ rầy -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_truray");
-                } else if (!checknumber_binary(thuocbvtv_soluong_truray)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ rầy -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_truray");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_trubenh)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ bệnh -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trubenh");
-                } else if (!checknumber_binary(thuocbvtv_soluong_trubenh)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thuốc trừ bệnh -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trubenh");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_trusautruray)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ rầy) -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trusautruray");
-                } else if (!checknumber_binary(thuocbvtv_soluong_trusautruray)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ rầy) -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trusautruray");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_trusautrubenh)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ bệnh) -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trusautrubenh");
-                } else if (!checknumber_binary(thuocbvtv_soluong_trusautrubenh)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ bệnh) -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trusautrubenh");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_truraytrubenh)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ rầy, trừ bệnh) -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_truraytrubenh");
-                } else if (!checknumber_binary(thuocbvtv_soluong_truraytrubenh)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ rầy, trừ bệnh) -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_truraytrubenh");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_trusautruraytrubenh)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ rầy, trừ bệnh) -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_trusautruraytrubenh");
-                } else if (!checknumber_binary(thuocbvtv_soluong_trusautruraytrubenh)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Phối hợp thuốc( trừ sâu, trừ rầy, trừ bệnh) -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_trusautruraytrubenh");
-                } else if (!checknumber_binary(thuocbvtv_solanphun_lancuoi)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thời điểm sử dụng thuốc BVTV lần cuối -> Số lần phun nhập sai định dạng","thuocbvtv_solanphun_lancuoi");
-                } else if (!checknumber_binary(thuocbvtv_soluong_lancuoi)){
-                    nofi_alert("Sử dụng thuốc BVTV -> Thời điểm sử dụng thuốc BVTV lần cuối -> Số lượng phun nhập sai định dạng","thuocbvtv_soluong_lancuoi");
-                } else if (!checknumber_binary(nangsuatbinhquan)){
-                    nofi_alert("Thu hoạch -> Năng suất bình quân nhập sai định dạng","nangsuatbinhquan");
                 } else {
                     $.ajax({
                         type: 'POST',
@@ -2488,129 +2410,169 @@
                         data: {
                             for: "_suathongtinvungtrong_buoi",
                             sodienthoai: sodienthoai,
-                            thongtinchung_dientich: thongtinchung_dientich,
-                            giongvacachxulygiong_tengiong: giongvacachxulygiong_tengiong,
-                            thoivu_hethu: thoivu_hethu,
-                            thoivu_thudong: thoivu_thudong,
-                            thoivu_dongxuan: thoivu_dongxuan,
-                            thoivu_xuanhe: thoivu_xuanhe,
-                            phanbon_tongphanbon: phanbon_tongphanbon,
-                            phanbon_vusanxuat: phanbon_vusanxuat,
-                            phanbon_donvibon: phanbon_donvibon,
-                            phanbon_thuchiencongviec: phanbon_thuchiencongviec,
-                            phanbon_congcu: phanbon_congcu,
-                            phanbon_huuco_bonlot: phanbon_huuco_bonlot,
-                            phanbon_huuco_bonlan1: phanbon_huuco_bonlan1,
-                            phanbon_huuco_bonlan2: phanbon_huuco_bonlan2,
-                            phanbon_huuco_bonlan3: phanbon_huuco_bonlan3,
-                            phanbon_huuco_bonlan4: phanbon_huuco_bonlan4,
-                            phanbon_huuco_bonlan5: phanbon_huuco_bonlan5,
-                            phanbon_huuco_note: phanbon_huuco_note,
-                            phanbon_caitaodat_bonlot: phanbon_caitaodat_bonlot,
-                            phanbon_caitaodat_bonlan1: phanbon_caitaodat_bonlan1,
-                            phanbon_caitaodat_bonlan2: phanbon_caitaodat_bonlan2,
-                            phanbon_caitaodat_bonlan3: phanbon_caitaodat_bonlan3,
-                            phanbon_caitaodat_bonlan4: phanbon_caitaodat_bonlan4,
-                            phanbon_caitaodat_bonlan5: phanbon_caitaodat_bonlan5,
-                            phanbon_caitaodat_note: phanbon_caitaodat_note,
-                            phanbon_ure_bonlot: phanbon_ure_bonlot,
-                            phanbon_ure_bonlan1: phanbon_ure_bonlan1,
-                            phanbon_ure_bonlan2: phanbon_ure_bonlan2,
-                            phanbon_ure_bonlan3: phanbon_ure_bonlan3,
-                            phanbon_ure_bonlan4: phanbon_ure_bonlan4,
-                            phanbon_ure_bonlan5: phanbon_ure_bonlan5,
-                            phanbon_ure_note: phanbon_ure_note,
-                            phanbon_lan_bonlot: phanbon_lan_bonlot,
-                            phanbon_lan_bonlan1: phanbon_lan_bonlan1,
-                            phanbon_lan_bonlan2: phanbon_lan_bonlan2,
-                            phanbon_lan_bonlan3: phanbon_lan_bonlan3,
-                            phanbon_lan_bonlan4: phanbon_lan_bonlan4,
-                            phanbon_lan_bonlan5: phanbon_lan_bonlan5,
-                            phanbon_lan_note: phanbon_lan_note,
-                            phanbon_kali_bonlot: phanbon_kali_bonlot,
-                            phanbon_kali_bonlan1: phanbon_kali_bonlan1,
-                            phanbon_kali_bonlan2: phanbon_kali_bonlan2,
-                            phanbon_kali_bonlan3: phanbon_kali_bonlan3,
-                            phanbon_kali_bonlan4: phanbon_kali_bonlan4,
-                            phanbon_kali_bonlan5: phanbon_kali_bonlan5,
-                            phanbon_kali_note: phanbon_kali_note,
-                            phanbon_dap_bonlot: phanbon_dap_bonlot,
-                            phanbon_dap_bonlan1: phanbon_dap_bonlan1,
-                            phanbon_dap_bonlan2: phanbon_dap_bonlan2,
-                            phanbon_dap_bonlan3: phanbon_dap_bonlan3,
-                            phanbon_dap_bonlan4: phanbon_dap_bonlan4,
-                            phanbon_dap_bonlan5: phanbon_dap_bonlan5,
-                            phanbon_dap_note: phanbon_dap_note,
-                            phanbon_npk_tenphan: phanbon_npk_tenphan,
-                            phanbon_npk_bonlot: phanbon_npk_bonlot,
-                            phanbon_npk_bonlan1: phanbon_npk_bonlan1,
-                            phanbon_npk_bonlan2: phanbon_npk_bonlan2,
-                            phanbon_npk_bonlan3: phanbon_npk_bonlan3,
-                            phanbon_npk_bonlan4: phanbon_npk_bonlan4,
-                            phanbon_npk_bonlan5: phanbon_npk_bonlan5,
-                            phanbon_npk_note: phanbon_npk_note,
-                            phanbon_khac_tenphan: phanbon_khac_tenphan,
-                            phanbon_khac_bonlot: phanbon_khac_bonlot,
-                            phanbon_khac_bonlan1: phanbon_khac_bonlan1,
-                            phanbon_khac_bonlan2: phanbon_khac_bonlan2,
-                            phanbon_khac_bonlan3: phanbon_khac_bonlan3,
-                            phanbon_khac_bonlan4: phanbon_khac_bonlan4,
-                            phanbon_khac_bonlan5: phanbon_khac_bonlan5,
-                            phanbon_khac_note: phanbon_khac_note,
-                            phanbon_phanbonla_tenphan: phanbon_phanbonla_tenphan,
-                            phanbon_phanbonla_bonlot: phanbon_phanbonla_bonlot,
-                            phanbon_phanbonla_bonlan1: phanbon_phanbonla_bonlan1,
-                            phanbon_phanbonla_bonlan2: phanbon_phanbonla_bonlan2,
-                            phanbon_phanbonla_bonlan3: phanbon_phanbonla_bonlan3,
-                            phanbon_phanbonla_bonlan4: phanbon_phanbonla_bonlan4,
-                            phanbon_phanbonla_bonlan5: phanbon_phanbonla_bonlan5,
-                            phanbon_phanbonla_note: phanbon_phanbonla_note,
-                            thuocbvtv_solanphun_buouvang: thuocbvtv_solanphun_buouvang,
-                            thuocbvtv_soluong_buouvang: thuocbvtv_soluong_buouvang,
-                            thuocbvtv_solanphun_truco: thuocbvtv_solanphun_truco,
-                            thuocbvtv_soluong_truco: thuocbvtv_soluong_truco,
-                            thuocbvtv_solanphun_trusau: thuocbvtv_solanphun_trusau,
-                            thuocbvtv_soluong_trusau: thuocbvtv_soluong_trusau,
-                            thuocbvtv_solanphun_truray: thuocbvtv_solanphun_truray,
-                            thuocbvtv_soluong_truray: thuocbvtv_soluong_truray,
-                            thuocbvtv_solanphun_trubenh: thuocbvtv_solanphun_trubenh,
-                            thuocbvtv_soluong_trubenh: thuocbvtv_soluong_trubenh,
-                            thuocbvtv_solanphun_trusautruray: thuocbvtv_solanphun_trusautruray,
-                            thuocbvtv_soluong_trusautruray: thuocbvtv_soluong_trusautruray,
-                            thuocbvtv_solanphun_trusautrubenh: thuocbvtv_solanphun_trusautrubenh,
-                            thuocbvtv_soluong_trusautrubenh: thuocbvtv_soluong_trusautrubenh,
-                            thuocbvtv_solanphun_truraytrubenh: thuocbvtv_solanphun_truraytrubenh,
-                            thuocbvtv_soluong_truraytrubenh: thuocbvtv_soluong_truraytrubenh,
-                            thuocbvtv_solanphun_trusautruraytrubenh: thuocbvtv_solanphun_trusautruraytrubenh,
-                            thuocbvtv_soluong_trusautruraytrubenh: thuocbvtv_soluong_trusautruraytrubenh,
-                            thuocbvtv_solanphun_lancuoi: thuocbvtv_solanphun_lancuoi,
-                            thuocbvtv_soluong_lancuoi: thuocbvtv_soluong_lancuoi,
-                            thuocbvtv_phundinhky: thuocbvtv_phundinhky,
-                            thuocbvtv_phundinhky_thoigianphun: thuocbvtv_phundinhky_thoigianphun,
-                            thuocbvtv_phundinhky_lydophun: thuocbvtv_phundinhky_lydophun,
-                            thuocbvtv_phunthoidiem_lan1: thuocbvtv_phunthoidiem_lan1,
-                            thuocbvtv_phunthoidiem_lan2: thuocbvtv_phunthoidiem_lan2,
-                            thuocbvtv_phunthoidiem_lan3: thuocbvtv_phunthoidiem_lan3,
-                            thuocbvtv_phunthoidiem_lan4: thuocbvtv_phunthoidiem_lan4,
-                            thuocbvtv_phunthoidiem_lan5: thuocbvtv_phunthoidiem_lan5,
-                            thuocbvtv_phunthoidiem_lan6: thuocbvtv_phunthoidiem_lan6,
-                            thuocbvtv_phunthoidiem_lan7: thuocbvtv_phunthoidiem_lan7,
-                            thuocbvtv_phunthoidiem_lan8: thuocbvtv_phunthoidiem_lan8,
-                            thuocbvtv_phunthoidiem_lan9: thuocbvtv_phunthoidiem_lan9,
-                            thuocbvtv_phunthoidiem_lan10: thuocbvtv_phunthoidiem_lan10,
-                            thuocbvtv_phunthoidiem_lydophun: thuocbvtv_phunthoidiem_lydophun,
-                            thuocbvtv_phunthuockhi: thuocbvtv_phunthuockhi,
-                            thuocbvtv_thuchiencongviec: thuocbvtv_thuchiencongviec,
-                            thuocbvtv_phuongtien: thuocbvtv_phuongtien,
-                            thuhoach_hethu: thuhoach_hethu,
-                            thuhoach_thudong: thuhoach_thudong,
-                            thuhoach_dongxuan: thuhoach_dongxuan,
-                            thuhoach_xuanhe: thuhoach_xuanhe,
-                            nangsuatbinhquan: nangsuatbinhquan,
+                            buoi_thongtinsp : buoi_thongtinsp,
+                            thongtinchung_dientich : thongtinchung_dientich,
+                            buoi_gionggannhat : buoi_gionggannhat,
+                            buoi_nguongocgiong : buoi_nguongocgiong,
+                            buoi_giayxacnhangiong : buoi_giayxacnhangiong,
+                            buoi_xulycaygiong : buoi_xulycaygiong,
+                            buoi_chephamxuly : buoi_chephamxuly,
+                            buoi_mucdichxuly : buoi_mucdichxuly,
+                            buoi_matdocaytrong : buoi_matdocaytrong,
+                            buoi_khoangcachtrong : buoi_khoangcachtrong,
+                            buoi_bodebobao : buoi_bodebobao,
+                            buoi_chieucaobobao : buoi_chieucaobobao,
+                            buoi_chieurongbobao : buoi_chieurongbobao,
+                            buoi_slongbong : buoi_slongbong,
+                            buoi_duongkinhongbong : buoi_duongkinhongbong,
+                            buoi_cachdatongbong : buoi_cachdatongbong,
+                            buoi_quanlycodai : buoi_quanlycodai,
+                            buoi_phanbon_thoiky1 : buoi_phanbon_thoiky1,
+                            buoi_phanbon_thoidiem1 : buoi_phanbon_thoidiem1,
+                            buoi_phanbon_loaiphan1 : buoi_phanbon_loaiphan1,
+                            buoi_phanbon_lieuluong1 : buoi_phanbon_lieuluong1,
+                            buoi_phanbon_cachbon1 : buoi_phanbon_cachbon1,
+                            buoi_phanbon_thoigiantuoi1 : buoi_phanbon_thoigiantuoi1,
+                            buoi_phanbon_thoiky2 : buoi_phanbon_thoiky2,
+                            buoi_phanbon_thoidiem2 : buoi_phanbon_thoidiem2,
+                            buoi_phanbon_loaiphan2 : buoi_phanbon_loaiphan2,
+                            buoi_phanbon_lieuluong2 : buoi_phanbon_lieuluong2,
+                            buoi_phanbon_cachbon2 : buoi_phanbon_cachbon2,
+                            buoi_phanbon_thoigiantuoi2 : buoi_phanbon_thoigiantuoi2,
+                            buoi_phanbon_thoiky3 : buoi_phanbon_thoiky3,
+                            buoi_phanbon_thoidiem3 : buoi_phanbon_thoidiem3,
+                            buoi_phanbon_loaiphan3 : buoi_phanbon_loaiphan3,
+                            buoi_phanbon_lieuluong3 : buoi_phanbon_lieuluong3,
+                            buoi_phanbon_cachbon3 : buoi_phanbon_cachbon3,
+                            buoi_phanbon_thoigiantuoi3 : buoi_phanbon_thoigiantuoi3,
+                            buoi_phanbon_thoiky4 : buoi_phanbon_thoiky4,
+                            buoi_phanbon_thoidiem4 : buoi_phanbon_thoidiem4,
+                            buoi_phanbon_loaiphan4 : buoi_phanbon_loaiphan4,
+                            buoi_phanbon_lieuluong4 : buoi_phanbon_lieuluong4,
+                            buoi_phanbon_cachbon4 : buoi_phanbon_cachbon4,
+                            buoi_phanbon_thoigiantuoi4 : buoi_phanbon_thoigiantuoi4,
+                            buoi_phanbon_thoiky5 : buoi_phanbon_thoiky5,
+                            buoi_phanbon_thoidiem5 : buoi_phanbon_thoidiem5,
+                            buoi_phanbon_loaiphan5 : buoi_phanbon_loaiphan5,
+                            buoi_phanbon_lieuluong5 : buoi_phanbon_lieuluong5,
+                            buoi_phanbon_cachbon5 : buoi_phanbon_cachbon5,
+                            buoi_phanbon_thoigiantuoi5 : buoi_phanbon_thoigiantuoi5,
+                            buoi_phanbon_thoiky6 : buoi_phanbon_thoiky6,
+                            buoi_phanbon_thoidiem6 : buoi_phanbon_thoidiem6,
+                            buoi_phanbon_loaiphan6 : buoi_phanbon_loaiphan6,
+                            buoi_phanbon_lieuluong6 : buoi_phanbon_lieuluong6,
+                            buoi_phanbon_cachbon6 : buoi_phanbon_cachbon6,
+                            buoi_phanbon_thoigiantuoi6 : buoi_phanbon_thoigiantuoi6,
+                            buoi_phanbon_thoiky7 : buoi_phanbon_thoiky7,
+                            buoi_phanbon_thoidiem7 : buoi_phanbon_thoidiem7,
+                            buoi_phanbon_loaiphan7 : buoi_phanbon_loaiphan7,
+                            buoi_phanbon_lieuluong7 : buoi_phanbon_lieuluong7,
+                            buoi_phanbon_cachbon7 : buoi_phanbon_cachbon7,
+                            buoi_phanbon_thoigiantuoi7 : buoi_phanbon_thoigiantuoi7,
+                            buoi_phanbon_thoiky8 : buoi_phanbon_thoiky8,
+                            buoi_phanbon_thoidiem8 : buoi_phanbon_thoidiem8,
+                            buoi_phanbon_loaiphan8 : buoi_phanbon_loaiphan8,
+                            buoi_phanbon_lieuluong8 : buoi_phanbon_lieuluong8,
+                            buoi_phanbon_cachbon8 : buoi_phanbon_cachbon8,
+                            buoi_phanbon_thoigiantuoi8 : buoi_phanbon_thoigiantuoi8,
+                            buoi_bvtv_thoiky1 : buoi_bvtv_thoiky1,
+                            buoi_bvtv_thoidiem1 : buoi_bvtv_thoidiem1,
+                            buoi_bvtv_loaisau1 : buoi_bvtv_loaisau1,
+                            buoi_bvtv_loaithuoc1 : buoi_bvtv_loaithuoc1,
+                            buoi_bvtv_lieuluong1 : buoi_bvtv_lieuluong1,
+                            buoi_bvtv_hieuqua1 : buoi_bvtv_hieuqua1,
+                            buoi_bvtv_thoiky2 : buoi_bvtv_thoiky2,
+                            buoi_bvtv_thoidiem2 : buoi_bvtv_thoidiem2,
+                            buoi_bvtv_loaisau2 : buoi_bvtv_loaisau2,
+                            buoi_bvtv_loaithuoc2 : buoi_bvtv_loaithuoc2,
+                            buoi_bvtv_lieuluong2 : buoi_bvtv_lieuluong2,
+                            buoi_bvtv_hieuqua2 : buoi_bvtv_hieuqua2,
+                            buoi_bvtv_thoiky3 : buoi_bvtv_thoiky3,
+                            buoi_bvtv_thoidiem3 : buoi_bvtv_thoidiem3,
+                            buoi_bvtv_loaisau3 : buoi_bvtv_loaisau3,
+                            buoi_bvtv_loaithuoc3 : buoi_bvtv_loaithuoc3,
+                            buoi_bvtv_lieuluong3 : buoi_bvtv_lieuluong3,
+                            buoi_bvtv_hieuqua3 : buoi_bvtv_hieuqua3,
+                            buoi_bvtv_thoiky4 : buoi_bvtv_thoiky4,
+                            buoi_bvtv_thoidiem4 : buoi_bvtv_thoidiem4,
+                            buoi_bvtv_loaisau4 : buoi_bvtv_loaisau4,
+                            buoi_bvtv_loaithuoc4 : buoi_bvtv_loaithuoc4,
+                            buoi_bvtv_lieuluong4 : buoi_bvtv_lieuluong4,
+                            buoi_bvtv_hieuqua4 : buoi_bvtv_hieuqua4,
+                            buoi_bvtv_thoiky5 : buoi_bvtv_thoiky5,
+                            buoi_bvtv_thoidiem5 : buoi_bvtv_thoidiem5,
+                            buoi_bvtv_loaisau5 : buoi_bvtv_loaisau5,
+                            buoi_bvtv_loaithuoc5 : buoi_bvtv_loaithuoc5,
+                            buoi_bvtv_lieuluong5 : buoi_bvtv_lieuluong5,
+                            buoi_bvtv_hieuqua5 : buoi_bvtv_hieuqua5,
+                            buoi_bvtv_thoiky6 : buoi_bvtv_thoiky6,
+                            buoi_bvtv_thoidiem6 : buoi_bvtv_thoidiem6,
+                            buoi_bvtv_loaisau6 : buoi_bvtv_loaisau6,
+                            buoi_bvtv_loaithuoc6 : buoi_bvtv_loaithuoc6,
+                            buoi_bvtv_lieuluong6 : buoi_bvtv_lieuluong6,
+                            buoi_bvtv_hieuqua6 : buoi_bvtv_hieuqua6,
+                            buoi_bvtv_thoiky7 : buoi_bvtv_thoiky7,
+                            buoi_bvtv_thoidiem7 : buoi_bvtv_thoidiem7,
+                            buoi_bvtv_loaisau7 : buoi_bvtv_loaisau7,
+                            buoi_bvtv_loaithuoc7 : buoi_bvtv_loaithuoc7,
+                            buoi_bvtv_lieuluong7 : buoi_bvtv_lieuluong7,
+                            buoi_bvtv_hieuqua7 : buoi_bvtv_hieuqua7,
+                            buoi_bvtv_thoiky8 : buoi_bvtv_thoiky8,
+                            buoi_bvtv_thoidiem8 : buoi_bvtv_thoidiem8,
+                            buoi_bvtv_loaisau8 : buoi_bvtv_loaisau8,
+                            buoi_bvtv_loaithuoc8 : buoi_bvtv_loaithuoc8,
+                            buoi_bvtv_lieuluong8 : buoi_bvtv_lieuluong8,
+                            buoi_bvtv_hieuqua8 : buoi_bvtv_hieuqua8,
+                            buoi_thoigianthuhoach : buoi_thoigianthuhoach,
+                            buoi_dacdiemthuhoach : buoi_dacdiemthuhoach,
+                            buoi_solanthuhoach : buoi_solanthuhoach,
+                            buoi_nsmuathuan : buoi_nsmuathuan,
+                            buoi_nsmuanghich : buoi_nsmuanghich,
+                            buoi_slmuathuan : buoi_slmuathuan,
+                            buoi_slmuanghich : buoi_slmuanghich,
+                            buoi_dongia_l1t1 : buoi_dongia_l1t1,
+                            buoi_dongia_l1t2 : buoi_dongia_l1t2,
+                            buoi_dongia_l1t3 : buoi_dongia_l1t3,
+                            buoi_dongia_l1t4 : buoi_dongia_l1t4,
+                            buoi_dongia_l1t5 : buoi_dongia_l1t5,
+                            buoi_dongia_l1t6 : buoi_dongia_l1t6,
+                            buoi_dongia_l1t7 : buoi_dongia_l1t7,
+                            buoi_dongia_l1t8 : buoi_dongia_l1t8,
+                            buoi_dongia_l1t9 : buoi_dongia_l1t9,
+                            buoi_dongia_l1t10 : buoi_dongia_l1t10,
+                            buoi_dongia_l1t11 : buoi_dongia_l1t11,
+                            buoi_dongia_l1t12 : buoi_dongia_l1t12,
+                            buoi_dongia_l2t1 : buoi_dongia_l2t1,
+                            buoi_dongia_l2t2 : buoi_dongia_l2t2,
+                            buoi_dongia_l2t3 : buoi_dongia_l2t3,
+                            buoi_dongia_l2t4 : buoi_dongia_l2t4,
+                            buoi_dongia_l2t5 : buoi_dongia_l2t5,
+                            buoi_dongia_l2t6 : buoi_dongia_l2t6,
+                            buoi_dongia_l2t7 : buoi_dongia_l2t7,
+                            buoi_dongia_l2t8 : buoi_dongia_l2t8,
+                            buoi_dongia_l2t9 : buoi_dongia_l2t9,
+                            buoi_dongia_l2t10 : buoi_dongia_l2t10,
+                            buoi_dongia_l2t11 : buoi_dongia_l2t11,
+                            buoi_dongia_l2t12 : buoi_dongia_l2t12,
+                            buoi_dongia_l3t1 : buoi_dongia_l3t1,
+                            buoi_dongia_l3t2 : buoi_dongia_l3t2,
+                            buoi_dongia_l3t3 : buoi_dongia_l3t3,
+                            buoi_dongia_l3t4 : buoi_dongia_l3t4,
+                            buoi_dongia_l3t5 : buoi_dongia_l3t5,
+                            buoi_dongia_l3t6 : buoi_dongia_l3t6,
+                            buoi_dongia_l3t7 : buoi_dongia_l3t7,
+                            buoi_dongia_l3t8 : buoi_dongia_l3t8,
+                            buoi_dongia_l3t9 : buoi_dongia_l3t9,
+                            buoi_dongia_l3t10 : buoi_dongia_l3t10,
+                            buoi_dongia_l3t11 : buoi_dongia_l3t11,
+                            buoi_dongia_l3t12 : buoi_dongia_l3t12,
+                            buoi_thitruongtieuthu : buoi_thitruongtieuthu,
+                            buoi_thitruongngoaitinh : buoi_thitruongngoaitinh,
                             key: "Vnpt@123"
                         }
                     }).done(function(data){
                         var jsonData = JSON.parse(data);   
+                        // alert("Cập nhật thành công!");
                         if (jsonData.code == 200){
                             alert("Cập nhật thành công!");
                         } else {
@@ -2620,291 +2582,6 @@
                 }
             });
         });
-
-
-        /* comment tạm thời bỏ để test trước, nào hướng dẫn xong mở lại
-            $("#capnhatthongtinvungtrong").click(function(){
-                var sodienthoai = '0' + <?php echo $_GET['SODIENTHOAI'] ?>;
-				var thongtinchung_dientich = $("#thongtinchung_dientich").val();
-                var giongvacachxulygiong_tengiong = $("#giongvacachxulygiong_tengiong").val();
-                var thoivu_hethu = $("#thoivu_hethu").val();
-                var thoivu_thudong = $("#thoivu_thudong").val();
-                var thoivu_dongxuan =$("#thoivu_dongxuan").val();
-                var thoivu_xuanhe = $("#thoivu_xuanhe").val();
-                var phanbon_tongphanbon = $("#phanbon_tongphanbon").val();
-                var phanbon_vusanxuat = $("#phanbon_vusanxuat option:selected").text();
-                var phanbon_donvibon = $("#phanbon_donvibon option:selected").text();
-                var phanbon_thuchiencongviec = $("#phanbon_thuchiencongviec option:selected").text();
-                var phanbon_congcu = $("#phanbon_congcu option:selected").text();
-                var phanbon_huuco_bonlot = $("#phanbon_huuco_bonlot").val();
-                var phanbon_huuco_bonlan1 = $("#phanbon_huuco_bonlan1").val();
-                var phanbon_huuco_bonlan2 = $("#phanbon_huuco_bonlan2").val();
-                var phanbon_huuco_bonlan3 = $("#phanbon_huuco_bonlan3").val();
-                var phanbon_huuco_bonlan4 = $("#phanbon_huuco_bonlan4").val();
-                var phanbon_huuco_bonlan5 = $("#phanbon_huuco_bonlan5").val();
-                var phanbon_huuco_note = $("#phanbon_huuco_note").val();
-                var phanbon_caitaodat_bonlot = $("#phanbon_caitaodat_bonlot").val();
-                var phanbon_caitaodat_bonlan1 = $("#phanbon_caitaodat_bonlan1").val();
-                var phanbon_caitaodat_bonlan2 = $("#phanbon_caitaodat_bonlan2").val();
-                var phanbon_caitaodat_bonlan3 = $("#phanbon_caitaodat_bonlan3").val();
-                var phanbon_caitaodat_bonlan4 = $("#phanbon_caitaodat_bonlan4").val();
-                var phanbon_caitaodat_bonlan5 = $("#phanbon_caitaodat_bonlan5").val();
-                var phanbon_caitaodat_note = $("#phanbon_caitaodat_note").val();
-                var phanbon_ure_bonlot = $("#phanbon_ure_bonlot").val();
-                var phanbon_ure_bonlan1 = $("#phanbon_ure_bonlan1").val();
-                var phanbon_ure_bonlan2 = $("#phanbon_ure_bonlan2").val();
-                var phanbon_ure_bonlan3 = $("#phanbon_ure_bonlan3").val();
-                var phanbon_ure_bonlan4 = $("#phanbon_ure_bonlan4").val();
-                var phanbon_ure_bonlan5 = $("#phanbon_ure_bonlan5").val();
-                var phanbon_ure_note = $("#phanbon_ure_note").val();
-                var phanbon_lan_bonlot = $("#phanbon_lan_bonlot").val();
-                var phanbon_lan_bonlan1 = $("#phanbon_lan_bonlan1").val();
-                var phanbon_lan_bonlan2 = $("#phanbon_lan_bonlan2").val();
-                var phanbon_lan_bonlan3 = $("#phanbon_lan_bonlan3").val();
-                var phanbon_lan_bonlan4 = $("#phanbon_lan_bonlan4").val();
-                var phanbon_lan_bonlan5 = $("#phanbon_lan_bonlan5").val();
-                var phanbon_lan_note = $("#phanbon_lan_note").val();
-                var phanbon_kali_bonlot = $("#phanbon_kali_bonlot").val();
-                var phanbon_kali_bonlan1 = $("#phanbon_kali_bonlan1").val();
-                var phanbon_kali_bonlan2 = $("#phanbon_kali_bonlan2").val();
-                var phanbon_kali_bonlan3 = $("#phanbon_kali_bonlan3").val();
-                var phanbon_kali_bonlan4 = $("#phanbon_kali_bonlan4").val();
-                var phanbon_kali_bonlan5 = $("#phanbon_kali_bonlan5").val();
-                var phanbon_kali_note = $("#phanbon_kali_note").val();
-                var phanbon_dap_bonlot = $("#phanbon_dap_bonlot").val();
-                var phanbon_dap_bonlan1 = $("#phanbon_dap_bonlan1").val();
-                var phanbon_dap_bonlan2 = $("#phanbon_dap_bonlan2").val();
-                var phanbon_dap_bonlan3 = $("#phanbon_dap_bonlan3").val();
-                var phanbon_dap_bonlan4 = $("#phanbon_dap_bonlan4").val();
-                var phanbon_dap_bonlan5 = $("#phanbon_dap_bonlan5").val();
-                var phanbon_dap_note = $("#phanbon_dap_note").val();
-                var phanbon_npk_tenphan = $("#phanbon_npk_tenphan").val();
-                var phanbon_npk_bonlot = $("#phanbon_npk_bonlot").val();
-                var phanbon_npk_bonlan1 = $("#phanbon_npk_bonlan1").val();
-                var phanbon_npk_bonlan2 = $("#phanbon_npk_bonlan2").val();
-                var phanbon_npk_bonlan3 = $("#phanbon_npk_bonlan3").val();
-                var phanbon_npk_bonlan4 = $("#phanbon_npk_bonlan4").val();
-                var phanbon_npk_bonlan5 = $("#phanbon_npk_bonlan5").val();
-                var phanbon_npk_note = $("#phanbon_npk_note").val();
-                var phanbon_khac_tenphan = $("#phanbon_khac_tenphan").val();
-                var phanbon_khac_bonlot = $("#phanbon_khac_bonlot").val();
-                var phanbon_khac_bonlan1 = $("#phanbon_khac_bonlan1").val();
-                var phanbon_khac_bonlan2 = $("#phanbon_khac_bonlan2").val();
-                var phanbon_khac_bonlan3 = $("#phanbon_khac_bonlan3").val();
-                var phanbon_khac_bonlan4 = $("#phanbon_khac_bonlan4").val();
-                var phanbon_khac_bonlan5 = $("#phanbon_khac_bonlan5").val();
-                var phanbon_khac_note = $("#phanbon_khac_note").val();
-                var phanbon_phanbonla_tenphan = $("#phanbon_phanbonla_tenphan").val();
-                var phanbon_phanbonla_bonlot = $("#phanbon_phanbonla_bonlot").val();
-                var phanbon_phanbonla_bonlan1 = $("#phanbon_phanbonla_bonlan1").val();
-                var phanbon_phanbonla_bonlan2 = $("#phanbon_phanbonla_bonlan2").val();
-                var phanbon_phanbonla_bonlan3 = $("#phanbon_phanbonla_bonlan3").val();
-                var phanbon_phanbonla_bonlan4 = $("#phanbon_phanbonla_bonlan4").val();
-                var phanbon_phanbonla_bonlan5 = $("#phanbon_phanbonla_bonlan5").val();
-                var phanbon_phanbonla_note = $("#phanbon_phanbonla_note").val();
-                var thuocbvtv_solanphun_buouvang = $("#thuocbvtv_solanphun_buouvang").val();
-                var thuocbvtv_soluong_buouvang = $("#thuocbvtv_soluong_buouvang").val();
-                var thuocbvtv_solanphun_truco = $("#thuocbvtv_solanphun_truco").val();
-                var thuocbvtv_soluong_truco = $("#thuocbvtv_soluong_truco").val();
-                var thuocbvtv_solanphun_trusau = $("#thuocbvtv_solanphun_trusau").val();
-                var thuocbvtv_soluong_trusau = $("#thuocbvtv_soluong_trusau").val();
-                var thuocbvtv_solanphun_truray = $("#thuocbvtv_solanphun_truray").val();
-                var thuocbvtv_soluong_truray = $("#thuocbvtv_soluong_truray").val();
-                var thuocbvtv_solanphun_trubenh = $("#thuocbvtv_solanphun_trubenh").val();
-                var thuocbvtv_soluong_trubenh = $("#thuocbvtv_soluong_trubenh").val();
-                var thuocbvtv_solanphun_trusautruray = $("#thuocbvtv_solanphun_trusautruray").val();
-                var thuocbvtv_soluong_trusautruray = $("#thuocbvtv_soluong_trusautruray").val();
-                var thuocbvtv_solanphun_trusautrubenh = $("#thuocbvtv_solanphun_trusautrubenh").val();
-                var thuocbvtv_soluong_trusautrubenh = $("#thuocbvtv_soluong_trusautrubenh").val();
-                var thuocbvtv_solanphun_truraytrubenh = $("#thuocbvtv_solanphun_truraytrubenh").val();
-                var thuocbvtv_soluong_truraytrubenh = $("#thuocbvtv_soluong_truraytrubenh").val();
-                var thuocbvtv_solanphun_trusautruraytrubenh = $("#thuocbvtv_solanphun_trusautruraytrubenh").val();
-                var thuocbvtv_soluong_trusautruraytrubenh = $("#thuocbvtv_soluong_trusautruraytrubenh").val();
-                var thuocbvtv_solanphun_lancuoi = $("#thuocbvtv_solanphun_lancuoi").val();
-                var thuocbvtv_soluong_lancuoi = $("#thuocbvtv_soluong_lancuoi").val();
-                var thuocbvtv_phundinhky = $("#thuocbvtv_phundinhky").val();
-                var thuocbvtv_phundinhky_thoigianphun = $("#thuocbvtv_phundinhky_thoigianphun").val();
-                var thuocbvtv_phundinhky_lydophun = $("#thuocbvtv_phundinhky_lydophun").val();
-                var thuocbvtv_phunthoidiem_lan1 = $("#thuocbvtv_phunthoidiem_lan1").val();
-                var thuocbvtv_phunthoidiem_lan2 = $("#thuocbvtv_phunthoidiem_lan2").val();
-                var thuocbvtv_phunthoidiem_lan3 = $("#thuocbvtv_phunthoidiem_lan3").val();
-                var thuocbvtv_phunthoidiem_lan4 = $("#thuocbvtv_phunthoidiem_lan4").val();
-                var thuocbvtv_phunthoidiem_lan5 = $("#thuocbvtv_phunthoidiem_lan5").val();
-                var thuocbvtv_phunthoidiem_lan6 = $("#thuocbvtv_phunthoidiem_lan6").val();
-                var thuocbvtv_phunthoidiem_lan7 = $("#thuocbvtv_phunthoidiem_lan7").val();
-                var thuocbvtv_phunthoidiem_lan8 = $("#thuocbvtv_phunthoidiem_lan8").val();
-                var thuocbvtv_phunthoidiem_lan9 = $("#thuocbvtv_phunthoidiem_lan9").val();
-                var thuocbvtv_phunthoidiem_lan10 = $("#thuocbvtv_phunthoidiem_lan10").val();
-                var thuocbvtv_phunthoidiem_lydophun = $("#thuocbvtv_phunthoidiem_lydophun").val();
-                var thuocbvtv_phunthuockhi = $("#thuocbvtv_phunthuockhi option:selected").text();
-                var thuocbvtv_thuchiencongviec = $("#thuocbvtv_thuchiencongviec option:selected").text();
-                var thuocbvtv_phuongtien = $("#thuocbvtv_phuongtien option:selected").text();
-                var thuhoach_hethu = $("#thuhoach_hethu").val();
-                var thuhoach_thudong = $("#thuhoach_thudong").val();
-                var thuhoach_dongxuan = $("#thuhoach_dongxuan").val();
-                var thuhoach_xuanhe = $("#thuhoach_xuanhe").val();
-                var nangsuatbinhquan = $("#nangsuatbinhquan").val();
-                if(check_number(sodienthoai) == 0){
-                    alert("Không có thông tin! Vui lòng kiểm tra lại!");
-                } else if (phanbon_vusanxuat == "") {
-                    alert("Phân bón và kỹ thuật bón phân -> Vụ sản xuất đang trống");
-                    document.getElementById("phanbon_vusanxuat").focus();
-                } else if (phanbon_donvibon == ""){
-                    alert("Phân bón và kỹ thuật bón phân -> Đơn vị bón đang trống");
-                    document.getElementById("phanbon_donvibon").focus();
-                } else if (phanbon_thuchiencongviec == ""){
-                    alert("Phân bón và kỹ thuật bón phân -> Thực hiện công việc đang trống");
-                    document.getElementById("phanbon_thuchiencongviec").focus();
-                } else if (phanbon_congcu == ""){
-                    alert("Phân bón và kỹ thuật bón phân -> Công cụ, phương tiện đang trống");
-                    document.getElementById("phanbon_congcu").focus();
-                } else if (thuocbvtv_phunthuockhi == ""){
-                    alert("Sử dụng thuốc BVTV -> Phun thuốc khi đang trống");
-                    document.getElementById("thuocbvtv_phunthuockhi").focus();
-                } else if (thuocbvtv_thuchiencongviec == ""){
-                    alert("Sử dụng thuốc BVTV -> Thực hiện công việc đang trống");
-                    document.getElementById("thuocbvtv_thuchiencongviec").focus();
-                } else if (thuocbvtv_phuongtien == ""){
-                    alert("Sử dụng thuốc BVTV -> Công cụ, phương tiện đang trống");
-                    document.getElementById("thuocbvtv_phuongtien").focus();
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'go',
-                        data: {
-                            for: "_suathongtinvungtrong",
-                            sodienthoai: sodienthoai,
-							thongtinchung_dientich: thongtinchung_dientich,
-                            giongvacachxulygiong_tengiong: giongvacachxulygiong_tengiong,
-                            thoivu_hethu: thoivu_hethu,
-                            thoivu_thudong: thoivu_thudong,
-                            thoivu_dongxuan: thoivu_dongxuan,
-                            thoivu_xuanhe: thoivu_xuanhe,
-                            phanbon_tongphanbon: phanbon_tongphanbon,
-                            phanbon_vusanxuat: phanbon_vusanxuat,
-                            phanbon_donvibon: phanbon_donvibon,
-                            phanbon_thuchiencongviec: phanbon_thuchiencongviec,
-                            phanbon_congcu: phanbon_congcu,
-                            phanbon_huuco_bonlot: phanbon_huuco_bonlot,
-                            phanbon_huuco_bonlan1: phanbon_huuco_bonlan1,
-                            phanbon_huuco_bonlan2: phanbon_huuco_bonlan2,
-                            phanbon_huuco_bonlan3: phanbon_huuco_bonlan3,
-                            phanbon_huuco_bonlan4: phanbon_huuco_bonlan4,
-                            phanbon_huuco_bonlan5: phanbon_huuco_bonlan5,
-                            phanbon_huuco_note: phanbon_huuco_note,
-                            phanbon_caitaodat_bonlot: phanbon_caitaodat_bonlot,
-                            phanbon_caitaodat_bonlan1: phanbon_caitaodat_bonlan1,
-                            phanbon_caitaodat_bonlan2: phanbon_caitaodat_bonlan2,
-                            phanbon_caitaodat_bonlan3: phanbon_caitaodat_bonlan3,
-                            phanbon_caitaodat_bonlan4: phanbon_caitaodat_bonlan4,
-                            phanbon_caitaodat_bonlan5: phanbon_caitaodat_bonlan5,
-                            phanbon_caitaodat_note: phanbon_caitaodat_note,
-                            phanbon_ure_bonlot: phanbon_ure_bonlot,
-                            phanbon_ure_bonlan1: phanbon_ure_bonlan1,
-                            phanbon_ure_bonlan2: phanbon_ure_bonlan2,
-                            phanbon_ure_bonlan3: phanbon_ure_bonlan3,
-                            phanbon_ure_bonlan4: phanbon_ure_bonlan4,
-                            phanbon_ure_bonlan5: phanbon_ure_bonlan5,
-                            phanbon_ure_note: phanbon_ure_note,
-                            phanbon_lan_bonlot: phanbon_lan_bonlot,
-                            phanbon_lan_bonlan1: phanbon_lan_bonlan1,
-                            phanbon_lan_bonlan2: phanbon_lan_bonlan2,
-                            phanbon_lan_bonlan3: phanbon_lan_bonlan3,
-                            phanbon_lan_bonlan4: phanbon_lan_bonlan4,
-                            phanbon_lan_bonlan5: phanbon_lan_bonlan5,
-                            phanbon_lan_note: phanbon_lan_note,
-                            phanbon_kali_bonlot: phanbon_kali_bonlot,
-                            phanbon_kali_bonlan1: phanbon_kali_bonlan1,
-                            phanbon_kali_bonlan2: phanbon_kali_bonlan2,
-                            phanbon_kali_bonlan3: phanbon_kali_bonlan3,
-                            phanbon_kali_bonlan4: phanbon_kali_bonlan4,
-                            phanbon_kali_bonlan5: phanbon_kali_bonlan5,
-                            phanbon_kali_note: phanbon_kali_note,
-                            phanbon_dap_bonlot: phanbon_dap_bonlot,
-                            phanbon_dap_bonlan1: phanbon_dap_bonlan1,
-                            phanbon_dap_bonlan2: phanbon_dap_bonlan2,
-                            phanbon_dap_bonlan3: phanbon_dap_bonlan3,
-                            phanbon_dap_bonlan4: phanbon_dap_bonlan4,
-                            phanbon_dap_bonlan5: phanbon_dap_bonlan5,
-                            phanbon_dap_note: phanbon_dap_note,
-                            phanbon_npk_tenphan: phanbon_npk_tenphan,
-                            phanbon_npk_bonlot: phanbon_npk_bonlot,
-                            phanbon_npk_bonlan1: phanbon_npk_bonlan1,
-                            phanbon_npk_bonlan2: phanbon_npk_bonlan2,
-                            phanbon_npk_bonlan3: phanbon_npk_bonlan3,
-                            phanbon_npk_bonlan4: phanbon_npk_bonlan4,
-                            phanbon_npk_bonlan5: phanbon_npk_bonlan5,
-                            phanbon_npk_note: phanbon_npk_note,
-                            phanbon_khac_tenphan: phanbon_khac_tenphan,
-                            phanbon_khac_bonlot: phanbon_khac_bonlot,
-                            phanbon_khac_bonlan1: phanbon_khac_bonlan1,
-                            phanbon_khac_bonlan2: phanbon_khac_bonlan2,
-                            phanbon_khac_bonlan3: phanbon_khac_bonlan3,
-                            phanbon_khac_bonlan4: phanbon_khac_bonlan4,
-                            phanbon_khac_bonlan5: phanbon_khac_bonlan5,
-                            phanbon_khac_note: phanbon_khac_note,
-                            phanbon_phanbonla_tenphan: phanbon_phanbonla_tenphan,
-                            phanbon_phanbonla_bonlot: phanbon_phanbonla_bonlot,
-                            phanbon_phanbonla_bonlan1: phanbon_phanbonla_bonlan1,
-                            phanbon_phanbonla_bonlan2: phanbon_phanbonla_bonlan2,
-                            phanbon_phanbonla_bonlan3: phanbon_phanbonla_bonlan3,
-                            phanbon_phanbonla_bonlan4: phanbon_phanbonla_bonlan4,
-                            phanbon_phanbonla_bonlan5: phanbon_phanbonla_bonlan5,
-                            phanbon_phanbonla_note: phanbon_phanbonla_note,
-                            thuocbvtv_solanphun_buouvang: thuocbvtv_solanphun_buouvang,
-                            thuocbvtv_soluong_buouvang: thuocbvtv_soluong_buouvang,
-                            thuocbvtv_solanphun_truco: thuocbvtv_solanphun_truco,
-                            thuocbvtv_soluong_truco: thuocbvtv_soluong_truco,
-                            thuocbvtv_solanphun_trusau: thuocbvtv_solanphun_trusau,
-                            thuocbvtv_soluong_trusau: thuocbvtv_soluong_trusau,
-                            thuocbvtv_solanphun_truray: thuocbvtv_solanphun_truray,
-                            thuocbvtv_soluong_truray: thuocbvtv_soluong_truray,
-                            thuocbvtv_solanphun_trubenh: thuocbvtv_solanphun_trubenh,
-                            thuocbvtv_soluong_trubenh: thuocbvtv_soluong_trubenh,
-                            thuocbvtv_solanphun_trusautruray: thuocbvtv_solanphun_trusautruray,
-                            thuocbvtv_soluong_trusautruray: thuocbvtv_soluong_trusautruray,
-                            thuocbvtv_solanphun_trusautrubenh: thuocbvtv_solanphun_trusautrubenh,
-                            thuocbvtv_soluong_trusautrubenh: thuocbvtv_soluong_trusautrubenh,
-                            thuocbvtv_solanphun_truraytrubenh: thuocbvtv_solanphun_truraytrubenh,
-                            thuocbvtv_soluong_truraytrubenh: thuocbvtv_soluong_truraytrubenh,
-                            thuocbvtv_solanphun_trusautruraytrubenh: thuocbvtv_solanphun_trusautruraytrubenh,
-                            thuocbvtv_soluong_trusautruraytrubenh: thuocbvtv_soluong_trusautruraytrubenh,
-                            thuocbvtv_solanphun_lancuoi: thuocbvtv_solanphun_lancuoi,
-                            thuocbvtv_soluong_lancuoi: thuocbvtv_soluong_lancuoi,
-                            thuocbvtv_phundinhky: thuocbvtv_phundinhky,
-                            thuocbvtv_phundinhky_thoigianphun: thuocbvtv_phundinhky_thoigianphun,
-                            thuocbvtv_phundinhky_lydophun: thuocbvtv_phundinhky_lydophun,
-                            thuocbvtv_phunthoidiem_lan1: thuocbvtv_phunthoidiem_lan1,
-                            thuocbvtv_phunthoidiem_lan2: thuocbvtv_phunthoidiem_lan2,
-                            thuocbvtv_phunthoidiem_lan3: thuocbvtv_phunthoidiem_lan3,
-                            thuocbvtv_phunthoidiem_lan4: thuocbvtv_phunthoidiem_lan4,
-                            thuocbvtv_phunthoidiem_lan5: thuocbvtv_phunthoidiem_lan5,
-                            thuocbvtv_phunthoidiem_lan6: thuocbvtv_phunthoidiem_lan6,
-                            thuocbvtv_phunthoidiem_lan7: thuocbvtv_phunthoidiem_lan7,
-                            thuocbvtv_phunthoidiem_lan8: thuocbvtv_phunthoidiem_lan8,
-                            thuocbvtv_phunthoidiem_lan9: thuocbvtv_phunthoidiem_lan9,
-                            thuocbvtv_phunthoidiem_lan10: thuocbvtv_phunthoidiem_lan10,
-                            thuocbvtv_phunthoidiem_lydophun: thuocbvtv_phunthoidiem_lydophun,
-                            thuocbvtv_phunthuockhi: thuocbvtv_phunthuockhi,
-                            thuocbvtv_thuchiencongviec: thuocbvtv_thuchiencongviec,
-                            thuocbvtv_phuongtien: thuocbvtv_phuongtien,
-                            thuhoach_hethu: thuhoach_hethu,
-                            thuhoach_thudong: thuhoach_thudong,
-                            thuhoach_dongxuan: thuhoach_dongxuan,
-                            thuhoach_xuanhe: thuhoach_xuanhe,
-                            nangsuatbinhquan: nangsuatbinhquan,
-                            key: "Vnpt@123"
-                        }
-                    }).done(function(data){
-                        var jsonData = JSON.parse(data);   
-                        if (jsonData.code == 200){
-                            alert("Cập nhật thành công!");
-                        } else {
-                            alert("Cập nhật thất bại!");
-                        }
-                    });
-                }
-            });*/
     </script>
 </body>
 </html>

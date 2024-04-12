@@ -291,7 +291,265 @@
                 echo $res;
             break;
             case "_suathongtinvungtrong_buoi":
-                $res = (new ApiController())->FUpdateBuoiApiVfarmID();
+                $sodienthoai = $_POST['sodienthoai'];
+                $buoi_thongtinsp = $_POST['buoi_thongtinsp'];
+                $thongtinchung_dientich = $_POST['thongtinchung_dientich'];
+                $buoi_gionggannhat = $_POST['buoi_gionggannhat'];
+                $buoi_nguongocgiong = $_POST['buoi_nguongocgiong'];
+                $buoi_giayxacnhangiong = $_POST['buoi_giayxacnhangiong'];
+                $buoi_xulycaygiong = $_POST['buoi_xulycaygiong'];
+                $buoi_chephamxuly = $_POST['buoi_chephamxuly'];
+                $buoi_mucdichxuly = $_POST['buoi_mucdichxuly'];
+                $buoi_matdocaytrong = $_POST['buoi_matdocaytrong'];
+                $buoi_khoangcachtrong = $_POST['buoi_khoangcachtrong'];
+                $buoi_bodebobao = $_POST['buoi_bodebobao'];
+                $buoi_chieucaobobao = $_POST['buoi_chieucaobobao'];
+                $buoi_chieurongbobao = $_POST['buoi_chieurongbobao'];
+                $buoi_slongbong = $_POST['buoi_slongbong'];
+                $buoi_duongkinhongbong = $_POST['buoi_duongkinhongbong'];
+                $buoi_cachdatongbong = $_POST['buoi_cachdatongbong'];
+                $buoi_quanlycodai = $_POST['buoi_quanlycodai'];
+                $buoi_phanbon_thoiky1 = $_POST['buoi_phanbon_thoiky1'];
+                $buoi_phanbon_thoidiem1 = $_POST['buoi_phanbon_thoidiem1'];
+                $buoi_phanbon_loaiphan1 = $_POST['buoi_phanbon_loaiphan1'];
+                $buoi_phanbon_lieuluong1 = $_POST['buoi_phanbon_lieuluong1'];
+                $buoi_phanbon_cachbon1 = $_POST['buoi_phanbon_cachbon1'];
+                $buoi_phanbon_thoigiantuoi1 = $_POST['buoi_phanbon_thoigiantuoi1'];
+                $buoi_phanbon_thoiky2 = $_POST['buoi_phanbon_thoiky2'];
+                $buoi_phanbon_thoidiem2 = $_POST['buoi_phanbon_thoidiem2'];
+                $buoi_phanbon_loaiphan2 = $_POST['buoi_phanbon_loaiphan2'];
+                $buoi_phanbon_lieuluong2 = $_POST['buoi_phanbon_lieuluong2'];
+                $buoi_phanbon_cachbon2 = $_POST['buoi_phanbon_cachbon2'];
+                $buoi_phanbon_thoigiantuoi2 = $_POST['buoi_phanbon_thoigiantuoi2'];
+                $buoi_phanbon_thoiky3 = $_POST['buoi_phanbon_thoiky3'];
+                $buoi_phanbon_thoidiem3 = $_POST['buoi_phanbon_thoidiem3'];
+                $buoi_phanbon_loaiphan3 = $_POST['buoi_phanbon_loaiphan3'];
+                $buoi_phanbon_lieuluong3 = $_POST['buoi_phanbon_lieuluong3'];
+                $buoi_phanbon_cachbon3 = $_POST['buoi_phanbon_cachbon3'];
+                $buoi_phanbon_thoigiantuoi3 = $_POST['buoi_phanbon_thoigiantuoi3'];
+                $buoi_phanbon_thoiky4 = $_POST['buoi_phanbon_thoiky4'];
+                $buoi_phanbon_thoidiem4 = $_POST['buoi_phanbon_thoidiem4'];
+                $buoi_phanbon_loaiphan4 = $_POST['buoi_phanbon_loaiphan4'];
+                $buoi_phanbon_lieuluong4 = $_POST['buoi_phanbon_lieuluong4'];
+                $buoi_phanbon_cachbon4 = $_POST['buoi_phanbon_cachbon4'];
+                $buoi_phanbon_thoigiantuoi4 = $_POST['buoi_phanbon_thoigiantuoi4'];
+                $buoi_phanbon_thoiky5 = $_POST['buoi_phanbon_thoiky5'];
+                $buoi_phanbon_thoidiem5 = $_POST['buoi_phanbon_thoidiem5'];
+                $buoi_phanbon_loaiphan5 = $_POST['buoi_phanbon_loaiphan5'];
+                $buoi_phanbon_lieuluong5 = $_POST['buoi_phanbon_lieuluong5'];
+                $buoi_phanbon_cachbon5 = $_POST['buoi_phanbon_cachbon5'];
+                $buoi_phanbon_thoigiantuoi5 = $_POST['buoi_phanbon_thoigiantuoi5'];
+                $buoi_phanbon_thoiky6 = $_POST['buoi_phanbon_thoiky6'];
+                $buoi_phanbon_thoidiem6 = $_POST['buoi_phanbon_thoidiem6'];
+                $buoi_phanbon_loaiphan6 = $_POST['buoi_phanbon_loaiphan6'];
+                $buoi_phanbon_lieuluong6 = $_POST['buoi_phanbon_lieuluong6'];
+                $buoi_phanbon_cachbon6 = $_POST['buoi_phanbon_cachbon6'];
+                $buoi_phanbon_thoigiantuoi6 = $_POST['buoi_phanbon_thoigiantuoi6'];
+                $buoi_phanbon_thoiky7 = $_POST['buoi_phanbon_thoiky7'];
+                $buoi_phanbon_thoidiem7 = $_POST['buoi_phanbon_thoidiem7'];
+                $buoi_phanbon_loaiphan7 = $_POST['buoi_phanbon_loaiphan7'];
+                $buoi_phanbon_lieuluong7 = $_POST['buoi_phanbon_lieuluong7'];
+                $buoi_phanbon_cachbon7 = $_POST['buoi_phanbon_cachbon7'];
+                $buoi_phanbon_thoigiantuoi7 = $_POST['buoi_phanbon_thoigiantuoi7'];
+                $buoi_phanbon_thoiky8 = $_POST['buoi_phanbon_thoiky8'];
+                $buoi_phanbon_thoidiem8 = $_POST['buoi_phanbon_thoidiem8'];
+                $buoi_phanbon_loaiphan8 = $_POST['buoi_phanbon_loaiphan8'];
+                $buoi_phanbon_lieuluong8 = $_POST['buoi_phanbon_lieuluong8'];
+                $buoi_phanbon_cachbon8 = $_POST['buoi_phanbon_cachbon8'];
+                $buoi_phanbon_thoigiantuoi8 = $_POST['buoi_phanbon_thoigiantuoi8'];
+                $buoi_bvtv_thoiky1 = $_POST['buoi_bvtv_thoiky1'];
+                $buoi_bvtv_thoidiem1 = $_POST['buoi_bvtv_thoidiem1'];
+                $buoi_bvtv_loaisau1 = $_POST['buoi_bvtv_loaisau1'];
+                $buoi_bvtv_loaithuoc1 = $_POST['buoi_bvtv_loaithuoc1'];
+                $buoi_bvtv_lieuluong1 = $_POST['buoi_bvtv_lieuluong1'];
+                $buoi_bvtv_hieuqua1 = $_POST['buoi_bvtv_hieuqua1'];
+                $buoi_bvtv_thoiky2 = $_POST['buoi_bvtv_thoiky2'];
+                $buoi_bvtv_thoidiem2 = $_POST['buoi_bvtv_thoidiem2'];
+                $buoi_bvtv_loaisau2 = $_POST['buoi_bvtv_loaisau2'];
+                $buoi_bvtv_loaithuoc2 = $_POST['buoi_bvtv_loaithuoc2'];
+                $buoi_bvtv_lieuluong2 = $_POST['buoi_bvtv_lieuluong2'];
+                $buoi_bvtv_hieuqua2 = $_POST['buoi_bvtv_hieuqua2'];
+                $buoi_bvtv_thoiky3 = $_POST['buoi_bvtv_thoiky3'];
+                $buoi_bvtv_thoidiem3 = $_POST['buoi_bvtv_thoidiem3'];
+                $buoi_bvtv_loaisau3 = $_POST['buoi_bvtv_loaisau3'];
+                $buoi_bvtv_loaithuoc3 = $_POST['buoi_bvtv_loaithuoc3'];
+                $buoi_bvtv_lieuluong3 = $_POST['buoi_bvtv_lieuluong3'];
+                $buoi_bvtv_hieuqua3 = $_POST['buoi_bvtv_hieuqua3'];
+                $buoi_bvtv_thoiky4 = $_POST['buoi_bvtv_thoiky4'];
+                $buoi_bvtv_thoidiem4 = $_POST['buoi_bvtv_thoidiem4'];
+                $buoi_bvtv_loaisau4 = $_POST['buoi_bvtv_loaisau4'];
+                $buoi_bvtv_loaithuoc4 = $_POST['buoi_bvtv_loaithuoc4'];
+                $buoi_bvtv_lieuluong4 = $_POST['buoi_bvtv_lieuluong4'];
+                $buoi_bvtv_hieuqua4 = $_POST['buoi_bvtv_hieuqua4'];
+                $buoi_bvtv_thoiky5 = $_POST['buoi_bvtv_thoiky5'];
+                $buoi_bvtv_thoidiem5 = $_POST['buoi_bvtv_thoidiem5'];
+                $buoi_bvtv_loaisau5 = $_POST['buoi_bvtv_loaisau5'];
+                $buoi_bvtv_loaithuoc5 = $_POST['buoi_bvtv_loaithuoc5'];
+                $buoi_bvtv_lieuluong5 = $_POST['buoi_bvtv_lieuluong5'];
+                $buoi_bvtv_hieuqua5 = $_POST['buoi_bvtv_hieuqua5'];
+                $buoi_bvtv_thoiky6 = $_POST['buoi_bvtv_thoiky6'];
+                $buoi_bvtv_thoidiem6 = $_POST['buoi_bvtv_thoidiem6'];
+                $buoi_bvtv_loaisau6 = $_POST['buoi_bvtv_loaisau6'];
+                $buoi_bvtv_loaithuoc6 = $_POST['buoi_bvtv_loaithuoc6'];
+                $buoi_bvtv_lieuluong6 = $_POST['buoi_bvtv_lieuluong6'];
+                $buoi_bvtv_hieuqua6 = $_POST['buoi_bvtv_hieuqua6'];
+                $buoi_bvtv_thoiky7 = $_POST['buoi_bvtv_thoiky7'];
+                $buoi_bvtv_thoidiem7 = $_POST['buoi_bvtv_thoidiem7'];
+                $buoi_bvtv_loaisau7 = $_POST['buoi_bvtv_loaisau7'];
+                $buoi_bvtv_loaithuoc7 = $_POST['buoi_bvtv_loaithuoc7'];
+                $buoi_bvtv_lieuluong7 = $_POST['buoi_bvtv_lieuluong7'];
+                $buoi_bvtv_hieuqua7 = $_POST['buoi_bvtv_hieuqua7'];
+                $buoi_bvtv_thoiky8 = $_POST['buoi_bvtv_thoiky8'];
+                $buoi_bvtv_thoidiem8 = $_POST['buoi_bvtv_thoidiem8'];
+                $buoi_bvtv_loaisau8 = $_POST['buoi_bvtv_loaisau8'];
+                $buoi_bvtv_loaithuoc8 = $_POST['buoi_bvtv_loaithuoc8'];
+                $buoi_bvtv_lieuluong8 = $_POST['buoi_bvtv_lieuluong8'];
+                $buoi_bvtv_hieuqua8 = $_POST['buoi_bvtv_hieuqua8'];
+                $buoi_thoigianthuhoach = $_POST['buoi_thoigianthuhoach'];
+
+                $buoi_dacdiemthuhoach = $_POST['buoi_dacdiemthuhoach'];
+                $buoi_solanthuhoach = $_POST['buoi_solanthuhoach'];
+                $buoi_nsmuathuan = $_POST['buoi_nsmuathuan'];
+                $buoi_nsmuanghich = $_POST['buoi_nsmuanghich'];
+                $buoi_slmuathuan = $_POST['buoi_slmuathuan'];
+                $buoi_slmuanghich = $_POST['buoi_slmuanghich'];
+                $buoi_dongia_l1t1 = $_POST['buoi_dongia_l1t1'];
+                $buoi_dongia_l1t2 = $_POST['buoi_dongia_l1t2'];
+                $buoi_dongia_l1t3 = $_POST['buoi_dongia_l1t3'];
+                $buoi_dongia_l1t4 = $_POST['buoi_dongia_l1t4'];
+                $buoi_dongia_l1t5 = $_POST['buoi_dongia_l1t5'];
+                $buoi_dongia_l1t6 = $_POST['buoi_dongia_l1t6'];
+                $buoi_dongia_l1t7 = $_POST['buoi_dongia_l1t7'];
+                $buoi_dongia_l1t8 = $_POST['buoi_dongia_l1t8'];
+                $buoi_dongia_l1t9 = $_POST['buoi_dongia_l1t9'];
+                $buoi_dongia_l1t10 = $_POST['buoi_dongia_l1t10'];
+                $buoi_dongia_l1t11 = $_POST['buoi_dongia_l1t11'];
+                $buoi_dongia_l1t12 = $_POST['buoi_dongia_l1t12'];
+                $buoi_dongia_l2t1 = $_POST['buoi_dongia_l2t1'];
+                $buoi_dongia_l2t2 = $_POST['buoi_dongia_l2t2'];
+                $buoi_dongia_l2t3 = $_POST['buoi_dongia_l2t3'];
+                $buoi_dongia_l2t4 = $_POST['buoi_dongia_l2t4'];
+                $buoi_dongia_l2t5 = $_POST['buoi_dongia_l2t5'];
+                $buoi_dongia_l2t6 = $_POST['buoi_dongia_l2t6'];
+                $buoi_dongia_l2t7 = $_POST['buoi_dongia_l2t7'];
+                $buoi_dongia_l2t8 = $_POST['buoi_dongia_l2t8'];
+                $buoi_dongia_l2t9 = $_POST['buoi_dongia_l2t9'];
+                $buoi_dongia_l2t10 = $_POST['buoi_dongia_l2t10'];
+                $buoi_dongia_l2t11 = $_POST['buoi_dongia_l2t11'];
+                $buoi_dongia_l2t12 = $_POST['buoi_dongia_l2t12'];
+                $buoi_dongia_l3t1 = $_POST['buoi_dongia_l3t1'];
+                $buoi_dongia_l3t2 = $_POST['buoi_dongia_l3t2'];
+                $buoi_dongia_l3t3 = $_POST['buoi_dongia_l3t3'];
+                $buoi_dongia_l3t4 = $_POST['buoi_dongia_l3t4'];
+                $buoi_dongia_l3t5 = $_POST['buoi_dongia_l3t5'];
+                $buoi_dongia_l3t6 = $_POST['buoi_dongia_l3t6'];
+                $buoi_dongia_l3t7 = $_POST['buoi_dongia_l3t7'];
+                $buoi_dongia_l3t8 = $_POST['buoi_dongia_l3t8'];
+                $buoi_dongia_l3t9 = $_POST['buoi_dongia_l3t9'];
+                $buoi_dongia_l3t10 = $_POST['buoi_dongia_l3t10'];
+                $buoi_dongia_l3t11 = $_POST['buoi_dongia_l3t11'];
+                $buoi_dongia_l3t12 = $_POST['buoi_dongia_l3t12'];
+                $buoi_thitruongtieuthu = $_POST['buoi_thitruongtieuthu'];
+                $buoi_thitruongngoaitinh = $_POST['buoi_thitruongngoaitinh'];
+                $key = $_POST['key'];
+                $res = (new ApiController())->FUpdateBuoiApiVfarmID($sodienthoai, $buoi_thongtinsp,
+$thongtinchung_dientich,$buoi_gionggannhat,$buoi_nguongocgiong,$buoi_giayxacnhangiong,
+$buoi_xulycaygiong,$buoi_chephamxuly,$buoi_mucdichxuly,$buoi_matdocaytrong,
+$buoi_khoangcachtrong,$buoi_bodebobao,$buoi_chieucaobobao,
+$buoi_chieurongbobao,$buoi_slongbong,$buoi_duongkinhongbong,
+$buoi_cachdatongbong,$buoi_quanlycodai,$buoi_phanbon_thoiky1,
+$buoi_phanbon_thoidiem1,$buoi_phanbon_loaiphan1,
+$buoi_phanbon_lieuluong1,$buoi_phanbon_cachbon1,
+$buoi_phanbon_thoigiantuoi1,$buoi_phanbon_thoiky2,
+$buoi_phanbon_thoidiem2,$buoi_phanbon_loaiphan2 ,
+$buoi_phanbon_lieuluong2,$buoi_phanbon_cachbon2 ,
+$buoi_phanbon_thoigiantuoi2 ,$buoi_phanbon_thoiky3 ,
+$buoi_phanbon_thoidiem3 ,$buoi_phanbon_loaiphan3 ,
+$buoi_phanbon_lieuluong3 ,$buoi_phanbon_cachbon3 ,
+$buoi_phanbon_thoigiantuoi3 ,$buoi_phanbon_thoiky4 ,
+$buoi_phanbon_thoidiem4 ,$buoi_phanbon_loaiphan4 ,
+$buoi_phanbon_lieuluong4 ,$buoi_phanbon_cachbon4 ,
+$buoi_phanbon_thoigiantuoi4,$buoi_phanbon_thoiky5 ,
+$buoi_phanbon_thoidiem5 ,$buoi_phanbon_loaiphan5 ,
+$buoi_phanbon_lieuluong5,$buoi_phanbon_cachbon5 ,
+$buoi_phanbon_thoigiantuoi5 ,$buoi_phanbon_thoiky6,
+$buoi_phanbon_thoidiem6,$buoi_phanbon_loaiphan6,
+$buoi_phanbon_lieuluong6,$buoi_phanbon_cachbon6 ,
+$buoi_phanbon_thoigiantuoi6 ,$buoi_phanbon_thoiky7,
+$buoi_phanbon_thoidiem7 ,$buoi_phanbon_loaiphan7,
+$buoi_phanbon_lieuluong7,$buoi_phanbon_cachbon7,
+$buoi_phanbon_thoigiantuoi7,$buoi_phanbon_thoiky8,
+$buoi_phanbon_thoidiem8,$buoi_phanbon_loaiphan8,
+$buoi_phanbon_lieuluong8 ,$buoi_phanbon_cachbon8 ,
+$buoi_phanbon_thoigiantuoi8,$buoi_bvtv_thoiky1,
+$buoi_bvtv_thoidiem1,$buoi_bvtv_loaisau1,
+$buoi_bvtv_loaithuoc1,$buoi_bvtv_lieuluong1,
+$buoi_bvtv_hieuqua1,$buoi_bvtv_thoiky2,
+$buoi_bvtv_thoidiem2,$buoi_bvtv_loaisau2,
+$buoi_bvtv_loaithuoc2,$buoi_bvtv_lieuluong2,
+$buoi_bvtv_hieuqua2,$buoi_bvtv_thoiky3,
+$buoi_bvtv_thoidiem3,$buoi_bvtv_loaisau3,
+$buoi_bvtv_loaithuoc3,$buoi_bvtv_lieuluong3,
+$buoi_bvtv_hieuqua3,$buoi_bvtv_thoiky4,
+$buoi_bvtv_thoidiem4,$buoi_bvtv_loaisau4 ,
+$buoi_bvtv_loaithuoc4,$buoi_bvtv_lieuluong4,
+$buoi_bvtv_hieuqua4,$buoi_bvtv_thoiky5,
+$buoi_bvtv_thoidiem5,$buoi_bvtv_loaisau5,
+$buoi_bvtv_loaithuoc5,$buoi_bvtv_lieuluong5,
+$buoi_bvtv_hieuqua5,$buoi_bvtv_thoiky6,
+$buoi_bvtv_thoidiem6,$buoi_bvtv_loaisau6,
+$buoi_bvtv_loaithuoc6,$buoi_bvtv_lieuluong6,
+$buoi_bvtv_hieuqua6,$buoi_bvtv_thoiky7,
+$buoi_bvtv_thoidiem7,$buoi_bvtv_loaisau7,
+$buoi_bvtv_loaithuoc7,$buoi_bvtv_lieuluong7,
+$buoi_bvtv_hieuqua7,$buoi_bvtv_thoiky8,
+$buoi_bvtv_thoidiem8,$buoi_bvtv_loaisau8,
+$buoi_bvtv_loaithuoc8,$buoi_bvtv_lieuluong8,
+$buoi_bvtv_hieuqua8, $buoi_thoigianthuhoach,
+$buoi_dacdiemthuhoach,
+$buoi_solanthuhoach,
+$buoi_nsmuathuan,
+$buoi_nsmuanghich,
+$buoi_slmuathuan,
+$buoi_slmuanghich,
+$buoi_dongia_l1t1,
+$buoi_dongia_l1t2,
+$buoi_dongia_l1t3,
+$buoi_dongia_l1t4,
+$buoi_dongia_l1t5,
+$buoi_dongia_l1t6,
+$buoi_dongia_l1t7,
+$buoi_dongia_l1t8,
+$buoi_dongia_l1t9,
+$buoi_dongia_l1t10,
+$buoi_dongia_l1t11,
+$buoi_dongia_l1t12,
+$buoi_dongia_l2t1,
+$buoi_dongia_l2t2,
+$buoi_dongia_l2t3,
+$buoi_dongia_l2t4,
+$buoi_dongia_l2t5,
+$buoi_dongia_l2t6,
+$buoi_dongia_l2t7,
+$buoi_dongia_l2t8,
+$buoi_dongia_l2t9,
+$buoi_dongia_l2t10,
+$buoi_dongia_l2t11,
+$buoi_dongia_l2t12,
+$buoi_dongia_l3t1,
+$buoi_dongia_l3t2,
+$buoi_dongia_l3t3,
+$buoi_dongia_l3t4,
+$buoi_dongia_l3t5,
+$buoi_dongia_l3t6,
+$buoi_dongia_l3t7,
+$buoi_dongia_l3t8,
+$buoi_dongia_l3t9,
+$buoi_dongia_l3t10,
+$buoi_dongia_l3t11,
+$buoi_dongia_l3t12,
+$buoi_thitruongtieuthu,
+$buoi_thitruongngoaitinh, $key);
                 echo $res;
             break;
             default:
