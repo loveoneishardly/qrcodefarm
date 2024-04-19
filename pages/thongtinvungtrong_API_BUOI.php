@@ -1802,7 +1802,7 @@
                         echo '<p class="c-title3"> Mùa thuận:.....</p>';
                         echo '<p class="c-title3"> Mùa nghịch:....</p>';
                     }
-                    echo '<p class="c-title3">+ Giá bán( đồng/kg) theo từng loại theo từng tháng trong năm? </p>';
+                    echo '<p class="c-title3">+ Giá bán (đồng/kg) theo từng loại theo từng tháng trong năm? </p>';
                     $gial1t1 = "";$gial1t2 = "";$gial1t3 = "";$gial1t4 = "";$gial1t5 = "";$gial1t6 = "";$gial1t7 = "";$gial1t8 = "";$gial1t9 = "";$gial1t10 = "";$gial1t11 = "";$gial1t12 = "";
                     $gial2t1 = "";$gial2t2 = "";$gial2t3 = "";$gial2t4 = "";$gial2t5 = "";$gial2t6 = "";$gial2t7 = "";$gial2t8 = "";$gial2t9 = "";$gial2t10 = "";$gial2t11 = "";$gial2t12 = "";
                     $gial3t1 = "";$gial3t2 = "";$gial3t3 = "";$gial3t4 = "";$gial3t5 = "";$gial3t6 = "";$gial3t7 = "";$gial3t8 = "";$gial3t9 = "";$gial3t10 = "";$gial3t11 = "";$gial3t12 = "";

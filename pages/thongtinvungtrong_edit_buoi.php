@@ -2243,6 +2243,7 @@
             
             $("#capnhatthongtinvungtrong_buoi").click(function(){
                 var sodienthoai = '0' + <?php echo $_GET['SODIENTHOAI'] ?>;
+                var madinhdanh = <?php echo "'".$_GET['madinhdanh']."'" ?>;
                 var buoi_thongtinsp = $("#buoi_thongtinsp option:selected").text();
                 var thongtinchung_dientich = $("#thongtinchung_dientich").val();
                 var buoi_gionggannhat = $("#buoi_gionggannhat").val();
@@ -2410,6 +2411,7 @@
                         data: {
                             for: "_suathongtinvungtrong_buoi",
                             sodienthoai: sodienthoai,
+                            madinhdanh : madinhdanh,
                             buoi_thongtinsp : buoi_thongtinsp,
                             thongtinchung_dientich : thongtinchung_dientich,
                             buoi_gionggannhat : buoi_gionggannhat,

@@ -44,10 +44,11 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function FUpdateInFoID($SDT){
+        public function FUpdateInFoID($SDT, $madinhdanh){
             $pdo = ConnectDb::getInstance()->getConnection();
-            $stmt = $pdo->prepare("call p_get_info_phonenumber(:SDT);");
+            $stmt = $pdo->prepare("call p_get_info_phonenumber(:SDT, :madinhdanh);");
             $stmt -> bindParam(':SDT', $SDT, PDO::PARAM_STR);
+            $stmt -> bindParam(':madinhdanh', $madinhdanh, PDO::PARAM_STR);
             $stmt -> execute();
             if($stmt->rowCount() > 0) {
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);

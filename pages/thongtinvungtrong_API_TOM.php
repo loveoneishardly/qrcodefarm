@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Định danh vùng trồng</title>
+        <title>Định danh vùng nuôi tôm</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="lib/images/vnpt_icon.ico" type="image/x-icon">
         <link href="lib/css/app_style.css" rel="stylesheet"/>
@@ -59,8 +59,8 @@
                     echo '<p class="c-title5">- Tên nông hộ: <b>'.$data1["object"]["thongTinChung"]["tenNguoiDaiDien"].'</b></p>';
                     echo '<p class="c-title5">- Địa chỉ: '.$data1["object"]["thongTinChung"]["diaChi"].'</p>';
                     echo '<p><b>3. Hợp tác xã: </b>'.$data_info1[0]["HOPTACXA"].' </p>';
-                    if (isset($data2["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"])) {
-                        echo '<p><b>4. Thông tin sản phẩm:</b> '.$data1["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"].'</p>';
+                    if (isset($data1["object"]["thongTinSanXuat"]["doiTuongSxTom"])) {
+                        echo '<p><b>4. Thông tin sản phẩm:</b> '.$data1["object"]["thongTinSanXuat"]["doiTuongSxTom"].'</p>';
                     } else {
                         echo '<p><b>4. Thông tin sản phẩm:</b> </p>';
                     }
@@ -78,1142 +78,1441 @@
                 if ($data2["code"] == 200) {
                     echo '<p><b>1. Ngày sản xuất:</b> '.$data2["object"]["thongTinKhaoSat"]["thoigianhoatdong"].'</p>';
                     echo '<p class="c-title1">2. Thông tin đất canh tác</p>';
-                    if (isset($data2["object"]["thongTinChung"]["dienTichLuaHA"])){
-                        echo '<p class="c-title5">- Diện tích canh tác: '.$data2["object"]["thongTinChung"]["dienTichLuaHA"].' ha</p>'; 
+                    if (isset($data2["object"]["thongTinChung"]["dienTichTom"])){
+                        echo '<p class="c-title5">- Diện tích canh tác: '.$data2["object"]["thongTinChung"]["dienTichTom"].' ha</p>'; 
                     } else {
                         echo '<p class="c-title5">- Diện tích canh tác: ...... ha</p>';
                     }
-                    echo '<p class="c-title5">- Loại đất sản xuất:</p>';
-                    if (isset($data2["object"]["datCanhTac"]["loaiDatSanXuat"])) {
-                        echo '<p class="c-title3">+ '.$data2["object"]["datCanhTac"]["loaiDatSanXuat"].'</p>';
+                    if (isset($data2["object"]["thongTinChung"]["dienTichTomSu"])){
+                        echo '<p class="c-title3">+ Tôm sú: '.$data2["object"]["thongTinChung"]["dienTichTomSu"].' ha</p>'; 
+                    } else {
+                        echo '<p class="c-title3">+ Tôm sú: ...... ha</p>';
                     }
-                    echo '<p class="c-title3">+ Độ PH: </p>';
+                    if (isset($data2["object"]["thongTinChung"]["dienTichTomTct"])){
+                        echo '<p class="c-title3">+ Tôm TCT: '.$data2["object"]["thongTinChung"]["dienTichTomTct"].' ha</p>'; 
+                    } else {
+                        echo '<p class="c-title3">+ Tôm TCT: ...... ha</p>';
+                    }
+                    if (isset($data2["object"]["thongTinSanXuat"]["loaiHinhSxTom"])){
+                        echo '<p class="c-title5">- Loại hình sản xuất: '.$data2["object"]["thongTinSanXuat"]["loaiHinhSxTom"].'</p>'; 
+                    } else {
+                        echo '<p class="c-title5">- Loại hình sản xuất: ......</p>';
+                    }
+                    echo '<p class="c-title5">- Loại đất sản xuất:</p>';
+                    if (isset($data2["object"]["thongTinSanXuat"]["loaiDatTom"])) {
+                        echo '<p class="c-title3">+ Loại đất: '.$data2["object"]["thongTinSanXuat"]["loaiDatTom"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Loại đất: ......</p>';
+                    }
+                    if (isset($data2["object"]["thongTinSanXuat"]["saCauDatTom"])) {
+                        echo '<p class="c-title3">+ Sa cấu đất: '.$data2["object"]["thongTinSanXuat"]["saCauDatTom"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Sa cấu đất: ......</p>';
+                    }
+                    if (isset($data2["object"]["thongTinSanXuat"]["doPhTrungBinh"])){
+                        echo '<p class="c-title3">+ Độ PH trung bình: '.$data2["object"]["thongTinSanXuat"]["doPhTrungBinh"].' </p>'; 
+                    } else {
+                        echo '<p class="c-title3">+ Độ PH trung bình: ......</p>';
+                    }
+                    if (isset($data2["object"]["thongTinSanXuat"]["aoTomSau"])){
+                        echo '<p class="c-title3">+ Ao sâu: '.$data2["object"]["thongTinSanXuat"]["aoTomSau"].' (m)</p>'; 
+                    } else {
+                        echo '<p class="c-title3">+ Ao sâu: ...... (m)</p>';
+                    }
+                    if (isset($data2["object"]["thongTinSanXuat"]["tenVuTom"])){
+                        echo '<p class="c-title5">- Vụ tôm: '.$data2["object"]["thongTinSanXuat"]["tenVuTom"].' . Từ tháng: '.$data2["object"]["thongTinSanXuat"]["thangBatDauVuTom"].' đến tháng: '.$data2["object"]["thongTinSanXuat"]["thangKetThucVuTom"].'</p>'; 
+                    } else {
+                        echo '<p class="c-title5">- Vụ tôm: ...... Từ tháng ...... đến tháng ......</p>';
+                    }
                     echo '<p class="c-title1">3. Khu vực sản xuất: </p>';
                     echo '<p class="c-title5">- Tên khu vực sản xuất: '.$data_info1[0]["KV_TEN"].'</p>';
                     echo '<p class="c-title5">- Tên Kế hoạch sản xuất: '.$data_info1[0]["KV_KEHOACH"].'</p>';
                     echo '<p class="c-title1">4. Nhật ký sản xuất:</p>';
-                    echo '<p class="c-title2">&#9658; Chọn giống và cách xử lý giống</p>';
-                    if (isset($data2["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"])) {
-                        echo '<p class="c-title3">+ Tên giống: '.$data2["object"]["giongVaXuLyGiong"]["tenGiong3VuGanNhat"].'</p>';
+                    echo '<p class="c-title2">&#9658; Đầu tư trang thiết bị</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["danQuatNuoiTom"])) {
+                        echo '<p class="c-title3">+ Dàn quạt: '.$data2["object"]["hoatDongSanXuat"]["danQuatNuoiTom"].'</p>';
                     } else {
-                        echo '<p class="c-title3">+ Tên giống: </p>';
+                        echo '<p class="c-title3">+ Dàn quạt: </p>';
                     }
-                    if (isset($data2["object"]["giongVaXuLyGiong"]["xuLyHatGiong"])) {
-                        if ($data2["object"]["giongVaXuLyGiong"]["xuLyHatGiong"] == 1) {
-                            echo '<p class="c-title3">+ Xử lý hạt giống: Có</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["mayDuPhongDien"])) {
+                        echo '<p class="c-title3">+ Máy dự phòng thay thế điện: '.$data2["object"]["hoatDongSanXuat"]["mayDuPhongDien"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Máy dự phòng thay thế điện: </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["thietBiDayDien"])) {
+                        echo '<p class="c-title3">+ Dây điện: '.$data2["object"]["hoatDongSanXuat"]["thietBiDayDien"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Dây điện: </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["denChieuSang"])) {
+                        echo '<p class="c-title3">+ Đèn chiếu sáng: '.$data2["object"]["hoatDongSanXuat"]["denChieuSang"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Đèn chiếu sáng: </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["mayBomNuoc"])) {
+                        echo '<p class="c-title3">+ Máy bơm nước: '.$data2["object"]["hoatDongSanXuat"]["mayBomNuoc"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Máy bơm nước: </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tuiLocNuoc"])) {
+                        echo '<p class="c-title3">+ Túi lọc nước: '.$data2["object"]["hoatDongSanXuat"]["tuiLocNuoc"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Túi lọc nước: </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["congCapXaNuoc"])) {
+                        echo '<p class="c-title3">+ Cống cấp, xả nước: '.$data2["object"]["hoatDongSanXuat"]["congCapXaNuoc"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Cống cấp, xả nước: </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["thietBiKhac"])) {
+                        echo '<p class="c-title3">+ Khác: '.$data2["object"]["hoatDongSanXuat"]["thietBiKhac"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Khác: </p>';
+                    }
+                    echo '<p class="c-title2">&#9658; Cải tạo ao</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["caiTaoCongTrinh"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["caiTaoCongTrinh"] == "1"){
+                            echo '<p class="c-title3">+ Cải tạo công trình: Có</p>';
                         } else {
-                            echo '<p class="c-title3">+ Xử lý hạt giống: Không</p>';
-                        }
-                    } else {
-                        echo '<p class="c-title3">+ Xử lý hạt giống:</p>';
-                    }
-                    if (isset($data2["object"]["giongVaXuLyGiong"]["capGiongLua"])) {
-                        echo '<p class="c-title3">+ Cấp lúa giống: '.$data2["object"]["giongVaXuLyGiong"]["capGiongLua"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Cấp lúa giống:</p>';
-                    }
-                    if (isset($data2["object"]["giongVaXuLyGiong"]["chePham"])) {
-                        echo '<p class="c-title3">+ Chế phẩm: '.$data2["object"]["giongVaXuLyGiong"]["chePham"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Chế phẩm: Không</p>';
-                    }
-                    if (isset($data2["object"]["giongVaXuLyGiong"]["mucDichXuLyGiong"])) {
-                        echo '<p class="c-title3">+ Mục đích: '.$data2["object"]["giongVaXuLyGiong"]["mucDichXuLyGiong"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Mục đích:</p>';
-                    }
-                    echo '<p class="c-title2">&#9658; Kỹ thuật làm đất</p>';
-                    if (isset($data2["object"]["kyThuatLamDat"]["datKhongCay"])) {
-                        if ($data2["object"]["kyThuatLamDat"]["datKhongCay"] == 1) {
-                            echo '<p class="c-title3">+ Cày phơi ải đất: Có</p>';
-                        } else {
-                            echo '<p class="c-title3">+ Cày phơi ải đất: Không</p>';
-                        }
-                    } else {
-                        echo '<p class="c-title3">+ Cày phơi ải đất:</p>';
-                    }
-                    if (isset($data2["object"]["kyThuatLamDat"]["doSauDatXoi"])) {
-                        echo '<p class="c-title3">+ Đất không cày, xới/trục rồi sạ, độ sâu lớp đất được xới: '.$data2["object"]["kyThuatLamDat"]["doSauDatXoi"].' cm</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Đất không cày, xới/trục rồi sạ, độ sâu lớp đất được xới: ....... cm</p>';
-                    }
-                    
-                    if (isset($data2["object"]["kyThuatLamDat"]["xuLyRomRa"])) {
-                        echo '<p class="c-title3">+ Xử lý rơm rạ: '.$data2["object"]["kyThuatLamDat"]["xuLyRomRa"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Xử lý rơm rạ: </p>';
-                    }
-                    if (isset($data2["object"]["kyThuatLamDat"]["coDanhRanhKhong"])) {
-                        if ($data2["object"]["kyThuatLamDat"]["coDanhRanhKhong"] == 1) {
-                            echo '<p class="c-title3">+ Đánh rãnh nước: Có</p>';
-                        } else {
-                            echo '<p class="c-title3">+ Đánh rãnh nước: Không</p>';
+                            echo '<p class="c-title3">+ Cải tạo công trình: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title3">+ Đánh rãnh nước:</p>';
+                        echo '<p class="c-title3">+ Cải tạo công trình: ..... </p>';
                     }
-                    $rongranh = "......."; $sauranh = "......."; $khoangcachranh = ".......";
-                    if(isset($data2["object"]["kyThuatLamDat"]["rongRanh"])) {
-                        $rongranh = $data2["object"]["kyThuatLamDat"]["rongRanh"];
-                    }
-                    if(isset($data2["object"]["kyThuatLamDat"]["sauRanh"])) {
-                        $sauranh = $data2["object"]["kyThuatLamDat"]["sauRanh"];
-                    }
-                    if(isset($data2["object"]["kyThuatLamDat"]["khoangCachRanh"])) {
-                        $khoangcachranh = $data2["object"]["kyThuatLamDat"]["khoangCachRanh"];
-                    }
-                    echo '<p class="c-title3">+ Chiểu rộng của rãnh: '.$rongranh.' cm, chiều sâu '.$sauranh.' cm, khoảng cách các rãnh '.$khoangcachranh.' m</p>';
-                    echo '<p class="c-title2">&#9658; Phương pháp gieo xạ</p>';
-                    if (isset($data2["object"]["phuongPhapGieoXa"]["saLanBangTay"])) {
-                        if ($data2["object"]["phuongPhapGieoXa"]["saLanBangTay"] == 1) {
-                            echo '<p class="c-title3">+ Sạ lan bằng tay: Có</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["senVetAo"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["senVetAo"] == "1"){
+                            echo '<p class="c-title3">+ Sên vét ao: Có</p>';
                         } else {
-                            echo '<p class="c-title3">+ Sạ lan bằng tay: Không</p>';
+                            echo '<p class="c-title3">+ Sên vét ao: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title3">+ Sạ lan bằng tay:</p>';
+                        echo '<p class="c-title3">+ Sên vét ao: ..... </p>';
                     }
-                    $giongkgha = ".......";$giongkgcong = ".......";
-                    if (isset($data2["object"]["phuongPhapGieoXa"]["LuongGiongKgHa"])) {
-                        $giongkgha = $data2["object"]["phuongPhapGieoXa"]["LuongGiongKgHa"];
-                    }
-                    if (isset($data2["object"]["phuongPhapGieoXa"]["luongGiongKgCong"])) {
-                        $giongkgcong = $data2["object"]["phuongPhapGieoXa"]["luongGiongKgCong"];
-                    }
-                    echo '<p class="c-title3">+ Lượng hạt giống được gieo sạ: '.$giongkgha.' kg/ha (hoặc '.$giongkgcong.' kg/công)</p>';
-                    echo '<p class="c-title3">+ Thời gian gieo sạ vụ sản xuất: </p>';
-                    $gieosa_hethu = "";$gieosa_thudong = "";$gieosa_dongxuan = "";$gieosa_xuanhe = "";
-                    if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa01"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa01"].'/01'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa02"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa02"].'/02'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa03"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa03"].'/03'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa04"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa04"].'/04'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa05"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa05"].'/05'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa06"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa06"].'/06'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa07"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa07"].'/07'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa08"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa08"].'/08'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa09"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa09"].'/09'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa10"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa10"].'/10'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa11"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa11"].'/11'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuGieoSa12"])){
-                        $gieosa_hethu = $data2["object"]["thoiVuCanhTac"]["heThuGieoSa12"].'/12'.'/'.$current_year;
-                    }
-                    if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa01"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa01"].'/01'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa02"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa02"].'/02'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa03"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa03"].'/03'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa04"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa04"].'/04'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa05"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa05"].'/05'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa06"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa06"].'/06'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa07"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa07"].'/07'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa08"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa08"].'/08'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa09"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa09"].'/09'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa10"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa10"].'/10'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa11"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa11"].'/11'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongGieoSa12"])){
-                        $gieosa_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongGieoSa12"].'/12'.'/'.$current_year;
-                    }
-                    if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach01"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach01"].'/01'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach02"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach02"].'/02'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach03"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach03"].'/03'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach04"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach04"].'/04'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach05"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach05"].'/05'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach06"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach06"].'/06'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach07"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach07"].'/07'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach08"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach08"].'/08'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach09"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach09"].'/09'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach10"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach10"].'/10'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach11"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach11"].'/11'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach12"])){
-                        $gieosa_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach12"].'/12'.'/'.$current_year;
-                    }
-                    if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa01"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa01"].'/01'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa02"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa02"].'/02'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa03"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa03"].'/03'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa04"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa04"].'/04'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa05"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa05"].'/05'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa06"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa06"].'/06'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa07"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa07"].'/07'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa08"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa08"].'/08'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa09"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa09"].'/09'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa10"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa10"].'/10'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa11"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa11"].'/11'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa12"])){
-                        $gieosa_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeGieoSa12"].'/12'.'/'.$current_year;
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Hè Thu: '.$gieosa_hethu.'</p>';
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thu Đông: '.$gieosa_thudong.'</p>';
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Đông Xuân: '.$gieosa_dongxuan.'</p>';
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Xuân Hè	: '.$gieosa_xuanhe.'</p>';
-                    echo '<p class="c-title2">&#9658; Quản lý nước</p>';
-                    if (isset($data2["object"]["nguonNuocTuoi"]["nguonNuocTuoi"])) {
-                        echo '<p class="c-title3">+ Nguồn nước tưới: '.$data2["object"]["nguonNuocTuoi"]["nguonNuocTuoi"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Nguồn nước tưới: </p>';
-                    }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["chuDongTuoiTieu"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["chuDongTuoiTieu"] == 1) {
-                            echo '<p class="c-title3">+ Chủ động nước tưới tiêu: Có</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["lotBatBoBatDay"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["lotBatBoBatDay"] == "1"){
+                            echo '<p class="c-title3">+ Lót bạt bờ, bạt đáy: Có</p>';
                         } else {
-                            echo '<p class="c-title3">+ Chủ động nước tưới tiêu: Không</p>';
+                            echo '<p class="c-title3">+ Lót bạt bờ, bạt đáy: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title3">+ Chủ động nước tưới tiêu: Không</p>';
+                        echo '<p class="c-title3">+ Lót bạt bờ, bạt đáy: ..... </p>';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["ruongDeBao"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["ruongDeBao"] == 1) {
-                            echo '<p class="c-title3">+ Ruộng nằm trong khu vực đê bao: Có</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["giaCoBoBao"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["giaCoBoBao"] == "1"){
+                            echo '<p class="c-title3">+ Gia cố bờ bao: Có</p>';
                         } else {
-                            echo '<p class="c-title3">+ Ruộng nằm trong khu vực đê bao: Không</p>';
+                            echo '<p class="c-title3">+ Gia cố bờ bao: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title3">+ Ruộng nằm trong khu vực đê bao:</p>';
+                        echo '<p class="c-title3">+ Gia cố bờ bao: ..... </p>';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["tuoiTapTrung"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["tuoiTapTrung"] == 1) {
-                            echo '<p class="c-title3">+ Ứng dụng bơm tưới nước tập trung: Có</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["lieuLuongBonVoi"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["bonVoi"] == "1"){
+                            echo '<p class="c-title3">+ Bón vôi: Có . Liều lượng: '.$data2["object"]["hoatDongSanXuat"]["lieuLuongBonVoi"].' kg/m<sup>2</sup></p>';
                         } else {
-                            echo '<p class="c-title3">+ Ứng dụng bơm tưới nước tập trung: Không</p>';
+                            echo '<p class="c-title3">+ Bón vôi: Không . Liều lượng: ..... kg/m<sup>2</sup></p>';
                         }
                     } else {
-                        echo '<p class="c-title3">+ Ứng dụng bơm tưới nước tập trung:</p>';
+                        echo '<p class="c-title3">+ Bón vôi: ...... Liều lượng: ..... kg/m<sup>2</sup></p>';
                     }
-                    $quanlynuoc = "";
-                    if (isset($data2["object"]["nguonNuocTuoi"]["KQuanLyNuoc"])) {
-                        $quanlynuoc = $data2["object"]["nguonNuocTuoi"]["KQuanLyNuoc"];
-                    }
-                    echo '<p class="c-title3">+ Chủ động điểu chỉnh mức nước, để tự nhiên từ đầu vụ đến cuối vụ: '.$quanlynuoc.'</p>';
-                    echo '<p class="c-title3">+ Quản lý nước trên ruộng vào từng thời gian sinh trưởng của lúa: </p>';
-                    $lamDat = "";$sanSua = "";$ocBuou = "";$truCo = "";$giaoSa = "";$bonLan1 = "";$bonLan2 = ""; $bL2DenDong = "";$nuoiDong = "";$troChin = "";$trThHo = "";
-                    $lamDatNote = "";$sanSuaNote = "";$ocBuouNote = "";$truCoNote = "";$giaoSaNote = ""; $bonLan1Note = "";$bonLan2Note = "";$bL2DenDongNote = "";$nuoiDongNote = "";$troChinNote = "";$trThHoNote = "";
-                    if (isset($data2["object"]["nguonNuocTuoi"]["lamDatNote"])) {
-                        $lamDatNote = $data2["object"]["nguonNuocTuoi"]["lamDatNote"];
-                    }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["lamDat"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["lamDat"] == 1) {
-                            $lamDat = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["lamDat"] == 2){
-                            $lamDat = "Không có nước";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phoiBaoNhieuNgay"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["phoiMatTrang"] == "1"){
+                            echo '<p class="c-title3">+ Phơi mặt trảng: Có . Bao nhiêu ngày: '.$data2["object"]["hoatDongSanXuat"]["phoiBaoNhieuNgay"].' ngày</p>';
                         } else {
-                            $lamDat = "Để tự nhiên";
+                            echo '<p class="c-title3">+ Phơi mặt trảng: Không . Bao nhiêu ngày: ..... ngày</p>';
+                        }
+                    } else {
+                        echo '<p class="c-title3">+ Phơi mặt trảng: ...... Bao nhiêu ngày: ..... ngày</p>';
+                    }
+                    echo '<p class="c-title2">&#9658; Xử lý nước</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xuLyNuoc"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["xuLyNuoc"] == "1"){
+                            echo '<p class="c-title3">+ Có</p>';
+                        } else {
+                            echo '<p class="c-title3">+ Không</p>';
                         }
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["sanSuaNote"])) {
-                        $sanSuaNote = $data2["object"]["nguonNuocTuoi"]["sanSuaNote"];
+                    $dt_thoigian = "";$dt_tenthuoc = "";$dt_lieuluong = "";$dt_cachbon = "";$dt_hieuqua = "";
+                    $dk_thoigian = "";$dk_tenthuoc = "";$dk_lieuluong = "";$dk_cachbon = "";$dk_hieuqua = "";
+                    $gmn_thoigian = "";$gmn_tenthuoc = "";$gmn_lieuluong = "";$gmn_cachbon = "";$gmn_hieuqua = "";
+                    $cvs_thoigian = "";$cvs_tenthuoc = "";$cvs_lieuluong = "";$cvs_cachbon = "";$cvs_hieuqua = "";
+                    $kh_thoigian = "";$kh_tenthuoc = "";$kh_lieuluong = "";$kh_cachbon = "";$kh_hieuqua = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietTapThoiGian"])) {
+                        $dt_thoigian = $data2["object"]["hoatDongSanXuat"]["dietTapThoiGian"];
+                    } else {
+                        $dt_thoigian = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["sanSua"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["sanSua"] == 1) {
-                            $sanSua = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["sanSua"] == 2){
-                            $sanSua = "Không có nước";
-                        } else {
-                            $sanSua = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietTapTenThuoc"])) {
+                        $dt_tenthuoc = $data2["object"]["hoatDongSanXuat"]["dietTapTenThuoc"];
+                    } else {
+                        $dt_tenthuoc = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["ocBuouNote"])) {
-                        $ocBuouNote = $data2["object"]["nguonNuocTuoi"]["ocBuouNote"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietTapLieuLuong"])) {
+                        $dt_lieuluong = $data2["object"]["hoatDongSanXuat"]["dietTapLieuLuong"];
+                    } else {
+                        $dt_lieuluong = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["truOcBuou"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["truOcBuou"] == 1) {
-                            $ocBuou = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["truOcBuou"] == 2){
-                            $ocBuou = "Không có nước";
-                        } else {
-                            $ocBuou = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietTapCachBon"])) {
+                        $dt_cachbon = $data2["object"]["hoatDongSanXuat"]["dietTapCachBon"];
+                    } else {
+                        $dt_cachbon = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["truCoNote"])) {
-                        $truCoNote = $data2["object"]["nguonNuocTuoi"]["truCoNote"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietTapHieuQua"])) {
+                        $dt_hieuqua = $data2["object"]["hoatDongSanXuat"]["dietTapHieuQua"];
+                    } else {
+                        $dt_hieuqua = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["truCo"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["truCo"] == 1) {
-                            $truCo = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["truCo"] == 2){
-                            $truCo = "Không có nước";
-                        } else {
-                            $truCo = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietkhuanThoiGian"])) {
+                        $dk_thoigian = $data2["object"]["hoatDongSanXuat"]["dietkhuanThoiGian"];
+                    } else {
+                        $dk_thoigian = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["giaoSaNote"])) {
-                        $giaoSaNote = $data2["object"]["nguonNuocTuoi"]["giaoSaNote"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietkhuanTenThuoc"])) {
+                        $dk_tenthuoc = $data2["object"]["hoatDongSanXuat"]["dietkhuanTenThuoc"];
+                    } else {
+                        $dk_tenthuoc = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["gieoSa"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["gieoSa"] == 1) {
-                            $giaoSa = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["gieoSa"] == 2){
-                            $giaoSa = "Không có nước";
-                        } else {
-                            $giaoSa = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietkhuanLieuLuong"])) {
+                        $dk_lieuluong = $data2["object"]["hoatDongSanXuat"]["dietkhuanLieuLuong"];
+                    } else {
+                        $dk_lieuluong = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["bonLan1Note"])) {
-                        $bonLan1Note = $data2["object"]["nguonNuocTuoi"]["bonLan1Note"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietkhuanCachBon"])) {
+                        $dk_cachbon = $data2["object"]["hoatDongSanXuat"]["dietkhuanCachBon"];
+                    } else {
+                        $dk_cachbon = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["bonLan1"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["bonLan1"] == 1) {
-                            $bonLan1 = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["bonLan1"] == 2){
-                            $bonLan1 = "Không có nước";
-                        } else {
-                            $bonLan1 = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["dietkhuanHieuQua"])) {
+                        $dk_hieuqua = $data2["object"]["hoatDongSanXuat"]["dietkhuanHieuQua"];
+                    } else {
+                        $dk_hieuqua = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["bonLan2Note"])) {
-                        $bonLan2Note = $data2["object"]["nguonNuocTuoi"]["bonLan2Note"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["gaymaunuocThoiGian"])) {
+                        $gmn_thoigian = $data2["object"]["hoatDongSanXuat"]["gaymaunuocThoiGian"];
+                    } else {
+                        $gmn_thoigian = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["bonLan2"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["bonLan2"] == 1) {
-                            $bonLan2 = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["bonLan2"] == 2){
-                            $bonLan2 = "Không có nước";
-                        } else {
-                            $bonLan2 = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["gaymaunuocTenThuoc"])) {
+                        $gmn_tenthuoc = $data2["object"]["hoatDongSanXuat"]["dietkhuanTenThuoc"];
+                    } else {
+                        $gmn_tenthuoc = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["bL2DenDongNote"])) {
-                        $bL2DenDongNote = $data2["object"]["nguonNuocTuoi"]["bL2DenDongNote"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["gaymaunuocLieuLuong"])) {
+                        $gmn_lieuluong = $data2["object"]["hoatDongSanXuat"]["gaymaunuocLieuLuong"];
+                    } else {
+                        $gmn_lieuluong = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["bl2DenDong"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["bl2DenDong"] == 1) {
-                            $bL2DenDong = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["bl2DenDong"] == 2){
-                            $bL2DenDong = "Không có nước";
-                        } else {
-                            $bL2DenDong = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["gaymaunuocCachBon"])) {
+                        $gmn_cachbon = $data2["object"]["hoatDongSanXuat"]["gaymaunuocnCachBon"];
+                    } else {
+                        $gmn_cachbon = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["nuoiDongNote"])) {
-                        $nuoiDongNote = $data2["object"]["nguonNuocTuoi"]["nuoiDongNote"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["gaymaunuocHieuQua"])) {
+                        $gmn_hieuqua = $data2["object"]["hoatDongSanXuat"]["gaymaunuocHieuQua"];
+                    } else {
+                        $gmn_hieuqua = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["bonNuoiDong"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["bonNuoiDong"] == 1) {
-                            $nuoiDong = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["bonNuoiDong"] == 2){
-                            $nuoiDong = "Không có nước";
-                        } else {
-                            $nuoiDong = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["cayvisinhThoiGian"])) {
+                        $cvs_thoigian = $data2["object"]["hoatDongSanXuat"]["cayvisinhThoiGian"];
+                    } else {
+                        $cvs_thoigian = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["troChinNote"])) {
-                        $troChinNote = $data2["object"]["nguonNuocTuoi"]["troChinNote"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["cayvisinhTenThuoc"])) {
+                        $cvs_tenthuoc = $data2["object"]["hoatDongSanXuat"]["cayvisinhTenThuoc"];
+                    } else {
+                        $cvs_tenthuoc = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["troChin"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["troChin"] == 1) {
-                            $troChin = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["troChin"] == 2){
-                            $troChin = "Không có nước";
-                        } else {
-                            $troChin = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["cayvisinhLieuLuong"])) {
+                        $cvs_lieuluong = $data2["object"]["hoatDongSanXuat"]["cayvisinhLieuLuong"];
+                    } else {
+                        $cvs_lieuluong = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["trThHoNote"])) {
-                        $trThHoNote = $data2["object"]["nguonNuocTuoi"]["trThHoNote"];
+                    if (isset($data2["object"]["hoatDongSanXuat"]["cayvisinhCachBon"])) {
+                        $cvs_cachbon = $data2["object"]["hoatDongSanXuat"]["cayvisinhCachBon"];
+                    } else {
+                        $cvs_cachbon = '...';
                     }
-                    if (isset($data2["object"]["nguonNuocTuoi"]["truocThuHoach"])) {
-                        if ($data2["object"]["nguonNuocTuoi"]["truocThuHoach"] == 1) {
-                            $trThHo = "Có nước";
-                        } else if ($data2["object"]["nguonNuocTuoi"]["truocThuHoach"] == 2){
-                            $trThHo = "Không có nước";
-                        } else {
-                            $trThHo = "Để tự nhiên";
-                        }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["cayvisinhHieuQua"])) {
+                        $cvs_hieuqua = $data2["object"]["hoatDongSanXuat"]["cayvisinhHieuQua"];
+                    } else {
+                        $cvs_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xulykhacThoiGian"])) {
+                        $kh_thoigian = $data2["object"]["hoatDongSanXuat"]["xulykhacThoiGian"];
+                    } else {
+                        $kh_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xulykhaTenThuoc"])) {
+                        $kh_tenthuoc = $data2["object"]["hoatDongSanXuat"]["xulykhaTenThuoc"];
+                    } else {
+                        $kh_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xulykhaLieuLuong"])) {
+                        $kh_lieuluong = $data2["object"]["hoatDongSanXuat"]["xulykhaLieuLuong"];
+                    } else {
+                        $kh_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xulykhaCachBon"])) {
+                        $kh_cachbon = $data2["object"]["hoatDongSanXuat"]["xulykhaCachBon"];
+                    } else {
+                        $kh_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xulykhacHieuQua"])) {
+                        $kh_hieuqua = $data2["object"]["hoatDongSanXuat"]["xulykhacHieuQua"];
+                    } else {
+                        $kh_hieuqua = '...';
                     }
                     echo '<table class="w3-table-all" border="1">
                         <tr>
-                            <td>TT</td>
-                            <td>Thời điểm canh tác</td>
-                            <td>Cách quản lý nước trên ruộng</td>
-                            <td>Chú thích độ sâu mức nước trên ruộng( cm)</td>
+                            <td>Công việc</td>
+                            <td>Thời gian</td>
+                            <td>Tên thuốc</td>
+                            <td>Liều lượng</td>
+                            <td>Cách bón</td>
+                            <td>Hiệu quả</td>
                         </tr>
                         <tr>
-                            <td>1</td>
-                            <td>Làm đất( cày, xới, bừa, trục)</td>
-                            <td>'.$lamDat.'</td>
-                            <td>'.$lamDatNote.'</td>
+                            <td>Diệt tạp</td>
+                            <td>'.$dt_thoigian.'</td>
+                            <td>'.$dt_tenthuoc.'</td>
+                            <td>'.$dt_lieuluong.'</td>
+                            <td>'.$dt_cachbon.'</td>
+                            <td>'.$dt_hieuqua.'</td>
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td>San sửa mặt bằng đồng ruộng</td>
-                            <td>'.$sanSua.'</td>
-                            <td>'.$sanSuaNote.'</td>
+                            <td>Diệt khuẩn</td>
+                            <td>'.$dk_thoigian.'</td>
+                            <td>'.$dk_tenthuoc.'</td>
+                            <td>'.$dk_lieuluong.'</td>
+                            <td>'.$dk_cachbon.'</td>
+                            <td>'.$dk_hieuqua.'</td>
                         </tr>
                         <tr>
-                            <td>3</td>
-                            <td>Thời điểm sử dụng thuốc trừ ốc Bươu vàng</td>
-                            <td>'.$ocBuou.'</td>
-                            <td>'.$ocBuouNote.'</td>
+                            <td>Gây màu nước</td>
+                            <td>'.$gmn_thoigian.'</td>
+                            <td>'.$gmn_tenthuoc.'</td>
+                            <td>'.$gmn_lieuluong.'</td>
+                            <td>'.$gmn_cachbon.'</td>
+                            <td>'.$gmn_hieuqua.'</td>
                         </tr>
                         <tr>
-                            <td>4</td>
-                            <td>Thời điểm sử dụng thuốc trừ cỏ</td>
-                            <td>'.$truCo.'</td>
-                            <td>'.$truCoNote.'</td>
+                            <td>Cấy vi sinh</td>
+                            <td>'.$cvs_thoigian.'</td>
+                            <td>'.$cvs_tenthuoc.'</td>
+                            <td>'.$cvs_lieuluong.'</td>
+                            <td>'.$cvs_cachbon.'</td>
+                            <td>'.$cvs_hieuqua.'</td>
                         </tr>
                         <tr>
-                            <td>5</td>
-                            <td>Thời điểm gieo sạ</td>
-                            <td>'.$giaoSa.'</td>
-                            <td>'.$giaoSaNote.'</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Thời điểm bón phân lần 1 (7-10 ngày sau sạ)</td>
-                            <td>'.$bonLan1.'</td>
-                            <td>'.$bonLan1Note.'</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Thời điểm bón phân lần 2 (20-22 ngày sau sạ)</td>
-                            <td>'.$bonLan2.'</td>
-                            <td>'.$bonLan2Note.'</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Giai đoạn từ bón phân lần 2 đến bón nuôi đòng</td>
-                            <td>'.$bL2DenDong.'</td>
-                            <td>'.$bL2DenDongNote.'</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Thời điểm bón phân nuôi đòng</td>
-                            <td>'.$nuoiDong.'</td>
-                            <td>'.$nuoiDongNote.'</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Giai đoạn từ lúa có đòng đến trổ, chín</td>
-                            <td>'.$troChin.'</td>
-                            <td>'.$troChinNote.'</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Giai đoạn trước lúc thu hoạch (7-14 ngày)</td>
-                            <td>'.$trThHo.'</td>
-                            <td>'.$trThHoNote.'</td>
+                            <td>Xử lý khác</td>
+                            <td>'.$kh_thoigian.'</td>
+                            <td>'.$kh_tenthuoc.'</td>
+                            <td>'.$kh_lieuluong.'</td>
+                            <td>'.$kh_cachbon.'</td>
+                            <td>'.$kh_hieuqua.'</td>
                         </tr>
                     </table>';
-                    echo '<p class="c-title2">&#9658; Phân bón và kỹ thuật bón phân</p>';
-                    if (isset($data2["object"]["kyThuatBonPhan"]["soLanBonPhan"])){
-                        echo '<p class="c-title3">+ Tổng số lần bón phân: '.$data2["object"]["kyThuatBonPhan"]["soLanBonPhan"].' lần</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["kiemTraYeuToMoiTruong"])) {
+                        echo '<p class="c-title3">+ Kiểm tra các yếu tố môi trường: '.$data2["object"]["hoatDongSanXuat"]["kiemTraYeuToMoiTruong"].'</p>';
                     } else {
-                        echo '<p class="c-title3">+ Tổng số lần bón phân:...........lần</p>';
+                        echo '<p class="c-title3">+ Kiểm tra các yếu tố môi trường: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["vuSanXuat"])){
-                        echo '<p class="c-title3">+ Vụ sản xuất: '.$data2["object"]["kyThuatBonPhan"]["vuSanXuat"].'</p>';
+                    echo '<p class="c-title2">&#9658; Chọn giống và cách xử lý giống</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["giongTomGanNhat"])) {
+                        echo '<p class="c-title3">+ Giống tôm được nuôi gần nhất: '.$data2["object"]["hoatDongSanXuat"]["giongTomGanNhat"].'</p>';
                     } else {
-                        echo '<p class="c-title3">+ Vụ sản xuất:</p>';
+                        echo '<p class="c-title3">+ Giống tôm được nuôi gần nhất: ..... </p>';
                     }
-                    $donvibon = "";
-                    if (isset($data2["object"]["kyThuatBonPhan"]["donViBon"])){
-                        $donvibon = $data2["object"]["kyThuatBonPhan"]["donViBon"];
-                    }
-                    echo '<p class="c-title3">+ Đơn vị bón: '.$donvibon.'</p>';
-                    if (isset($data2["object"]["kyThuatBonPhan"]["aiBonPhan"])){
-                        echo '<p class="c-title3">+ Thực hiện công việc: '.$data2["object"]["kyThuatBonPhan"]["aiBonPhan"].'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["nguonGocTom"])) {
+                        echo '<p class="c-title3">+ Nguồn gốc giống: '.$data2["object"]["hoatDongSanXuat"]["nguonGocTom"].'</p>';
                     } else {
-                        echo '<p class="c-title3">+ Thực hiện công việc: </p>';
+                        echo '<p class="c-title3">+ Nguồn gốc giống: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["congCuPhTien"])){
-                        echo '<p class="c-title3">+ Công cụ, phương tiện: '.$data2["object"]["kyThuatBonPhan"]["congCuPhTien"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Công cụ, phương tiện: </p>';
-                    }
-                    
-                    echo '<p class="c-title3">+ Chi tiết các đợt bón phân:</p>';
-                    if (isset($data2["object"]["kyThuatBonPhan"]["phctong"])) {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân hữu cơ: '.$data2["object"]["kyThuatBonPhan"]["phctong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phcbonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["phcbonLot"].' '.$donvibon.'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["giayXacNhanNguonGocTom"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["giayXacNhanNguonGocTom"] == "1"){
+                            echo '<p class="c-title3">+ Giấy xác nhận nguồn gốc tôm giống: Có</p>';
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phclan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["phclan1"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phclan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["phclan2"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phclan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["phclan3"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phclan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["phclan4"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phclan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["phclan5"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phcnote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["phcnote"].'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Giấy xác nhận nguồn gốc tôm giống: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân hữu cơ: Không</p>';
+                        echo '<p class="c-title3">+ Giấy xác nhận nguồn gốc tôm giống: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["pctdtong"])) {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân cải tạo đất: '.$data2["object"]["kyThuatBonPhan"]["pctdtong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pctdbonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["pctdbonLot"].' '.$donvibon.'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["matDoTha"])) {
+                        echo '<p class="c-title3">+ Mật độ thả: '.$data2["object"]["hoatDongSanXuat"]["matDoTha"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Mật độ thả: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["thoiGianThaTom"])) {
+                        echo '<p class="c-title3">+ Thời gian thả tôm: '.$data2["object"]["hoatDongSanXuat"]["thoiGianThaTom"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Thời gian thả tôm: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["huongTha"])) {
+                        echo '<p class="c-title3">+ Hướng thả: '.$data2["object"]["hoatDongSanXuat"]["huongTha"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Hướng thả: ..... </p>';
+                    }
+                    echo '<p class="c-title2">&#9658; Giám sát sức khỏe</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["uongGieo"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["uongGieo"] == "1"){
+                            echo '<p class="c-title3">+ Ương gièo trước khi thả nuôi: Có</p>';
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pctdlan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["pctdlan1"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pctdlan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["pctdlan2"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pctdlan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["pctdlan3"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pctdlan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["pctdlan4"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pctdlan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["pctdlan5"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pctdnote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["pctdnote"].'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Ương gièo trước khi thả nuôi: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân cải tạo đất: Không</p>';
+                        echo '<p class="c-title3">+ Ương gièo trước khi thả nuôi: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["ureTong"])) {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân Urê: '.$data2["object"]["kyThuatBonPhan"]["ureTong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["ureBonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["ureBonLot"].' '.$donvibon.'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["suDungThuocNguaBenh"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["suDungThuocNguaBenh"] == "1"){
+                            echo '<p class="c-title3">+ Sử dụng thuốc ngừa bệnh: Có</p>';
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
-                        }
-
-                        if(isset($data2["object"]["kyThuatBonPhan"]["ureLan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["ureLan1"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["ureLan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["ureLan2"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["ureLan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["ureLan3"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["ureLan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["ureLan4"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["ureLan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["ureLan5"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["ureNote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["ureNote"].'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Sử dụng thuốc ngừa bệnh: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân Urê: Không</p>';
+                        echo '<p class="c-title3">+ Sử dụng thuốc ngừa bệnh: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["planTong"])) {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân Lân: '.$data2["object"]["kyThuatBonPhan"]["planTong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pLanBonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["planBonLot"].' '.$donvibon.'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["soVoiTruocDay"])) {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> So với trước đây: '.$data2["object"]["hoatDongSanXuat"]["soVoiTruocDay"].'</p>';
+                    } else {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> So với trước đây: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["suDungMenViSinh"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["suDungMenViSinh"] == "1"){
+                            echo '<p class="c-title3">+ Sử dụng men vi sinh định kỳ: Có</p>';
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
-                        }
-
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pLanLan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["planLan1"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pLanLan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["planLan2"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pLanLan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["planLan3"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pLanLan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["planLan4"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pLanLan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["planLan5"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pLanNote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["planNote"].'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Sử dụng men vi sinh định kỳ: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân Lân: Không</p>';
+                        echo '<p class="c-title3">+ Sử dụng men vi sinh định kỳ: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["pkaliTong"])) {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân Kali: '.$data2["object"]["kyThuatBonPhan"]["pkaliTong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pkaliBonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["pkaliBonLot"].' '.$donvibon.'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["kiemTraMoiTruong"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["kiemTraMoiTruong"] == "1"){
+                            echo '<p class="c-title3">+ Kiểm tra môi trường nuôi: Có</p>';
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
-                        }
-
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pkaliLan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["pkaliLan1"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pkaliLan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["pkaliLan2"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pkaliLan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["pkaliLan3"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pkaliLan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["pkaliLan4"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pkaliLan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["pkaliLan5"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pLanNote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["pLanNote"].'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Kiểm tra môi trường nuôi: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân Kali: Không</p>';
+                        echo '<p class="c-title3">+ Kiểm tra môi trường nuôi: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["pdapTong"])) {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân DAP: '.$data2["object"]["kyThuatBonPhan"]["pdapTong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pkaliBonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["pkaliBonLot"].' '.$donvibon.'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanLyNuocNuoiTom"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["quanLyNuocNuoiTom"] == "1"){
+                            echo '<p class="c-title3">+ Quản lý nước trong suốt quá trình nuôi: Có</p>';
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
-                        }
-
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pdapLan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["pdapLan1"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pdapLan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["pdapLan2"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pdapLan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["pdapLan3"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pdapLan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["pdapLan4"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pdapLan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["pdapLan5"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["pdapNote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["pdapNote"].'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Quản lý nước trong suốt quá trình nuôi: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân DAP: Không</p>';
+                        echo '<p class="c-title3">+ Quản lý nước trong suốt quá trình nuôi: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["phNpkTong"])) {
-                        $tenphanNPK = ".....";
-                        if (isset($data2["object"]["kyThuatBonPhan"]["tenPhanNPK"])){
-                            $tenphanNPK = $data2["object"]["kyThuatBonPhan"]["tenPhanNPK"];
-                        }
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân NPK: '.$tenphanNPK.': '.$data2["object"]["kyThuatBonPhan"]["phNpkTong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phNpkBonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["phNpkBonLot"].' '.$donvibon.'</p>';
+                    echo '<p class="c-title2">&#9658; Quản lý sức khoẻ Bổ sung thêm bệnh EMS</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tinhHinhDichBenhEMS"])) {
+                        echo '<p class="c-title3">+ Tình hình dịch bệnh so với trước đây: '.$data2["object"]["hoatDongSanXuat"]["tinhHinhDichBenhEMS"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Tình hình dịch bệnh so với trước đây: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["soAoBiBenh"])) {
+                        echo '<p class="c-title3">+ Số ao bị bệnh:  '.$data2["object"]["hoatDongSanXuat"]["soAoBiBenh"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Số ao bị bệnh: ..... </p>';
+                    }
+                    echo '<p class="c-title3">+ Các loại bệnh xuất hiện trong ao nuôi: </p>';
+                    $benhdomtrang = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhDomTrang"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["benhDomTrang"] == "1") {
+                            $benhdomtrang = "Có";
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
+                            $benhdomtrang = "Không";
                         }
-
-                        if(isset($data2["object"]["kyThuatBonPhan"]["nhNpkLan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["nhNpkLan1"].' '.$donvibon.'</p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhDomTrangSoSanh"])) {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh đốm trắng:  '.$benhdomtrang.'. '.$data2["object"]["hoatDongSanXuat"]["benhDomTrangSoSanh"].'</p>';
+                    } else {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh đốm trắng: ..... </p>';
+                    }
+                    $benhdauvang = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhDauVang"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["benhDauVang"] == "1") {
+                            $benhdauvang = "Có";
                         } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
+                            $benhdauvang = "Không";
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["nhNpkLan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["nhNpkLan2"].' '.$donvibon.'</p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhDauVangSoSanh"])) {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh đầu vàng:  '.$benhdauvang.'. '.$data2["object"]["hoatDongSanXuat"]["benhDauVangSoSanh"].'</p>';
+                    } else {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh đầu vàng: ..... </p>';
+                    }
+                    $benhIHHNV = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhIHHnv"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["benhIHHnv"] == "1") {
+                            $benhIHHNV = "Có";
                         } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
+                            $benhIHHNV = "Không";
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["nhNpkLan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["nhNpkLan3"].' '.$donvibon.'</p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhIHHnvSoSanh"])) {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh IHHNV (hoại tử dưới vỏ và cơ quan tạo máu): '.$benhIHHNV.'. '.$data2["object"]["hoatDongSanXuat"]["benhIHHnvSoSanh"].'</p>';
+                    } else {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh IHHNV (hoại tử dưới vỏ và cơ quan tạo máu): ..... </p>';
+                    }
+                    $benhphantrang = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhPhanTrang"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["benhPhanTrang"] == "1") {
+                            $benhphantrang = "Có";
                         } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
+                            $benhphantrang = "Không";
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["nhNpkLan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["nhNpkLan4"].' '.$donvibon.'</p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhPhanTrangSoSanh"])) {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh phân trắng: '.$benhphantrang.'. '.$data2["object"]["hoatDongSanXuat"]["benhPhanTrangSoSanh"].'</p>';
+                    } else {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh phân trắng: ..... </p>';
+                    }
+                    $benhIMNV = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhIMNV"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["benhIMNV"] == "1") {
+                            $benhIMNV = "Có";
                         } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
+                            $benhIMNV = "Không";
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["nhNpkLan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["nhNpkLan5"].' '.$donvibon.'</p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["benhIMNVSoSanh"])) {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh IMNV (hoại tử cơ):  '.$benhIMNV.'. '.$data2["object"]["hoatDongSanXuat"]["benhIMNVSoSanh"].'</p>';
+                    } else {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Bệnh IMNV (hoại tử cơ): ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["viBaoTuTrung"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["viBaoTuTrung"] == "1"){
+                            echo '<p class="c-title3">+ Vi bào tử trùng: Có</p>';
                         } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phNpkTNote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["phNpkTNote"].'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Vi bào tử trùng: Không</p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân NPK: Không</p>';
+                        echo '<p class="c-title3">+ Vi bào tử trùng: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["phKhacTong"])) {
-                        $tenphankhac = ".....";
-                        if (isset($data2["object"]["kyThuatBonPhan"]["tenPhKhac"])){
-                            $tenphankhac = $data2["object"]["kyThuatBonPhan"]["tenPhKhac"];
-                        }
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân khác: '.$tenphankhac.': '.$data2["object"]["kyThuatBonPhan"]["phKhacTong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phKhacBonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["phKhacBonLot"].' '.$donvibon.'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["thoiGianXuatHien"])) {
+                        echo '<p class="c-title3">+ Thời gian xuất hiện: '.$data2["object"]["hoatDongSanXuat"]["thoiGianXuatHien"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Thời gian xuất hiện: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["coXuLyAoKhiChetNhieu"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["coXuLyAoKhiChetNhieu"] == "1"){
+                            echo '<p class="c-title3">+ Xử lý ao khi có hiện tượng chết nhiều: Có</p>';
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
+                            echo '<p class="c-title3">+ Xử lý ao khi có hiện tượng chết nhiều: Không</p>';
                         }
-
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phKhacLan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["phKhacLan1"].' '.$donvibon.'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Xử lý ao khi có hiện tượng chết nhiều: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["php"])) {
+                        echo '<p class="c-title3">+ PHP: '.$data2["object"]["hoatDongSanXuat"]["php"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ PHP: ..... </p>';
+                    }
+                    echo '<p class="c-title3">+ Phòng trị bệnh </p>';
+                    $domtrang_thoigian = "";$domtrang_tenthuoc = "";$domtrang_lieuluong = "";$domtrang_cachbon = "";$domtrang_hieuqua = "";
+                    $dauvang_thoigian = "";$dauvang_tenthuoc = "";$dauvang_lieuluong = "";$dauvang_cachbon = "";$dauvang_hieuqua = "";
+                    $ihhnv_thoigian = "";$ihhnv_tenthuoc = "";$ihhnv_lieuluong = "";$ihhnv_cachbon = "";$ihhnv_hieuqua = "";
+                    $phantrang_thoigian = "";$phantrang_tenthuoc = "";$phantrang_lieuluong = "";$phantrang_cachbon = "";$phantrang_hieuqua = "";
+                    $imnv_thoigian = "";$imnv_tenthuoc = "";$imnv_lieuluong = "";$imnv_cachbon = "";$imnv_hieuqua = "";
+                    $vbtt_thoigian = "";$vbtt_tenthuoc = "";$vbtt_lieuluong = "";$vbtt_cachbon = "";$vbtt_hieuqua = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdomtrangthoigian"])) {
+                        $domtrang_thoigian = $data2["object"]["hoatDongSanXuat"]["phongtribenhdomtrangthoigian"];
+                    } else {
+                        $domtrang_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdomtrangphuongphap"])) {
+                        $domtrang_tenthuoc = $data2["object"]["hoatDongSanXuat"]["phongtribenhdomtrangphuongphap"];
+                    } else {
+                        $domtrang_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdomtranglieuluong"])) {
+                        $domtrang_lieuluong = $data2["object"]["hoatDongSanXuat"]["phongtribenhdomtranglieuluong"];
+                    } else {
+                        $domtrang_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdomtrangcachbon"])) {
+                        $domtrang_cachbon = $data2["object"]["hoatDongSanXuat"]["phongtribenhdomtrangcachbon"];
+                    } else {
+                        $domtrang_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdomtranghieuqua"])) {
+                        $domtrang_hieuqua = $data2["object"]["hoatDongSanXuat"]["phongtribenhdomtranghieuqua"];
+                    } else {
+                        $domtrang_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdauvangthoigian"])) {
+                        $dauvang_thoigian = $data2["object"]["hoatDongSanXuat"]["phongtribenhdauvangthoigian"];
+                    } else {
+                        $dauvang_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdauvangphuongphap"])) {
+                        $dauvang_tenthuoc = $data2["object"]["hoatDongSanXuat"]["phongtribenhdauvangphuongphap"];
+                    } else {
+                        $dauvang_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdauvanglieuluong"])) {
+                        $dauvang_lieuluong = $data2["object"]["hoatDongSanXuat"]["phongtribenhdauvanglieuluong"];
+                    } else {
+                        $dauvang_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdauvangcachbon"])) {
+                        $dauvang_cachbon = $data2["object"]["hoatDongSanXuat"]["phongtribenhdauvangcachbon"];
+                    } else {
+                        $dauvang_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhdauvanghieuqua"])) {
+                        $dauvang_hieuqua = $data2["object"]["hoatDongSanXuat"]["phongtribenhdauvanghieuqua"];
+                    } else {
+                        $dauvang_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVthoigian"])) {
+                        $ihhnv_thoigian = $data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVthoigian"];
+                    } else {
+                        $ihhnv_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVphuongphap"])) {
+                        $ihhnv_tenthuoc = $data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVphuongphap"];
+                    } else {
+                        $ihhnv_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVlieuluong"])) {
+                        $ihhnv_lieuluong = $data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVlieuluong"];
+                    } else {
+                        $ihhnv_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVcachbon"])) {
+                        $ihhnv_cachbon = $data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVcachbon"];
+                    } else {
+                        $ihhnv_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVhieuqua"])) {
+                        $ihhnv_hieuqua = $data2["object"]["hoatDongSanXuat"]["phongtribenhIHHNVhieuqua"];
+                    } else {
+                        $ihhnv_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhphantrangthoigian"])) {
+                        $phantrang_thoigian = $data2["object"]["hoatDongSanXuat"]["phongtribenhphantrangthoigian"];
+                    } else {
+                        $phantrang_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhphantrangphuongphap"])) {
+                        $phantrang_tenthuoc = $data2["object"]["hoatDongSanXuat"]["phongtribenhphantrangphuongphap"];
+                    } else {
+                        $phantrang_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhphantranglieuluong"])) {
+                        $phantrang_lieuluong = $data2["object"]["hoatDongSanXuat"]["phongtribenhphantranglieuluong"];
+                    } else {
+                        $phantrang_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhphantrangcachbon"])) {
+                        $phantrang_cachbon = $data2["object"]["hoatDongSanXuat"]["phongtribenhphantrangcachbon"];
+                    } else {
+                        $phantrang_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhphantranghieuqua"])) {
+                        $phantrang_hieuqua = $data2["object"]["hoatDongSanXuat"]["phongtribenhphantranghieuqua"];
+                    } else {
+                        $phantrang_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVthoigian"])) {
+                        $imnv_thoigian = $data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVthoigian"];
+                    } else {
+                        $imnv_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVphuongphap"])) {
+                        $imnv_tenthuoc = $data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVphuongphap"];
+                    } else {
+                        $imnv_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVlieuluong"])) {
+                        $imnv_lieuluong = $data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVlieuluong"];
+                    } else {
+                        $imnv_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVcachbon"])) {
+                        $imnv_cachbon = $data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVcachbon"];
+                    } else {
+                        $imnv_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVhieuqua"])) {
+                        $imnv_hieuqua = $data2["object"]["hoatDongSanXuat"]["phongtribenhIMNVhieuqua"];
+                    } else {
+                        $imnv_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrungthoigian"])) {
+                        $vbtt_thoigian = $data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrungthoigian"];
+                    } else {
+                        $vbtt_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrungphuongphap"])) {
+                        $vbtt_tenthuoc = $data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrungphuongphap"];
+                    } else {
+                        $vbtt_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrunglieuluong"])) {
+                        $vbtt_lieuluong = $data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrunglieuluong"];
+                    } else {
+                        $vbtt_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrungcachbon"])) {
+                        $vbtt_cachbon = $data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrungcachbon"];
+                    } else {
+                        $vbtt_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrunghieuqua"])) {
+                        $vbtt_hieuqua = $data2["object"]["hoatDongSanXuat"]["phongtribenhvibaotutrunghieuqua"];
+                    } else {
+                        $vbtt_hieuqua = '...';
+                    }
+                    echo '<table class="w3-table-all" border="1">
+                        <tr>
+                            <td>Loại bệnh</td>
+                            <td>Thời gian</td>
+                            <td>Tên thuốc/Phương pháp xử lý</td>
+                            <td>Liều lượng</td>
+                            <td>Cách bón</td>
+                            <td>Hiệu quả</td>
+                        </tr>
+                        <tr>
+                            <td>Bệnh đốm trắng</td>
+                            <td>'.$domtrang_thoigian.'</td>
+                            <td>'.$domtrang_tenthuoc.'</td>
+                            <td>'.$domtrang_lieuluong.'</td>
+                            <td>'.$domtrang_cachbon.'</td>
+                            <td>'.$domtrang_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Bệnh đầu vàng</td>
+                            <td>'.$dauvang_thoigian.'</td>
+                            <td>'.$dauvang_tenthuoc.'</td>
+                            <td>'.$dauvang_lieuluong.'</td>
+                            <td>'.$dauvang_cachbon.'</td>
+                            <td>'.$dauvang_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Bệnh IHHNV (hoại tử dưới vỏ và cơ quan tạo máu)</td>
+                            <td>'.$ihhnv_thoigian.'</td>
+                            <td>'.$ihhnv_tenthuoc.'</td>
+                            <td>'.$ihhnv_lieuluong.'</td>
+                            <td>'.$ihhnv_cachbon.'</td>
+                            <td>'.$ihhnv_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Bệnh phân trắng</td>
+                            <td>'.$phantrang_thoigian.'</td>
+                            <td>'.$phantrang_tenthuoc.'</td>
+                            <td>'.$phantrang_lieuluong.'</td>
+                            <td>'.$phantrang_cachbon.'</td>
+                            <td>'.$phantrang_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Bệnh IMNV (hoại tử cơ)</td>
+                            <td>'.$imnv_thoigian.'</td>
+                            <td>'.$imnv_tenthuoc.'</td>
+                            <td>'.$imnv_lieuluong.'</td>
+                            <td>'.$imnv_cachbon.'</td>
+                            <td>'.$imnv_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Vi bào tử trùng</td>
+                            <td>'.$vbtt_thoigian.'</td>
+                            <td>'.$vbtt_tenthuoc.'</td>
+                            <td>'.$vbtt_lieuluong.'</td>
+                            <td>'.$vbtt_cachbon.'</td>
+                            <td>'.$vbtt_hieuqua.'</td>
+                        </tr>
+                    </table>';
+                    echo '<p class="c-title2">&#9658; Thức ăn</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["cachChoTomAn"])){
+                        echo '<p class="c-title3">+ Cách cho ăn: '.$data2["object"]["hoatDongSanXuat"]["cachChoTomAn"].' </p>';
+                    } else {
+                        echo '<p class="c-title3">+ Cách cho ăn: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["soLanChoAn"])){
+                        echo '<p class="c-title3">+ Số lần cho ăn: '.$data2["object"]["hoatDongSanXuat"]["soLanChoAn"].' lần/ngày</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Số lần cho ăn: ..... lần/ngày </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["soSangAn"])){
+                        echo '<p class="c-title3">+ Số sang ăn: '.$data2["object"]["hoatDongSanXuat"]["soSangAn"].' cái </p>';
+                    } else {
+                        echo '<p class="c-title3">+ Số sang ăn: ..... cái </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["coTronThucAnKhac"])){
+                        if ($data2["object"]["hoatDongSanXuat"]["coTronThucAnKhac"] == "1") {
+                            echo '<p class="c-title3">+ Phối trộn các thành phần khác vào thức ăn: Có </p>';
                         } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
+                            echo '<p class="c-title3">+ Phối trộn các thành phần khác vào thức ăn: Không </p>';
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phKhacLan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["phKhacLan2"].' '.$donvibon.'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Phối trộn các thành phần khác vào thức ăn: ..... </p>';
+                    }
+                    $thucan_ten1 = "";$thucan_thoigian1 = "";$thucan_lieuluong1 = "";$thucan_cachbon1 = "";$thucan_hieuqua1 = "";
+                    $thucan_ten2 = "";$thucan_thoigian2 = "";$thucan_lieuluong2 = "";$thucan_cachbon2 = "";$thucan_hieuqua2 = "";
+                    $thucan_ten3 = "";$thucan_thoigian3 = "";$thucan_lieuluong3 = "";$thucan_cachbon3 = "";$thucan_hieuqua3 = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomTenThuoc01"])) {
+                        $thucan_ten1 = $data2["object"]["hoatDongSanXuat"]["tomTenThuoc01"];
+                    } else {
+                        $thucan_ten1 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomThoiGian01"])) {
+                        $thucan_thoigian1 = $data2["object"]["hoatDongSanXuat"]["tomThoiGian01"];
+                    } else {
+                        $thucan_thoigian1 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomLieuLuong01"])) {
+                        $thucan_lieuluong1 = $data2["object"]["hoatDongSanXuat"]["tomLieuLuong01"];
+                    } else {
+                        $thucan_lieuluong1 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomCachBon01"])) {
+                        $thucan_cachbon1 = $data2["object"]["hoatDongSanXuat"]["tomCachBon01"];
+                    } else {
+                        $thucan_cachbon1 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomHieuQua01"])) {
+                        $thucan_hieuqua1 = $data2["object"]["hoatDongSanXuat"]["tomHieuQua01"];
+                    } else {
+                        $thucan_hieuqua1 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomTenThuoc02"])) {
+                        $thucan_ten2 = $data2["object"]["hoatDongSanXuat"]["tomTenThuoc02"];
+                    } else {
+                        $thucan_ten2 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomThoiGian02"])) {
+                        $thucan_thoigian2 = $data2["object"]["hoatDongSanXuat"]["tomThoiGian02"];
+                    } else {
+                        $thucan_thoigian2 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomLieuLuong02"])) {
+                        $thucan_lieuluong2 = $data2["object"]["hoatDongSanXuat"]["tomLieuLuong02"];
+                    } else {
+                        $thucan_lieuluong2 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomCachBon02"])) {
+                        $thucan_cachbon2 = $data2["object"]["hoatDongSanXuat"]["tomCachBon02"];
+                    } else {
+                        $thucan_cachbon2 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomHieuQua02"])) {
+                        $thucan_hieuqua2 = $data2["object"]["hoatDongSanXuat"]["tomHieuQua02"];
+                    } else {
+                        $thucan_hieuqua2 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomTenThuoc03"])) {
+                        $thucan_ten3 = $data2["object"]["hoatDongSanXuat"]["tomTenThuoc03"];
+                    } else {
+                        $thucan_ten3 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomThoiGian03"])) {
+                        $thucan_thoigian3 = $data2["object"]["hoatDongSanXuat"]["tomThoiGian03"];
+                    } else {
+                        $thucan_thoigian3 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomLieuLuong03"])) {
+                        $thucan_lieuluong3 = $data2["object"]["hoatDongSanXuat"]["tomLieuLuong03"];
+                    } else {
+                        $thucan_lieuluong3 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomCachBon03"])) {
+                        $thucan_cachbon3 = $data2["object"]["hoatDongSanXuat"]["tomCachBon03"];
+                    } else {
+                        $thucan_cachbon3 = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tomHieuQua03"])) {
+                        $thucan_hieuqua3 = $data2["object"]["hoatDongSanXuat"]["tomHieuQua03"];
+                    } else {
+                        $thucan_hieuqua3 = '...';
+                    }
+                    echo '<table class="w3-table-all" border="1">
+                        <tr>
+                            <td>Tên thuốc</td>
+                            <td>Thời gian</td>
+                            <td>Liều lượng</td>
+                            <td>Cách bón</td>
+                            <td>Hiệu quả</td>
+                        </tr>
+                        <tr>
+                            <td>'.$thucan_ten1.'</td>
+                            <td>'.$thucan_thoigian1.'</td>
+                            <td>'.$thucan_lieuluong1.'</td>
+                            <td>'.$thucan_cachbon1.'</td>
+                            <td>'.$thucan_hieuqua1.'</td>
+                        </tr>
+                        <tr>
+                            <td>'.$thucan_ten2.'</td>
+                            <td>'.$thucan_thoigian2.'</td>
+                            <td>'.$thucan_lieuluong2.'</td>
+                            <td>'.$thucan_cachbon2.'</td>
+                            <td>'.$thucan_hieuqua2.'</td>
+                        </tr>
+                        <tr>
+                            <td>'.$thucan_ten3.'</td>
+                            <td>'.$thucan_thoigian3.'</td>
+                            <td>'.$thucan_lieuluong3.'</td>
+                            <td>'.$thucan_cachbon3.'</td>
+                            <td>'.$thucan_hieuqua3.'</td>
+                        </tr>
+                    </table>';
+                    echo '<p class="c-title2">&#9658; Quản lý môi trường ao nuôi</p>';
+                    $ktdoph = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["kiemTraPhTrongAo"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["kiemTraPhTrongAo"] == "1") {
+                            $ktdoph = "Có";
                         } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
+                            $ktdoph = "Không";
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phKhacLan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["phKhacLan3"].' '.$donvibon.'</p>';
+                    } else {
+                        $ktdoph = " ..... ";
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tanSuatKiemTraPh"])) {
+                        echo '<p class="c-title3">+ Kiểm tra độ pH trong ao:  '.$ktdoph.' , số lần '.$data2["object"]["hoatDongSanXuat"]["tanSuatKiemTraPh"].' lần/ngày</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Kiểm tra độ pH trong ao: '.$ktdoph.' , số lần: ..... lần/ngày</p>';
+                    }
+                    $ktdokiem = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["kiemTraKiemTrongAo"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["kiemTraKiemTrongAo"] == "1") {
+                            $ktdokiem = "Có";
                         } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
+                            $ktdokiem = "Không";
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phKhacLan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["phKhacLan4"].' '.$donvibon.'</p>';
+                    } else {
+                        $ktdokiem = " ..... ";
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["tanSuatKiemTraKiem"])) {
+                        echo '<p class="c-title3">+ Kiểm tra độ kiềm trong ao: '.$ktdokiem.' , số lần '.$data2["object"]["hoatDongSanXuat"]["tanSuatKiemTraKiem"].' lần/ngày</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Kiểm tra độ kiềm trong ao: '.$ktdokiem.' , số lần: ..... lần/ngày</p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["duyTriDoKiem"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["duyTriDoKiem"] == "1") {
+                            echo '<p class="c-title3">+ Duy trì độ kiềm: Có </p>';
                         } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
+                            echo '<p class="c-title3">+ Duy trì độ kiềm: Không </p>';
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phKhacLan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["phKhacLan5"].' '.$donvibon.'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Duy trì độ kiềm: ..... </p>';
+                    }
+                    $dokiem_thoigian = "";$dokiem_tenthuoc = "";$dokiem_lieuluong = "";$dokiem_cachbon = "";$dokiem_hieuqua = "";
+                    $bskhoang_thoigian = "";$bskhoang_tenthuoc = "";$bskhoang_lieuluong = "";$bskhoang_cachbon = "";$bskhoang_hieuqua = "";
+                    $cayvisinh_thoigian = "";$cayvisinh_tenthuoc = "";$cayvisinh_lieuluong = "";$cayvisinh_cachbon = "";$cayvisinh_hieuqua = "";
+                    $cpsinhhoc_thoigian = "";$cpsinhhoc_tenthuoc = "";$cpsinhhoc_lieuluong = "";$cpsinhhoc_cachbon = "";$cpsinhhoc_hieuqua = "";
+                    $dinhduong_thoigian = "";$dinhduong_tenthuoc = "";$dinhduong_lieuluong = "";$dinhduong_cachbon = "";$dinhduong_hieuqua = "";
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemthoigian"])) {
+                        $dokiem_thoigian = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemthoigian"];
+                    } else {
+                        $dokiem_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemtenthuoc"])) {
+                        $dokiem_tenthuoc = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemtenthuoc"];
+                    } else {
+                        $dokiem_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemlieuluong"])) {
+                        $dokiem_lieuluong = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemlieuluong"];
+                    } else {
+                        $dokiem_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemcachbon"])) {
+                        $dokiem_cachbon = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemcachbon"];
+                    } else {
+                        $dokiem_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemhieuqua"])) {
+                        $dokiem_hieuqua = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongduytridokiemhieuqua"];
+                    } else {
+                        $dokiem_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoangthoigian"])) {
+                        $bskhoang_thoigian = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoangthoigian"];
+                    } else {
+                        $bskhoang_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoangtenthuoc"])) {
+                        $bskhoang_tenthuoc = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoangtenthuoc"];
+                    } else {
+                        $bskhoang_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoanglieuluong"])) {
+                        $bskhoang_lieuluong = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoanglieuluong"];
+                    } else {
+                        $bskhoang_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoangcachbon"])) {
+                        $bskhoang_cachbon = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoangcachbon"];
+                    } else {
+                        $bskhoang_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoanghieuqua"])) {
+                        $bskhoang_hieuqua = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongbosungkhoanghieuqua"];
+                    } else {
+                        $bskhoang_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhthoigian"])) {
+                        $cayvisinh_thoigian = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhthoigian"];
+                    } else {
+                        $cayvisinh_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhtenthuoc"])) {
+                        $cayvisinh_tenthuoc = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhtenthuoc"];
+                    } else {
+                        $cayvisinh_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhlieuluong"])) {
+                        $cayvisinh_lieuluong = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhlieuluong"];
+                    } else {
+                        $cayvisinh_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhcachbon"])) {
+                        $cayvisinh_cachbon = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhcachbon"];
+                    } else {
+                        $cayvisinh_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhhieuqua"])) {
+                        $cayvisinh_hieuqua = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongcayvisinhhieuqua"];
+                    } else {
+                        $cayvisinh_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhocthoigian"])) {
+                        $cpsinhhoc_thoigian = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhocthoigian"];
+                    } else {
+                        $cpsinhhoc_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhoctenthuoc"])) {
+                        $cpsinhhoc_tenthuoc = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhoctenthuoc"];
+                    } else {
+                        $cpsinhhoc_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhoclieuluong"])) {
+                        $cpsinhhoc_lieuluong = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhoclieuluong"];
+                    } else {
+                        $cpsinhhoc_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhoccachbon"])) {
+                        $cpsinhhoc_cachbon = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhoccachbon"];
+                    } else {
+                        $cpsinhhoc_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhochieuqua"])) {
+                        $cpsinhhoc_hieuqua = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongchephamsinhhochieuqua"];
+                    } else {
+                        $cpsinhhoc_hieuqua = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoathoigian"])) {
+                        $dinhduong_thoigian = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoathoigian"];
+                    } else {
+                        $dinhduong_thoigian = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoatenthuoc"])) {
+                        $dinhduong_tenthuoc = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoatenthuoc"];
+                    } else {
+                        $dinhduong_tenthuoc = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoalieuluong"])) {
+                        $dinhduong_lieuluong = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoalieuluong"];
+                    } else {
+                        $dinhduong_lieuluong = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoacachbon"])) {
+                        $dinhduong_cachbon = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoacachbon"];
+                    } else {
+                        $dinhduong_cachbon = '...';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoahieuqua"])) {
+                        $dinhduong_hieuqua = $data2["object"]["hoatDongSanXuat"]["quanlymoitruongdinhduongmentieuhoahieuqua"];
+                    } else {
+                        $dinhduong_hieuqua = '...';
+                    }
+                    echo '<table class="w3-table-all" border="1">
+                        <tr>
+                            <td>Công việc</td>
+                            <td>Thời gian</td>
+                            <td>Tên thuốc</td>
+                            <td>Liều lượng</td>
+                            <td>Cách bón</td>
+                            <td>Hiệu quả</td>
+                        </tr>
+                        <tr>
+                            <td>Duy trì độ kiềm </td>
+                            <td>'.$dokiem_thoigian.'</td>
+                            <td>'.$dokiem_tenthuoc.'</td>
+                            <td>'.$dokiem_lieuluong.'</td>
+                            <td>'.$dokiem_cachbon.'</td>
+                            <td>'.$dokiem_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Bổ sung khoáng</td>
+                            <td>'.$bskhoang_thoigian.'</td>
+                            <td>'.$bskhoang_tenthuoc.'</td>
+                            <td>'.$bskhoang_lieuluong.'</td>
+                            <td>'.$bskhoang_cachbon.'</td>
+                            <td>'.$cayvisinh_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Cấy vi sinh</td>
+                            <td>'.$cayvisinh_thoigian.'</td>
+                            <td>'.$cayvisinh_tenthuoc.'</td>
+                            <td>'.$cayvisinh_lieuluong.'</td>
+                            <td>'.$cayvisinh_cachbon.'</td>
+                            <td>'.$cayvisinh_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Chế phẩm sinh học</td>
+                            <td>'.$cpsinhhoc_thoigian.'</td>
+                            <td>'.$cpsinhhoc_tenthuoc.'</td>
+                            <td>'.$cpsinhhoc_lieuluong.'</td>
+                            <td>'.$cpsinhhoc_cachbon.'</td>
+                            <td>'.$cpsinhhoc_hieuqua.'</td>
+                        </tr>
+                        <tr>
+                            <td>Dinh dưỡng, men tiêu hoá</td>
+                            <td>'.$dinhduong_thoigian.'</td>
+                            <td>'.$dinhduong_tenthuoc.'</td>
+                            <td>'.$dinhduong_lieuluong.'</td>
+                            <td>'.$dinhduong_cachbon.'</td>
+                            <td>'.$dinhduong_hieuqua.'</td>
+                        </tr>
+                    </table>';
+                    echo '<p class="c-title2">&#9658; Quản lý xả thải</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xaTrucTiep"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["xaTrucTiep"] == "1") {
+                            echo '<p class="c-title3">+ Xả trực tiếp ra ngoài: Có </p>';
                         } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
+                            echo '<p class="c-title3">+ Xả trực tiếp ra ngoài: Không </p>';
                         }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phKhacNote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["phKhacNote"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Xả trực tiếp ra ngoài: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xuLyTruocKhiThai"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["xuLyTruocKhiThai"] == "1") {
+                            echo '<p class="c-title3">+ Xử lý nước thải trước khi xả ra ngoài: Có </p>';
                         } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Xử lý nước thải trước khi xả ra ngoài: Không </p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân khác: Không</p>';
+                        echo '<p class="c-title3">+ Xử lý nước thải trước khi xả ra ngoài: ..... </p>';
                     }
-                    if (isset($data2["object"]["kyThuatBonPhan"]["phBLTong"])) {
-                        $tenphanbonla = ".....";
-                        if (isset($data2["object"]["kyThuatBonPhan"]["tenPhBL"])){
-                            $tenphanbonla = $data2["object"]["kyThuatBonPhan"]["tenPhBL"];
-                        }
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân bón lá: '.$tenphanbonla.': '.$data2["object"]["kyThuatBonPhan"]["phBLTong"].' '.$donvibon.'</p>';
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phBLBonLot"])){
-                            echo '<p class="c-title6">• Bón lót: '.$data2["object"]["kyThuatBonPhan"]["phBLBonLot"].' '.$donvibon.'</p>';
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phPhapXuLyTruocKhiThai"])) {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phương pháp: '.$data2["object"]["hoatDongSanXuat"]["phPhapXuLyTruocKhiThai"].'</p>';
+                    } else {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phương pháp: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["xuLyBunThai"])) {
+                        if ($data2["object"]["hoatDongSanXuat"]["xuLyBunThai"] == "1") {
+                            echo '<p class="c-title3">+ Xử lý bùn thải: Có </p>';
                         } else {
-                            echo '<p class="c-title6">• Bón lót: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phBLLan1"])){
-                            echo '<p class="c-title6">• Lần 1: '.$data2["object"]["kyThuatBonPhan"]["phBLLan1"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 1: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phBLLan2"])){
-                            echo '<p class="c-title6">• Lần 2: '.$data2["object"]["kyThuatBonPhan"]["phBLLan2"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 2: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phBLLan3"])){
-                            echo '<p class="c-title6">• Lần 3: '.$data2["object"]["kyThuatBonPhan"]["phBLLan3"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 3: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phBLLan4"])){
-                            echo '<p class="c-title6">• Lần 4: '.$data2["object"]["kyThuatBonPhan"]["phBLLan4"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 4: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phBLLan5"])){
-                            echo '<p class="c-title6">• Lần 5: '.$data2["object"]["kyThuatBonPhan"]["phBLLan5"].' '.$donvibon.'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Lần 5: Không</p>';
-                        }
-                        if(isset($data2["object"]["kyThuatBonPhan"]["phBLNote"])){
-                            echo '<p class="c-title6">• Chú thích: '.$data2["object"]["kyThuatBonPhan"]["phBLNote"].'</p>';
-                        } else {
-                            echo '<p class="c-title6">• Chú thích: </p>';
+                            echo '<p class="c-title3">+ Xử lý bùn thải: Không </p>';
                         }
                     } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phân bón lá: Không</p>';
-                    }                
-                    echo '<p class="c-title2">&#9658; Sử dụng thuốc BVTV</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["tongLanSDBvtv"])){
-                        echo '<p class="c-title3">+ Tổng số lần sử dụng thuốc BVTV: '.$data2["object"]["thuocBVTV"]["tongLanSDBvtv"].' Lần/vụ</p>';
+                        echo '<p class="c-title3">+ Xử lý bùn thải: ..... </p>';
+                    }
+                    if (isset($data2["object"]["hoatDongSanXuat"]["phPhapXuLyBunThai"])) {
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phương pháp: '.$data2["object"]["hoatDongSanXuat"]["phPhapXuLyBunThai"].'</p>';
                     } else {
-                        echo '<p class="c-title3">+ Tổng số lần sử dụng thuốc BVTV: ............ Lần/vụ</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["bvtvVuSx"])){
-                        echo '<p class="c-title3">+ Vụ sản xuất: '.$data2["object"]["thuocBVTV"]["bvtvVuSx"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Vụ sản xuất: </p>';
-                    }
-                    echo '<p class="c-title3">+ Chi tiết sử dụng thuốc BVTV: </p>';
-                    $solan_truocbv="........";$soluong_truocbv="........";$solan_truco="........";$soluong_truco="........";$solan_trusau="........";$soluong_trusau="........";$solan_truray="........";$soluong_truray="........";$solan_trubenh="........";$soluong_trubenh="........";
-                    $solan_trusautruray="........";$soluong_trusautruray="........";$solan_trusautrubenh="........";$soluong_trusautrubenh="........";$solan_truraytrubenh="........";$soluong_truraytrubenh="........";$solan_trusautruraytrubenh="........";$soluong_trusautruraytrubenh="........";$solan_bvtv_lancuoi="........";$soluong_bvtv_lancuoi="........";
-                    if (isset($data2["object"]["thuocBVTV"]["thBV"])){
-                        $solan_truocbv = $data2["object"]["thuocBVTV"]["thBV"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thBVNote"])){
-                        $soluong_truocbv = $data2["object"]["thuocBVTV"]["thBVNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thuốc trừ ốc Bươu Vàng: '.$solan_truocbv.' Lần/vụ, phun '.$soluong_truocbv.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["thTruCo"])){
-                        $solan_truco = $data2["object"]["thuocBVTV"]["thTruCo"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thTruCoNote"])){
-                        $soluong_truco = $data2["object"]["thuocBVTV"]["thTruCoNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thuốc trừ cỏ: '.$solan_truco.' Lần/vụ, phun '.$soluong_truco.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["thTruSau"])){
-                        $solan_trusau = $data2["object"]["thuocBVTV"]["thTruSau"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thTruSauNote"])){
-                        $soluong_trusau = $data2["object"]["thuocBVTV"]["thTruSauNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thuốc trừ sâu: '.$solan_trusau.' Lần/vụ, phun '.$soluong_trusau.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["thTruRay"])){
-                        $solan_truray = $data2["object"]["thuocBVTV"]["thTruRay"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thTruRayNote"])){
-                        $soluong_truray = $data2["object"]["thuocBVTV"]["thTruRayNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thuốc trừ rầy: '.$solan_truray.' Lần/vụ, phun '.$soluong_truray.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["thTrBenh"])){
-                        $solan_trubenh = $data2["object"]["thuocBVTV"]["thTrBenh"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thTrBenhNote"])){
-                        $soluong_trubenh = $data2["object"]["thuocBVTV"]["thTrBenhNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thuốc trừ bệnh: '.$solan_trubenh.' Lần/vụ, phun '.$soluong_trubenh.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["thSauRay"])){
-                        $solan_trusautruray = $data2["object"]["thuocBVTV"]["thSauRay"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thSauRayNote"])){
-                        $soluong_trusautruray = $data2["object"]["thuocBVTV"]["thSauRayNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phối hợp thuốc( trừ sâu, trừ rầy): '.$solan_trusautruray.' Lần/vụ, phun '.$soluong_trusautruray.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["thSauBenh"])){
-                        $solan_trusautrubenh = $data2["object"]["thuocBVTV"]["thSauBenh"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thSauBenhNote"])){
-                        $soluong_trusautrubenh = $data2["object"]["thuocBVTV"]["thSauBenhNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phối hợp thuốc( trừ sâu, trừ bệnh): '.$solan_trusautrubenh.' Lần/vụ, phun '.$soluong_trusautrubenh.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["thRayBenh"])){
-                        $solan_truraytrubenh = $data2["object"]["thuocBVTV"]["thRayBenh"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thRayBenhNote"])){
-                        $soluong_truraytrubenh = $data2["object"]["thuocBVTV"]["thRayBenhNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phối hợp thuốc( trừ rầy, trừ bệnh): '.$solan_truraytrubenh.' Lần/vụ, phun '.$soluong_truraytrubenh.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["thSauRayBenh"])){
-                        $solan_trusautruraytrubenh = $data2["object"]["thuocBVTV"]["thSauRayBenh"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["thSauRayBenhNote"])){
-                        $soluong_trusautruraytrubenh = $data2["object"]["thuocBVTV"]["thSauRayBenhNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phối hợp thuốc( trừ sâu, trừ rầy, trừ bệnh): '.$solan_trusautruraytrubenh.' Lần/vụ, phun '.$soluong_trusautruraytrubenh.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["bvtvLanCuoi"])){
-                        $solan_bvtv_lancuoi = $data2["object"]["thuocBVTV"]["bvtvLanCuoi"];
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["bvtvLanCuoiNote"])){
-                        $soluong_bvtv_lancuoi = $data2["object"]["thuocBVTV"]["bvtvLanCuoiNote"];
-                    }
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thời điểm sử dụng thuốc BVTV lần cuối (ngày trước thu hoạch): '.$solan_bvtv_lancuoi.' Lần, phun '.$soluong_bvtv_lancuoi.' lít/lần/ha</p>';
-                    if (isset($data2["object"]["thuocBVTV"]["phunDinhKy"]) && $data2["object"]["thuocBVTV"]["phunDinhKy"] == 1){
-                        echo '<p class="c-title3">+ Phun định kỳ: Có</p>';
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thời gian phun: '.$data2["object"]["thuocBVTV"]["thGianPhun"].'</p>';
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lý do phun: '.$data2["object"]["thuocBVTV"]["LyDoPhun"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Phun định kỳ: Không</p>';
-                    }
-                    echo '<p class="c-title3">+ Phun theo thời điểm: </p>';
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan01"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 1: '.$data2["object"]["thuocBVTV"]["phunLan01"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 1: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan02"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 2: '.$data2["object"]["thuocBVTV"]["phunLan02"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 2: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan03"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 3: '.$data2["object"]["thuocBVTV"]["phunLan03"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 3: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan04"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 4: '.$data2["object"]["thuocBVTV"]["phunLan04"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 4: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan05"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 5: '.$data2["object"]["thuocBVTV"]["phunLan05"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 5: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan06"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 6: '.$data2["object"]["thuocBVTV"]["phunLan06"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 6: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan07"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 7: '.$data2["object"]["thuocBVTV"]["phunLan07"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 7: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan08"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 8: '.$data2["object"]["thuocBVTV"]["phunLan08"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 8: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan09"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 9: '.$data2["object"]["thuocBVTV"]["phunLan09"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 9: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunLan10"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 10: '.$data2["object"]["thuocBVTV"]["phunLan10"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lần 10: Không</p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["lyDoPhunLucNay"])){
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lý do phun: '.$data2["object"]["thuocBVTV"]["lyDoPhunLucNay"].'</p>';
-                    } else {
-                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Lý do phun: </p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["phunThKhi"])){
-                        echo '<p class="c-title3">+ Phun thuốc khi: '.$data2["object"]["thuocBVTV"]["phunThKhi"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Phun thuốc khi: </p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["aiPhunTh"])){
-                        echo '<p class="c-title3">+ Thực hiện công việc: '.$data2["object"]["thuocBVTV"]["aiPhunTh"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Thực hiện công việc: </p>';
-                    }
-                    if (isset($data2["object"]["thuocBVTV"]["congCuPhun"])){
-                        echo '<p class="c-title3">+ Phương tiện thực hiện: '.$data2["object"]["thuocBVTV"]["congCuPhun"].'</p>';
-                    } else {
-                        echo '<p class="c-title3">+ Phương tiện thực hiện: </p>';
+                        echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Phương pháp: ..... </p>';
                     }
                     echo '<p class="c-title1">5. Thu hoạch:</p>';
-                    $thuhoach_hethu = "";$thuhoach_thudong = "";$thuhoach_dongxuan = "";$thuhoach_xuanhe = "";
-                    if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach01"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach01"].'/01'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach02"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach02"].'/02'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach03"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach03"].'/03'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach04"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach04"].'/04'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach05"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach05"].'/05'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach06"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach06"].'/06'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach07"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach07"].'/07'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach08"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach08"].'/08'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach09"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach09"].'/09'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach10"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach10"].'/10'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach11"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach11"].'/11'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["heThuThuHoach12"])){
-                        $thuhoach_hethu = $data2["object"]["thoiVuCanhTac"]["heThuThuHoach12"].'/12'.'/'.$current_year;
-                    }
-                    if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach01"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach01"].'/01'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach02"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach02"].'/02'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach03"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach03"].'/03'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach04"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach04"].'/04'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach05"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach05"].'/05'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach06"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach06"].'/06'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach07"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach07"].'/07'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach08"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach08"].'/08'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach09"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach09"].'/09'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach10"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach10"].'/10'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach11"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach11"].'/11'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["thuDongThuHoach12"])){
-                        $thuhoach_thudong = $data2["object"]["thoiVuCanhTac"]["thuDongThuHoach12"].'/12'.'/'.$current_year;
-                    }
-                    if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach01"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach01"].'/01'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach02"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach02"].'/02'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach03"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach03"].'/03'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach04"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach04"].'/04'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach05"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach05"].'/05'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach06"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach06"].'/06'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach07"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach07"].'/07'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach08"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach08"].'/08'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach09"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach09"].'/09'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach10"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach10"].'/10'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach11"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach11"].'/11'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach12"])){
-                        $thuhoach_dongxuan = $data2["object"]["thoiVuCanhTac"]["dongXuanThuHoach12"].'/12'.'/'.$current_year;
-                    }
-                    if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach01"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach01"].'/01'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach02"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach02"].'/02'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach03"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach03"].'/03'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach04"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach04"].'/04'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach05"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach05"].'/05'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach06"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach06"].'/06'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach07"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach07"].'/07'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach08"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach08"].'/08'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach09"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach09"].'/09'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach10"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach10"].'/10'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach11"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach11"].'/11'.'/'.$current_year;
-                    } else if(isset($data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach12"])){
-                        $thuhoach_xuanhe = $data2["object"]["thoiVuCanhTac"]["xuanHeThuHoach12"].'/12'.'/'.$current_year;
-                    }
-                    echo '<p class="c-title3">+ Thời gian thu hoạch vụ sản xuất: </p>';
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Hè Thu: '.$thuhoach_hethu.'</p>';
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Thu Đông: '.$thuhoach_thudong.'</p>';
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Đông Xuân: '.$thuhoach_dongxuan.'</p>';
-                    echo '<p class="c-title4"><i class="fa fa-arrow-right"></i> Xuân Hè	: '.$thuhoach_xuanhe.'</p>';
-                    if (isset($data2["object"]["hieuQuaKinhTe"]["luaNsBq"])){
-                        echo '<p class="c-title3">+ Năng suất bình quân: '.$data2["object"]["hieuQuaKinhTe"]["luaNsBq"].' kg/ha</p>';
+                    if (isset($data2["object"]["thuHoach"]["thGianThaNuoiThuHoach"])){
+                        echo '<p class="c-title3">+ Thời gian từ khi thả nuôi đến khi thu hoạch (ngày hay tháng): '.$data2["object"]["thuHoach"]["thGianThaNuoiThuHoach"].' </p>';
                     } else {
-                        
-                        echo '<p class="c-title3">+ Năng suất bình quân: </p>';
+                        echo '<p class="c-title3">+ Thời gian từ khi thả nuôi đến khi thu hoạch( ngày hay tháng): ..... </p>';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["soLanThuHoach"])){
+                        echo '<p class="c-title3">+ Số lần thu hoạch( lần): '.$data2["object"]["thuHoach"]["soLanThuHoach"].' </p>';
+                    } else {
+                        echo '<p class="c-title3">+ Số lần thu hoạch( lần): ..... </p>';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["trgLgTieuChuan"])){
+                        echo '<p class="c-title3">+ Phân loại và tỷ lệ trọng lượng của tôm: Trọng lượng tôm bao nhiêu thì đạt tiêu chuẩn: '.$data2["object"]["thuHoach"]["trgLgTieuChuan"].' kg/ha</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Phân loại và tỷ lệ trọng lượng của tôm: Trọng lượng tôm bao nhiêu thì đạt tiêu chuẩn: ..... </p>';
+                    }
+                    echo '<p class="c-title3">+ Năng suất (tấn/ao/vụ):</p>';
+                    if (isset($data2["object"]["thuHoach"]["nangSuatTomMuaThuan"])){
+                        echo '<p class="c-title3"> Mùa thuận: '.$data2["object"]["thuHoach"]["nangSuatTomMuaThuan"].'</p>';
+                    } else {
+                        echo '<p class="c-title3"> Mùa thuận: .....</p>';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["nangSuatTomMuaNghich"])){
+                        echo '<p class="c-title3"> Mùa nghịch: '.$data2["object"]["thuHoach"]["nangSuatTomMuaNghich"].'</p>';
+                    } else {
+                        echo '<p class="c-title3"> Mùa nghịch: ....</p>';
+                    }
+                    echo '<p class="c-title3">+ Sản lượng( tấn/năm): </p>';
+                    if (isset($data2["object"]["thuHoach"]["sanLuongTomMuaThuan"])){
+                        echo '<p class="c-title3"> Mùa thuận: '.$data2["object"]["thuHoach"]["sanLuongTomMuaThuan"].'</p>';
+                    } else {
+                        echo '<p class="c-title3"> Mùa thuận: .....</p>';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["sanLuongTomMuaNghich"])){
+                        echo '<p class="c-title3"> Mùa nghịch: '.$data2["object"]["thuHoach"]["sanLuongTomMuaNghich"].'</p>';
+                    } else {
+                        echo '<p class="c-title3"> Mùa nghịch: ....</p>';
+                    }
+                    echo '<p class="c-title3">+ Giá bán (đồng/kg) theo từng loại theo từng tháng trong năm? </p>';
+                    $gial1t1 = "";$gial1t2 = "";$gial1t3 = "";$gial1t4 = "";$gial1t5 = "";$gial1t6 = "";$gial1t7 = "";$gial1t8 = "";$gial1t9 = "";$gial1t10 = "";$gial1t11 = "";$gial1t12 = "";
+                    $gial2t1 = "";$gial2t2 = "";$gial2t3 = "";$gial2t4 = "";$gial2t5 = "";$gial2t6 = "";$gial2t7 = "";$gial2t8 = "";$gial2t9 = "";$gial2t10 = "";$gial2t11 = "";$gial2t12 = "";
+                    $gial3t1 = "";$gial3t2 = "";$gial3t3 = "";$gial3t4 = "";$gial3t5 = "";$gial3t6 = "";$gial3t7 = "";$gial3t8 = "";$gial3t9 = "";$gial3t10 = "";$gial3t11 = "";$gial3t12 = "";
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang1"])) {
+                        $gial1t1 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang1"];
+                    } else {
+                        $gial1t1 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang2"])) {
+                        $gial1t2 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang2"];
+                    } else {
+                        $gial1t2 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang3"])) {
+                        $gial1t3 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang3"];
+                    } else {
+                        $gial1t3 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang4"])) {
+                        $gial1t4 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang4"];
+                    } else {
+                        $gial1t4 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang5"])) {
+                        $gial1t5 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang5"];
+                    } else {
+                        $gial1t5 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang6"])) {
+                        $gial1t6 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang6"];
+                    } else {
+                        $gial1t6 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang7"])) {
+                        $gial1t7 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang7"];
+                    } else {
+                        $gial1t7 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang8"])) {
+                        $gial1t8 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang8"];
+                    } else {
+                        $gial1t8 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang9"])) {
+                        $gial1t9 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang9"];
+                    } else {
+                        $gial1t9 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang10"])) {
+                        $gial1t10 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang10"];
+                    } else {
+                        $gial1t10 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang11"])) {
+                        $gial1t11 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang11"];
+                    } else {
+                        $gial1t11 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize1thang12"])) {
+                        $gial1t12 = $data2["object"]["thuHoach"]["thuhoachgiabansize1thang12"];
+                    } else {
+                        $gial1t12 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang1"])) {
+                        $gial2t1 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang1"];
+                    } else {
+                        $gial2t1 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang2"])) {
+                        $gial2t2 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang2"];
+                    } else {
+                        $gial2t2 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang3"])) {
+                        $gial2t3 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang3"];
+                    } else {
+                        $gial2t3 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang4"])) {
+                        $gial2t4 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang4"];
+                    } else {
+                        $gial2t4 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang5"])) {
+                        $gial2t5 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang5"];
+                    } else {
+                        $gial2t5 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang6"])) {
+                        $gial2t6 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang6"];
+                    } else {
+                        $gial2t6 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang7"])) {
+                        $gial2t7 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang7"];
+                    } else {
+                        $gial2t7 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang8"])) {
+                        $gial2t8 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang8"];
+                    } else {
+                        $gial2t8 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang9"])) {
+                        $gial2t9 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang9"];
+                    } else {
+                        $gial2t9 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang10"])) {
+                        $gial2t10 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang10"];
+                    } else {
+                        $gial2t10 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang11"])) {
+                        $gial2t11 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang11"];
+                    } else {
+                        $gial2t11 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize2thang12"])) {
+                        $gial2t12 = $data2["object"]["thuHoach"]["thuhoachgiabansize2thang12"];
+                    } else {
+                        $gial2t12 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang1"])) {
+                        $gial3t1 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang1"];
+                    } else {
+                        $gial3t1 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang2"])) {
+                        $gial3t2 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang2"];
+                    } else {
+                        $gial3t2 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang3"])) {
+                        $gial3t3 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang3"];
+                    } else {
+                        $gial3t3 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang4"])) {
+                        $gial3t4 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang4"];
+                    } else {
+                        $gial3t4 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang5"])) {
+                        $gial3t5 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang5"];
+                    } else {
+                        $gial3t5 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang6"])) {
+                        $gial3t6 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang6"];
+                    } else {
+                        $gial3t6 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang7"])) {
+                        $gial3t7 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang7"];
+                    } else {
+                        $gial3t7 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang8"])) {
+                        $gial3t8 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang8"];
+                    } else {
+                        $gial3t8 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang9"])) {
+                        $gial3t9 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang9"];
+                    } else {
+                        $gial3t9 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang10"])) {
+                        $gial3t10 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang10"];
+                    } else {
+                        $gial3t10 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang11"])) {
+                        $gial3t11 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang11"];
+                    } else {
+                        $gial3t11 = '...';
+                    }
+                    if (isset($data2["object"]["thuHoach"]["thuhoachgiabansize3thang12"])) {
+                        $gial3t12 = $data2["object"]["thuHoach"]["thuhoachgiabansize3thang12"];
+                    } else {
+                        $gial3t12 = '...';
+                    }
+                    echo '<table class="w3-table-all" border="1">
+                        <tr>
+                            <td>Tháng</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>Size 1</td>
+                            <td>'.$gial1t1.'</td>
+                            <td>'.$gial1t2.'</td>
+                            <td>'.$gial1t3.'</td>
+                            <td>'.$gial1t4.'</td>
+                            <td>'.$gial1t5.'</td>
+                            <td>'.$gial1t6.'</td>
+                            <td>'.$gial1t7.'</td>
+                            <td>'.$gial1t8.'</td>
+                            <td>'.$gial1t9.'</td>
+                            <td>'.$gial1t10.'</td>
+                            <td>'.$gial1t11.'</td>
+                            <td>'.$gial1t12.'</td>
+                        </tr>
+                        <tr>
+                            <td>Size 2</td>
+                            <td>'.$gial2t1.'</td>
+                            <td>'.$gial2t2.'</td>
+                            <td>'.$gial2t3.'</td>
+                            <td>'.$gial2t4.'</td>
+                            <td>'.$gial2t5.'</td>
+                            <td>'.$gial2t6.'</td>
+                            <td>'.$gial2t7.'</td>
+                            <td>'.$gial2t8.'</td>
+                            <td>'.$gial2t9.'</td>
+                            <td>'.$gial2t10.'</td>
+                            <td>'.$gial2t11.'</td>
+                            <td>'.$gial2t12.'</td>
+                        </tr>
+                        <tr>
+                            <td>Size 3</td>
+                            <td>'.$gial3t1.'</td>
+                            <td>'.$gial3t2.'</td>
+                            <td>'.$gial3t3.'</td>
+                            <td>'.$gial3t4.'</td>
+                            <td>'.$gial3t5.'</td>
+                            <td>'.$gial3t6.'</td>
+                            <td>'.$gial3t7.'</td>
+                            <td>'.$gial3t8.'</td>
+                            <td>'.$gial3t9.'</td>
+                            <td>'.$gial3t10.'</td>
+                            <td>'.$gial3t11.'</td>
+                            <td>'.$gial3t12.'</td>
+                        </tr>
+                    </table>';
+                    echo '<p class="c-title1">6. Thị trường tiêu thụ</p>';
+                    if (isset($data2["object"]["thiTruongTieuThu"]["tieuThuTom"])){
+                        echo '<p class="c-title3">+ '.$data2["object"]["thiTruongTieuThu"]["tieuThuTom"].'</p>';
+                    } else {
+                        echo '<p class="c-title3"></p>';
+                    }
+                    if (isset($data2["object"]["thiTruongTieuThu"]["ngoaiTinhTieuThuTom"])){
+                        echo '<p class="c-title3">+ Thị trường ngoài tỉnh( tỉnh, khu vực nào)? '.$data2["object"]["thiTruongTieuThu"]["ngoaiTinhTieuThuTom"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Thị trường ngoài tỉnh( tỉnh, khu vực nào)? ......</p>';
+                    }
+                    if (isset($data2["object"]["thiTruongTieuThu"]["ngoaiNuocTieuThuTom"])){
+                        echo '<p class="c-title3">+ Thị trường xuất khẩu( quốc gia, khu vực nào)? '.$data2["object"]["thiTruongTieuThu"]["ngoaiNuocTieuThuTom"].'</p>';
+                    } else {
+                        echo '<p class="c-title3">+ Thị trường xuất khẩu( quốc gia, khu vực nào)? ......</p>';
                     }
                 } else {
                     echo '<p><b style="color:red;">Chưa có thông tin</b></p>';

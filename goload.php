@@ -85,8 +85,8 @@
                     }
                     $MAXACNHAN = $key_secret;
                     if ($SDT) {
-                        $responeupdateInfo = json_encode((new AppController())->FUpdateInFoID($SDT));
-                        $responeupdateAPI = (new ApiController())->FUpdateInFoApiVfarmID($SDT, $MAXACNHAN);
+                        $responeupdateInfo = json_encode((new AppController())->FUpdateInFoID($SDT, $madinhdanh));
+                        $responeupdateAPI = (new ApiController())->FUpdateInFoApiVfarmID($SDT, $MAXACNHAN, $madinhdanh);
                         if ($LOAISANPHAM_EDIT == "1") {
                             include("pages/thongtinvungtrong_edit.php");
                         } else if ($LOAISANPHAM_EDIT == "2") {
@@ -140,7 +140,7 @@
             break;
             case "_laythongtin":
                 $sodienthoai = $_POST['sodienthoai'];
-                $res = (new AppController())->FUpdateInFoID($sodienthoai);
+                $res = (new AppController())->FUpdateInFoID($sodienthoai,'');
                 $current = DateTime::createFromFormat('U.u', number_format(microtime(true), 6, '.', ''));
                 $date = $current->format("m-d-Y H:i:s.u");
                 $headers = array('alg'=>'HS256','typ'=>'JWT');
@@ -155,6 +155,7 @@
             break;
             case "_suathongtinvungtrong":
                 $sodienthoai = $_POST['sodienthoai'];
+                $madinhdanh = $_POST['madinhdanh'];
                 $thongtinchung_dientich = $_POST['thongtinchung_dientich'];
                 $giongvacachxulygiong_tengiong = $_POST['giongvacachxulygiong_tengiong'];
                 $thoivu_hethu = $_POST['thoivu_hethu'];
@@ -275,7 +276,7 @@
                 $thuhoach_xuanhe = $_POST['thuhoach_xuanhe'];
                 $nangsuatbinhquan = $_POST['nangsuatbinhquan'];
                 $key = $_POST['key'];
-                $res = (new ApiController())->FUpdateApiVfarmID($sodienthoai, $thongtinchung_dientich, $giongvacachxulygiong_tengiong, $thoivu_hethu, $thoivu_thudong, $thoivu_dongxuan, $thoivu_xuanhe, $phanbon_tongphanbon, $phanbon_vusanxuat, $phanbon_donvibon, $phanbon_thuchiencongviec, $phanbon_congcu, $phanbon_huuco_bonlot, 
+                $res = (new ApiController())->FUpdateApiVfarmID($sodienthoai, $madinhdanh, $thongtinchung_dientich, $giongvacachxulygiong_tengiong, $thoivu_hethu, $thoivu_thudong, $thoivu_dongxuan, $thoivu_xuanhe, $phanbon_tongphanbon, $phanbon_vusanxuat, $phanbon_donvibon, $phanbon_thuchiencongviec, $phanbon_congcu, $phanbon_huuco_bonlot, 
                     $phanbon_huuco_bonlan1, $phanbon_huuco_bonlan2, $phanbon_huuco_bonlan3, $phanbon_huuco_bonlan4, $phanbon_huuco_bonlan5, $phanbon_huuco_note, $phanbon_caitaodat_bonlot, $phanbon_caitaodat_bonlan1, $phanbon_caitaodat_bonlan2, $phanbon_caitaodat_bonlan3, 
                     $phanbon_caitaodat_bonlan4, $phanbon_caitaodat_bonlan5, $phanbon_caitaodat_note, $phanbon_ure_bonlot, $phanbon_ure_bonlan1, $phanbon_ure_bonlan2, $phanbon_ure_bonlan3, $phanbon_ure_bonlan4, 
                     $phanbon_ure_bonlan5, $phanbon_ure_note, $phanbon_lan_bonlot, $phanbon_lan_bonlan1, $phanbon_lan_bonlan2, $phanbon_lan_bonlan3, $phanbon_lan_bonlan4, $phanbon_lan_bonlan5, $phanbon_lan_note, $phanbon_kali_bonlot, 
@@ -292,6 +293,7 @@
             break;
             case "_suathongtinvungtrong_buoi":
                 $sodienthoai = $_POST['sodienthoai'];
+                $madinhdanh = $_POST['madinhdanh'];
                 $buoi_thongtinsp = $_POST['buoi_thongtinsp'];
                 $thongtinchung_dientich = $_POST['thongtinchung_dientich'];
                 $buoi_gionggannhat = $_POST['buoi_gionggannhat'];
@@ -406,7 +408,6 @@
                 $buoi_bvtv_lieuluong8 = $_POST['buoi_bvtv_lieuluong8'];
                 $buoi_bvtv_hieuqua8 = $_POST['buoi_bvtv_hieuqua8'];
                 $buoi_thoigianthuhoach = $_POST['buoi_thoigianthuhoach'];
-
                 $buoi_dacdiemthuhoach = $_POST['buoi_dacdiemthuhoach'];
                 $buoi_solanthuhoach = $_POST['buoi_solanthuhoach'];
                 $buoi_nsmuathuan = $_POST['buoi_nsmuathuan'];
@@ -452,7 +453,7 @@
                 $buoi_thitruongtieuthu = $_POST['buoi_thitruongtieuthu'];
                 $buoi_thitruongngoaitinh = $_POST['buoi_thitruongngoaitinh'];
                 $key = $_POST['key'];
-                $res = (new ApiController())->FUpdateBuoiApiVfarmID($sodienthoai, $buoi_thongtinsp,
+                $res = (new ApiController())->FUpdateBuoiApiVfarmID($sodienthoai, $madinhdanh, $buoi_thongtinsp,
 $thongtinchung_dientich,$buoi_gionggannhat,$buoi_nguongocgiong,$buoi_giayxacnhangiong,
 $buoi_xulycaygiong,$buoi_chephamxuly,$buoi_mucdichxuly,$buoi_matdocaytrong,
 $buoi_khoangcachtrong,$buoi_bodebobao,$buoi_chieucaobobao,
@@ -550,6 +551,434 @@ $buoi_dongia_l3t11,
 $buoi_dongia_l3t12,
 $buoi_thitruongtieuthu,
 $buoi_thitruongngoaitinh, $key);
+                echo $res;
+            break;
+            case "_suathongtinvungtrong_tom":
+                $sodienthoai = $_POST['sodienthoai'];
+                $madinhdanh = $_POST['madinhdanh'];
+                $tom_thongtinsp = $_POST['tom_thongtinsp'];
+                $thongtinchung_dientich = $_POST['thongtinchung_dientich'];
+                $thongtinchung_dientichtomsu = $_POST['thongtinchung_dientichtomsu'];
+                $thongtinchung_dientichtomtct = $_POST['thongtinchung_dientichtomtct'];
+                $thongtinchung_loaihinhsxtom = $_POST['thongtinchung_loaihinhsxtom'];
+                $thongtinchung_loaidatsx = $_POST['thongtinchung_loaidatsx'];
+                $thongtinchung_sacaudat = $_POST['thongtinchung_sacaudat'];
+                $thongtinchung_dophtrungbinh = $_POST['thongtinchung_dophtrungbinh'];
+                $thongtinchung_aotomsau = $_POST['thongtinchung_aotomsau'];
+                $thongtinchung_vutom = $_POST['thongtinchung_vutom'];
+                $tom_danquat = $_POST['tom_danquat'];
+                $tom_mayphongdien = $_POST['tom_mayphongdien'];
+                $tom_daydien = $_POST['tom_daydien'];
+                $tom_denchieusang = $_POST['tom_denchieusang'];
+                $tom_maybomnuoc = $_POST['tom_maybomnuoc'];
+                $tom_tuilocnuoc = $_POST['tom_tuilocnuoc'];
+                $tom_congxanuoc = $_POST['tom_congxanuoc'];
+                $tom_thietbi_khac = $_POST['tom_thietbi_khac'];
+                $tom_caitaocongtrinh = $_POST['tom_caitaocongtrinh'];
+                $tom_senvetao = $_POST['tom_senvetao'];
+                $tom_lotbatbobatday = $_POST['tom_lotbatbobatday'];
+                $tom_giacobobao = $_POST['tom_giacobobao'];
+                $tom_bonvoi = $_POST['tom_bonvoi'];
+                $tom_lieuluongbonvoi = $_POST['tom_lieuluongbonvoi'];
+                $tom_phoimattrang = $_POST['tom_phoimattrang'];
+                $tom_phoingay = $_POST['tom_phoingay'];
+                $tom_xulynuoc = $_POST['tom_xulynuoc'];
+                $tom_dt_thoigian = $_POST['tom_dt_thoigian'];
+                $tom_dt_tenthuoc = $_POST['tom_dt_tenthuoc'];
+                $tom_dt_lieuluong = $_POST['tom_dt_lieuluong'];
+                $tom_dt_cachbon = $_POST['tom_dt_cachbon'];
+                $tom_dt_hieuqua = $_POST['tom_dt_hieuqua'];
+                $tom_dk_thoigian = $_POST['tom_dk_thoigian'];
+                $tom_dk_tenthuoc = $_POST['tom_dk_tenthuoc'];
+                $tom_dk_lieuluong = $_POST['tom_dk_lieuluong'];
+                $tom_dk_cachbon = $_POST['tom_dk_cachbon'];
+                $tom_dk_hieuqua = $_POST['tom_dk_hieuqua'];
+                $tom_gmn_thoigian = $_POST['tom_gmn_thoigian'];
+                $tom_gmn_tenthuoc = $_POST['tom_gmn_tenthuoc'];
+                $tom_gmn_lieuluong = $_POST['tom_gmn_lieuluong'];
+                $tom_gmn_cachbon = $_POST['tom_gmn_cachbon'];
+                $tom_gmn_hieuqua = $_POST['tom_gmn_hieuqua'];
+                $tom_cvs_thoigian = $_POST['tom_cvs_thoigian'];
+                $tom_cvs_tenthuoc = $_POST['tom_cvs_tenthuoc'];
+                $tom_cvs_lieuluong = $_POST['tom_cvs_lieuluong'];
+                $tom_cvs_cachbon = $_POST['tom_cvs_cachbon'];
+                $tom_cvs_hieuqua = $_POST['tom_cvs_hieuqua'];
+                $tom_kh_thoigian = $_POST['tom_kh_thoigian'];
+                $tom_kh_tenthuoc = $_POST['tom_kh_tenthuoc'];
+                $tom_kh_lieuluong = $_POST['tom_kh_lieuluong'];
+                $tom_kh_cachbon = $_POST['tom_kh_cachbon'];
+                $tom_kh_hieuqua = $_POST['tom_kh_hieuqua'];
+                $tom_yeutomt = $_POST['tom_yeutomt'];
+                $tom_gionggannhat = $_POST['tom_gionggannhat'];
+                $tom_nguongoctom = $_POST['tom_nguongoctom'];
+                $tom_giayxacnhangiong = $_POST['tom_giayxacnhangiong'];
+                $tom_matdotha = $_POST['tom_matdotha'];
+                $tom_thoigiantha = $_POST['tom_thoigiantha'];
+                $tom_huongtha = $_POST['tom_huongtha'];
+                $tom_uonggieo = $_POST['tom_uonggieo'];
+                $tom_sdthuocnguabenh = $_POST['tom_sdthuocnguabenh'];
+                $tom_sthuocsovoitruocday = $_POST['tom_sthuocsovoitruocday'];
+                $tom_sdmenvisinh = $_POST['tom_sdmenvisinh'];
+                $tom_kiemtramt = $_POST['tom_kiemtramt'];
+                $tom_quanlynuocmt = $_POST['tom_quanlynuocmt'];
+                $tom_dichbenhems = $_POST['tom_dichbenhems'];
+                $tom_soaobibenh = $_POST['tom_soaobibenh'];
+                $tom_benhdomtrang = $_POST['tom_benhdomtrang'];
+                $tom_benhdomtrang_sosanh = $_POST['tom_benhdomtrang_sosanh'];
+                $tom_benhdauvang = $_POST['tom_benhdauvang'];
+                $tom_benhdauvang_sosanh = $_POST['tom_benhdauvang_sosanh'];
+                $tom_benhIHHNV = $_POST['tom_benhIHHNV'];
+                $tom_benhIHHNV_sosanh = $_POST['tom_benhIHHNV_sosanh'];
+                $tom_benhphantrang = $_POST['tom_benhphantrang'];
+                $tom_benhphantrang_sosanh = $_POST['tom_benhphantrang_sosanh'];
+                $tom_benhIMNV = $_POST['tom_benhIMNV'];
+                $tom_benhIMNV_sosanh = $_POST['tom_benhIMNV_sosanh'];
+                $tom_vibaotutrung = $_POST['tom_vibaotutrung'];
+                $tom_vibao_thoigian = $_POST['tom_vibao_thoigian'];
+                $tom_xlaokhichetnhieu = $_POST['tom_xlaokhichetnhieu'];
+                $tom_xuly_php = $_POST['tom_xuly_php'];
+                $tom_domtrang_thoigian = $_POST['tom_domtrang_thoigian'];
+                $tom_domtrang_tenthuoc = $_POST['tom_domtrang_tenthuoc'];
+                $tom_domtrang_lieuluong = $_POST['tom_domtrang_lieuluong'];
+                $tom_domtrang_cachbon = $_POST['tom_domtrang_cachbon'];
+                $tom_domtrang_hieuqua = $_POST['tom_domtrang_hieuqua'];
+                $tom_dauvang_thoigian = $_POST['tom_dauvang_thoigian'];
+                $tom_dauvang_tenthuoc = $_POST['tom_dauvang_tenthuoc'];
+                $tom_dauvang_lieuluong = $_POST['tom_dauvang_lieuluong'];
+                $tom_dauvang_cachbon = $_POST['tom_dauvang_cachbon'];
+                $tom_dauvang_hieuqua = $_POST['tom_dauvang_hieuqua'];
+                $tom_ihhnv_thoigian = $_POST['tom_ihhnv_thoigian'];
+                $tom_ihhnv_tenthuoc = $_POST['tom_ihhnv_tenthuoc'];
+                $tom_ihhnv_lieuluong = $_POST['tom_ihhnv_lieuluong'];
+                $tom_ihhnv_cachbon = $_POST['tom_ihhnv_cachbon'];
+                $tom_ihhnv_hieuqua = $_POST['tom_ihhnv_hieuqua'];
+                $tom_phantrang_thoigian = $_POST['tom_phantrang_thoigian'];
+                $tom_phantrang_tenthuoc = $_POST['tom_phantrang_tenthuoc'];
+                $tom_phantrang_lieuluong = $_POST['tom_phantrang_lieuluong'];
+                $tom_phantrang_cachbon = $_POST['tom_phantrang_cachbon'];
+                $tom_phantrang_hieuqua = $_POST['tom_phantrang_hieuqua'];
+                $tom_imnv_thoigian = $_POST['tom_imnv_thoigian'];
+                $tom_imnv_tenthuoc = $_POST['tom_imnv_tenthuoc'];
+                $tom_imnv_lieuluong = $_POST['tom_imnv_lieuluong'];
+                $tom_imnv_cachbon = $_POST['tom_imnv_cachbon'];
+                $tom_imnv_hieuqua = $_POST['tom_imnv_hieuqua'];
+                $tom_vbtt_thoigian = $_POST['tom_vbtt_thoigian'];
+                $tom_vbtt_tenthuoc = $_POST['tom_vbtt_tenthuoc'];
+                $tom_vbtt_lieuluong = $_POST['tom_vbtt_lieuluong'];
+                $tom_vbtt_cachbon = $_POST['tom_vbtt_cachbon'];
+                $tom_vbtt_hieuqua = $_POST['tom_vbtt_hieuqua'];
+                $tom_cachchoan = $_POST['tom_cachchoan'];
+                $tom_solanchoan = $_POST['tom_solanchoan'];
+                $tom_sosangan = $_POST['tom_sosangan'];
+                $tom_phoitromthucan = $_POST['tom_phoitromthucan'];
+                $tom_thucan_ten1 = $_POST['tom_thucan_ten1'];
+                $tom_thucan_thoigian1 = $_POST['tom_thucan_thoigian1'];
+                $tom_thucan_lieuluong1 = $_POST['tom_thucan_lieuluong1'];
+                $tom_thucan_cachbon1 = $_POST['tom_thucan_cachbon1'];
+                $tom_thucan_hieuqua1 = $_POST['tom_thucan_hieuqua1'];
+                $tom_thucan_ten2 = $_POST['tom_thucan_ten2'];
+                $tom_thucan_thoigian2 = $_POST['tom_thucan_thoigian2'];
+                $tom_thucan_lieuluong2 = $_POST['tom_thucan_lieuluong2'];
+                $tom_thucan_cachbon2 = $_POST['tom_thucan_cachbon2'];
+                $tom_thucan_hieuqua2 = $_POST['tom_thucan_hieuqua2'];
+                $tom_thucan_ten3 = $_POST['tom_thucan_ten3'];
+                $tom_thucan_thoigian3 = $_POST['tom_thucan_thoigian3'];
+                $tom_thucan_lieuluong3 = $_POST['tom_thucan_lieuluong3'];
+                $tom_thucan_cachbon3 = $_POST['tom_thucan_cachbon3'];
+                $tom_thucan_hieuqua3 = $_POST['tom_thucan_hieuqua3'];
+                $tom_ktdoph = $_POST['tom_ktdoph'];
+                $tom_ktdoph_solan = $_POST['tom_ktdoph_solan'];
+                $tom_ktdokiem = $_POST['tom_ktdokiem'];
+                $tom_ktdokiem_solan = $_POST['tom_ktdokiem_solan'];
+                $tom_duytridokiem = $_POST['tom_duytridokiem'];
+                $tom_dokiem_thoigian = $_POST['tom_dokiem_thoigian'];
+                $tom_dokiem_tenthuoc = $_POST['tom_dokiem_tenthuoc'];
+                $tom_dokiem_lieuluong = $_POST['tom_dokiem_lieuluong'];
+                $tom_dokiem_cachbon = $_POST['tom_dokiem_cachbon'];
+                $tom_dokiem_hieuqua = $_POST['tom_dokiem_hieuqua'];
+                $tom_bskhoang_thoigian = $_POST['tom_bskhoang_thoigian'];
+                $tom_bskhoang_tenthuoc = $_POST['tom_bskhoang_tenthuoc'];
+                $tom_bskhoang_lieuluong = $_POST['tom_bskhoang_lieuluong'];
+                $tom_bskhoang_cachbon = $_POST['tom_bskhoang_cachbon'];
+                $tom_bskhoang_hieuqua = $_POST['tom_bskhoang_hieuqua'];
+                $tom_cayvisinh_thoigian = $_POST['tom_cayvisinh_thoigian'];
+                $tom_cayvisinh_tenthuoc = $_POST['tom_cayvisinh_tenthuoc'];
+                $tom_cayvisinh_lieuluong = $_POST['tom_cayvisinh_lieuluong'];
+                $tom_cayvisinh_cachbon = $_POST['tom_cayvisinh_cachbon'];
+                $tom_cayvisinh_hieuqua = $_POST['tom_cayvisinh_hieuqua'];
+                $tom_cpsinhhoc_thoigian = $_POST['tom_cpsinhhoc_thoigian'];
+                $tom_cpsinhhoc_tenthuoc = $_POST['tom_cpsinhhoc_tenthuoc'];
+                $tom_cpsinhhoc_lieuluong = $_POST['tom_cpsinhhoc_lieuluong'];
+                $tom_cpsinhhoc_cachbon = $_POST['tom_cpsinhhoc_cachbon'];
+                $tom_cpsinhhoc_hieuqua = $_POST['tom_cpsinhhoc_hieuqua'];
+                $tom_dinhduong_thoigian = $_POST['tom_dinhduong_thoigian'];
+                $tom_dinhduong_tenthuoc = $_POST['tom_dinhduong_tenthuoc'];
+                $tom_dinhduong_lieuluong = $_POST['tom_dinhduong_lieuluong'];
+                $tom_dinhduong_cachbon = $_POST['tom_dinhduong_cachbon'];
+                $tom_dinhduong_hieuqua = $_POST['tom_dinhduong_hieuqua'];
+                $tom_xatructiep = $_POST['tom_xatructiep'];
+                $tom_xltruocthai = $_POST['tom_xltruocthai'];
+                $tom_xltruocthai_pp = $_POST['tom_xltruocthai_pp'];
+                $tom_xlbunthai = $_POST['tom_xlbunthai'];
+                $tom_xlbunthai_pp = $_POST['tom_xlbunthai_pp'];
+                $tom_nuoithuhoach = $_POST['tom_nuoithuhoach'];
+                $tom_thuhoach_solan = $_POST['tom_thuhoach_solan'];
+                $tom_thuhoach_trongluong = $_POST['tom_thuhoach_trongluong'];
+                $tom_nsmuathuan = $_POST['tom_nsmuathuan'];
+                $tom_nsmuanghich = $_POST['tom_nsmuanghich'];
+                $tom_slmuathuan = $_POST['tom_slmuathuan'];
+                $tom_slmuanghich = $_POST['tom_slmuanghich'];
+                $tom_dongia_l1t1 = $_POST['tom_dongia_l1t1'];
+                $tom_dongia_l1t2 = $_POST['tom_dongia_l1t2'];
+                $tom_dongia_l1t3 = $_POST['tom_dongia_l1t3'];
+                $tom_dongia_l1t4 = $_POST['tom_dongia_l1t4'];
+                $tom_dongia_l1t5 = $_POST['tom_dongia_l1t5'];
+                $tom_dongia_l1t6 = $_POST['tom_dongia_l1t6'];
+                $tom_dongia_l1t7 = $_POST['tom_dongia_l1t7'];
+                $tom_dongia_l1t8 = $_POST['tom_dongia_l1t8'];
+                $tom_dongia_l1t9 = $_POST['tom_dongia_l1t9'];
+                $tom_dongia_l1t10 = $_POST['tom_dongia_l1t10'];
+                $tom_dongia_l1t11 = $_POST['tom_dongia_l1t11'];
+                $tom_dongia_l1t12 = $_POST['tom_dongia_l1t12'];
+                $tom_dongia_l2t1 = $_POST['tom_dongia_l2t1'];
+                $tom_dongia_l2t2 = $_POST['tom_dongia_l2t2'];
+                $tom_dongia_l2t3 = $_POST['tom_dongia_l2t3'];
+                $tom_dongia_l2t4 = $_POST['tom_dongia_l2t4'];
+                $tom_dongia_l2t5 = $_POST['tom_dongia_l2t5'];
+                $tom_dongia_l2t6 = $_POST['tom_dongia_l2t6'];
+                $tom_dongia_l2t7 = $_POST['tom_dongia_l2t7'];
+                $tom_dongia_l2t8 = $_POST['tom_dongia_l2t8'];
+                $tom_dongia_l2t9 = $_POST['tom_dongia_l2t9'];
+                $tom_dongia_l2t10 = $_POST['tom_dongia_l2t10'];
+                $tom_dongia_l2t11 = $_POST['tom_dongia_l2t11'];
+                $tom_dongia_l2t12 = $_POST['tom_dongia_l2t12'];
+                $tom_dongia_l3t1 = $_POST['tom_dongia_l3t1'];
+                $tom_dongia_l3t2 = $_POST['tom_dongia_l3t2'];
+                $tom_dongia_l3t3 = $_POST['tom_dongia_l3t3'];
+                $tom_dongia_l3t4 = $_POST['tom_dongia_l3t4'];
+                $tom_dongia_l3t5 = $_POST['tom_dongia_l3t5'];
+                $tom_dongia_l3t6 = $_POST['tom_dongia_l3t6'];
+                $tom_dongia_l3t7 = $_POST['tom_dongia_l3t7'];
+                $tom_dongia_l3t8 = $_POST['tom_dongia_l3t8'];
+                $tom_dongia_l3t9 = $_POST['tom_dongia_l3t9'];
+                $tom_dongia_l3t10 = $_POST['tom_dongia_l3t10'];
+                $tom_dongia_l3t11 = $_POST['tom_dongia_l3t11'];
+                $tom_dongia_l3t12 = $_POST['tom_dongia_l3t12'];
+                $tom_thitruongtieuthu = $_POST['tom_thitruongtieuthu'];
+                $tom_thitruongtieuthu_ngoaitinh = $_POST['tom_thitruongtieuthu_ngoaitinh'];
+                $tom_thitruongtieuthu_xuatkhau = $_POST['tom_thitruongtieuthu_xuatkhau'];
+                $key = $_POST['key'];
+                $res = (new ApiController())->FUpdateTomApiVfarmID($sodienthoai,$madinhdanh,$tom_thongtinsp,
+$thongtinchung_dientich,
+$thongtinchung_dientichtomsu,
+$thongtinchung_dientichtomtct,
+$thongtinchung_loaihinhsxtom,
+$thongtinchung_loaidatsx,
+$thongtinchung_sacaudat,
+$thongtinchung_dophtrungbinh,
+$thongtinchung_aotomsau,
+$thongtinchung_vutom,
+$tom_danquat,
+$tom_mayphongdien,
+$tom_daydien,
+$tom_denchieusang,
+$tom_maybomnuoc,
+$tom_tuilocnuoc,
+$tom_congxanuoc,
+$tom_thietbi_khac,
+$tom_caitaocongtrinh,
+$tom_senvetao,
+$tom_lotbatbobatday,
+$tom_giacobobao,
+$tom_bonvoi,
+$tom_lieuluongbonvoi,
+$tom_phoimattrang,
+$tom_phoingay,
+$tom_xulynuoc,
+$tom_dt_thoigian,
+$tom_dt_tenthuoc,
+$tom_dt_lieuluong,
+$tom_dt_cachbon,
+$tom_dt_hieuqua,
+$tom_dk_thoigian,
+$tom_dk_tenthuoc,
+$tom_dk_lieuluong,
+$tom_dk_cachbon,
+$tom_dk_hieuqua,
+$tom_gmn_thoigian,
+$tom_gmn_tenthuoc,
+$tom_gmn_lieuluong,
+$tom_gmn_cachbon,
+$tom_gmn_hieuqua,
+$tom_cvs_thoigian,
+$tom_cvs_tenthuoc,
+$tom_cvs_lieuluong,
+$tom_cvs_cachbon,
+$tom_cvs_hieuqua,
+$tom_kh_thoigian,
+$tom_kh_tenthuoc,
+$tom_kh_lieuluong,
+$tom_kh_cachbon,
+$tom_kh_hieuqua,
+$tom_yeutomt,
+$tom_gionggannhat,
+$tom_nguongoctom,
+$tom_giayxacnhangiong,
+$tom_matdotha,
+$tom_thoigiantha,
+$tom_huongtha,
+$tom_uonggieo,
+$tom_sdthuocnguabenh,
+$tom_sthuocsovoitruocday,
+$tom_sdmenvisinh,
+$tom_kiemtramt,
+$tom_quanlynuocmt,
+$tom_dichbenhems,
+$tom_soaobibenh,
+$tom_benhdomtrang,
+$tom_benhdomtrang_sosanh,
+$tom_benhdauvang,
+$tom_benhdauvang_sosanh,
+$tom_benhIHHNV,
+$tom_benhIHHNV_sosanh,
+$tom_benhphantrang,
+$tom_benhphantrang_sosanh,
+$tom_benhIMNV,
+$tom_benhIMNV_sosanh,
+$tom_vibaotutrung,
+$tom_vibao_thoigian,
+$tom_xlaokhichetnhieu,
+$tom_xuly_php,
+$tom_domtrang_thoigian,
+$tom_domtrang_tenthuoc,
+$tom_domtrang_lieuluong,
+$tom_domtrang_cachbon,
+$tom_domtrang_hieuqua,
+$tom_dauvang_thoigian,
+$tom_dauvang_tenthuoc,
+$tom_dauvang_lieuluong,
+$tom_dauvang_cachbon,
+$tom_dauvang_hieuqua,
+$tom_ihhnv_thoigian,
+$tom_ihhnv_tenthuoc,
+$tom_ihhnv_lieuluong,
+$tom_ihhnv_cachbon,
+$tom_ihhnv_hieuqua,
+$tom_phantrang_thoigian,
+$tom_phantrang_tenthuoc,
+$tom_phantrang_lieuluong,
+$tom_phantrang_cachbon,
+$tom_phantrang_hieuqua,
+$tom_imnv_thoigian ,
+$tom_imnv_tenthuoc,
+$tom_imnv_lieuluong,
+$tom_imnv_cachbon,
+$tom_imnv_hieuqua,
+$tom_vbtt_thoigian,
+$tom_vbtt_tenthuoc,
+$tom_vbtt_lieuluong,
+$tom_vbtt_cachbon,
+$tom_vbtt_hieuqua,
+$tom_cachchoan,
+$tom_solanchoan,
+$tom_sosangan,
+$tom_phoitromthucan,
+$tom_thucan_ten1,
+$tom_thucan_thoigian1,
+$tom_thucan_lieuluong1,
+$tom_thucan_cachbon1,
+$tom_thucan_hieuqua1,
+$tom_thucan_ten2,
+$tom_thucan_thoigian2,
+$tom_thucan_lieuluong2,
+$tom_thucan_cachbon2,
+$tom_thucan_hieuqua2,
+$tom_thucan_ten3,
+$tom_thucan_thoigian3,
+$tom_thucan_lieuluong3,
+$tom_thucan_cachbon3,
+$tom_thucan_hieuqua3,
+$tom_ktdoph,
+$tom_ktdoph_solan,
+$tom_ktdokiem,
+$tom_ktdokiem_solan,
+$tom_duytridokiem,
+$tom_dokiem_thoigian,
+$tom_dokiem_tenthuoc,
+$tom_dokiem_lieuluong,
+$tom_dokiem_cachbon,
+$tom_dokiem_hieuqua,
+$tom_bskhoang_thoigian,
+$tom_bskhoang_tenthuoc,
+$tom_bskhoang_lieuluong,
+$tom_bskhoang_cachbon,
+$tom_bskhoang_hieuqua,
+$tom_cayvisinh_thoigian,
+$tom_cayvisinh_tenthuoc,
+$tom_cayvisinh_lieuluong,
+$tom_cayvisinh_cachbon,
+$tom_cayvisinh_hieuqua,
+$tom_cpsinhhoc_thoigian,
+$tom_cpsinhhoc_tenthuoc,
+$tom_cpsinhhoc_lieuluong,
+$tom_cpsinhhoc_cachbon,
+$tom_cpsinhhoc_hieuqua,
+$tom_dinhduong_thoigian,
+$tom_dinhduong_tenthuoc,
+$tom_dinhduong_lieuluong,
+$tom_dinhduong_cachbon,
+$tom_dinhduong_hieuqua,
+$tom_xatructiep,
+$tom_xltruocthai,
+$tom_xltruocthai_pp,
+$tom_xlbunthai,
+$tom_xlbunthai_pp,
+$tom_nuoithuhoach,
+$tom_thuhoach_solan,
+$tom_thuhoach_trongluong,
+$tom_nsmuathuan,
+$tom_nsmuanghich,
+$tom_slmuathuan,
+$tom_slmuanghich,
+$tom_dongia_l1t1,
+$tom_dongia_l1t2,
+$tom_dongia_l1t3,
+$tom_dongia_l1t4,
+$tom_dongia_l1t5,
+$tom_dongia_l1t6,
+$tom_dongia_l1t7,
+$tom_dongia_l1t8,
+$tom_dongia_l1t9,
+$tom_dongia_l1t10,
+$tom_dongia_l1t11,
+$tom_dongia_l1t12,
+$tom_dongia_l2t1,
+$tom_dongia_l2t2,
+$tom_dongia_l2t3,
+$tom_dongia_l2t4,
+$tom_dongia_l2t5,
+$tom_dongia_l2t6,
+$tom_dongia_l2t7,
+$tom_dongia_l2t8,
+$tom_dongia_l2t9,
+$tom_dongia_l2t10,
+$tom_dongia_l2t11,
+$tom_dongia_l2t12,
+$tom_dongia_l3t1,
+$tom_dongia_l3t2,
+$tom_dongia_l3t3,
+$tom_dongia_l3t4,
+$tom_dongia_l3t5,
+$tom_dongia_l3t6,
+$tom_dongia_l3t7,
+$tom_dongia_l3t8,
+$tom_dongia_l3t9,
+$tom_dongia_l3t10,
+$tom_dongia_l3t11,
+$tom_dongia_l3t12,
+$tom_thitruongtieuthu,
+$tom_thitruongtieuthu_ngoaitinh,
+$tom_thitruongtieuthu_xuatkhau,$key);
                 echo $res;
             break;
             default:

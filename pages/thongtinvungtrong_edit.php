@@ -1389,6 +1389,7 @@
             
             $("#capnhatthongtinvungtrong").click(function(){
                 var sodienthoai = '0' + <?php echo $_GET['SODIENTHOAI'] ?>;
+                var madinhdanh = <?php echo "'".$_GET['madinhdanh']."'" ?>;
                 var thongtinchung_dientich = $("#thongtinchung_dientich").val();
                 var giongvacachxulygiong_tengiong = $("#giongvacachxulygiong_tengiong").val();
                 var thoivu_hethu = $("#thoivu_hethu").val();
@@ -1685,6 +1686,7 @@
                         data: {
                             for: "_suathongtinvungtrong",
                             sodienthoai: sodienthoai,
+                            madinhdanh : madinhdanh,
                             thongtinchung_dientich: thongtinchung_dientich,
                             giongvacachxulygiong_tengiong: giongvacachxulygiong_tengiong,
                             thoivu_hethu: thoivu_hethu,
