@@ -5,7 +5,14 @@
 
         public function CreateQRcodeVungTrong($ID){
             $imgname ="qrcodefarm.png";
-            $data = isset($_GET['data']) ? $_GET['data'] : "http://113.161.136.250:8181/qrcodefarm/go?check=_thongtinvungtrong&ID=".$ID;
+            $tinhThanh = urlencode("Tỉnh Sóc Trăng");
+            $quanHuyen = urlencode("Huyện Kế Sách");
+            $phuongXa = urlencode("Thị trấn An Lạc Thôn");
+
+            $url = "https://dichvucong.gov.vn/p/home/dvc-danh-sach-dich-vu-cong.html?tu_khoa=&bo_nganh=&tinh_thanh=$tinhThanh&so=&quan_huyen=$quanHuyen&phuong_xa=$phuongXa&ma_tt=1.000894&id_tinh_thanh=61&id_quan_huyen=748&id_phuong_xa=1481&id_so=null&id_bo_nganh=-1";
+            // echo $url;
+
+            $data = isset($_GET['data']) ? $_GET['data'] : $url;//'https://drive.google.com/drive/folders/19bcdhAm5GacjIdMW1m-Y5oU0O9ROY-ey?usp=sharing'; //'https://cuocthi-doanccqdnsoctrang.vn/';//"http://113.161.136.250:8181/qrcodefarm/go?check=_thongtinvungtrong&ID=".$ID;
             $logo = isset($_GET['logo']) ? $_GET['logo'] : './lib/images/vnpt.png';
             $sdir = explode("/",$_SERVER['REQUEST_URI']);
             $dir = str_replace($sdir[count($sdir)-1],"",$_SERVER['REQUEST_URI']);

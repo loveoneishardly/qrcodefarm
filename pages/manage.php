@@ -85,6 +85,7 @@
                 <div id="listvungtrong"></div>
             </div>
             <div class="w3-col">
+                <input type="hidden" id="madonvi" name="madonvi" />
                 <input type="hidden" id="idmavungtrong" name="idmavungtrong" />
                 <input type="hidden" id="madinhdanhvungtrong" name="madinhdanhvungtrong" />
                 <input type="hidden" id="loaisanphamtrong" name="loaisanphamtrong" />
@@ -200,14 +201,16 @@
                 $("#madinhdanhvungtrong").val(selectedRowData_dsvungtrong.MAVUNGTRONG);
                 $("#loaisanphamtrong").val(selectedRowData_dsvungtrong.LOAISANPHAM);
                 $("#sodienthoai").val(selectedRowData_dsvungtrong.SODIENTHOAI);
+                $("#madonvi").val(selectedRowData_dsvungtrong.IDDONVI);
             });
             $("#xemthongtinvungtrong").click(function(){
+                var madonvi = $("#madonvi").val();
                 var mavungtrong = $("#idmavungtrong").val();
                 var loaisanpham = $("#loaisanphamtrong").val();
                 if (mavungtrong != "" && trangthai == "1") {
-                    window.open("go?page=_thongtinvungtrong&ID="+mavungtrong + "&loaisanpham=" + loaisanpham, "_blank");
+                    window.open("go?page=_thongtinvungtrong&ID="+mavungtrong + "&loaisanpham=" + loaisanpham + "&madonvi=" + madonvi, "_blank");
                 } else if (mavungtrong != "" && trangthai == "") {
-					window.open("go?check=_thongtinvungtrong&ID="+mavungtrong + "&loaisanpham=" + loaisanpham, "_blank");
+					window.open("go?check=_thongtinvungtrong&ID="+mavungtrong + "&loaisanpham=" + loaisanpham + "&madonvi=" + madonvi, "_blank");
 				} else {
                     alert("Chưa chọn vùng định danh.");
                 }

@@ -30,12 +30,15 @@
             case "_thongtinvungtrong":
                 $IDVUNGTRONG = "";
                 $LOAISANPHAM = "";
+                $MADONVI = "";
                 if (isset($_GET['ID'])) {
                     $IDVUNGTRONG = $_GET['ID'];
                     $LOAISANPHAM = $_GET['loaisanpham'];
+                    $MADONVI = $_GET['madonvi'];
                 } else {
                     $IDVUNGTRONG = "0";
                     $LOAISANPHAM = "0";
+                    $MADONVI = "1";
                 }
                 $checkAPI = (new AppController())->FCheckCodeApi($IDVUNGTRONG);
                 if ($checkAPI["result"] == 0){
@@ -56,7 +59,11 @@
                     $responeInfo = json_encode((new AppController())->FGetInFoID($IDVUNGTRONG));
                     $responeAPI = (new ApiController())->FGetInFoApiVfarmID($IDVUNGTRONG);
                     if ($LOAISANPHAM == "1") {
-                        include("pages/thongtinvungtrong_APIVfarm.php");
+                        if ($MADONVI == "1") {
+                            include("pages/thongtinvungtrong_APIVfarm.php");
+                        } else {
+                            include("pages/thongtinvungtrong_APIVfarm_v2.php");
+                        }
                     } else if ($LOAISANPHAM == "2") {
                         include("pages/thongtinvungtrong_API_BUOI.php");
                     } else if ($LOAISANPHAM == "3") {
